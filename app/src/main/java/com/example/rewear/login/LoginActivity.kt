@@ -1,14 +1,12 @@
 package com.example.rewear.login
 
-import android.util.Log
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import com.example.rewear.DataBaseHelper
-import com.example.rewear.HomepageActivity
+import com.example.rewear.addClothes.AddClothesActivity
 import com.example.rewear.R
 
 
@@ -33,7 +31,7 @@ class LoginActivity : AppCompatActivity(),  LoginContract.View{
             var found = true;
             (presenter as LoginPresenter).verifyUser(userField.toString(),pwdField.toString())
             if (found){
-                val intent = Intent(this, HomepageActivity::class.java)
+                val intent = Intent(this, AddClothesActivity::class.java)
                 startActivity(intent)
             }
 

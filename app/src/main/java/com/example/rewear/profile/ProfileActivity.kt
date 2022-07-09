@@ -1,7 +1,8 @@
-package com.example.rewear
+package com.example.rewear.profile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.rewear.R
 
 class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
