@@ -9,6 +9,6 @@ interface LoginContract {
 
     }
     interface Presenter{
-        fun verifyUser(userField:String, pwdField:String)
+        fun verifyUser(userField:String, pwdField:String) : Boolean
     }
 }

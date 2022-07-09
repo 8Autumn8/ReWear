@@ -1,3 +1,3 @@
 package com.example.rewear.objects
 
-data class Comment(val commentID: String, val pictureID: String?, val username: String?, val comment: String?)
+data class Comment(val commentID: String, val pictureID: Int?, val username: String?, val comment: String?)

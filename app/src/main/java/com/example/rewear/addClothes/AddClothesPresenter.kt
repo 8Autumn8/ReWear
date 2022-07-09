@@ -1,6 +1,6 @@
 package com.example.rewear.addClothes
 
-import com.example.rewear.DataBaseHelper
+import com.example.rewear.database.DataBaseHelper
 
 class AddClothesPresenter (
     private val view: AddClothesContract.View,
