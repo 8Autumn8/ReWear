@@ -26,11 +26,9 @@ class LoginActivity : AppCompatActivity(),  LoginContract.View{
         // set on-click listener
         btnLogin.setOnClickListener {
             // your code to perform when the user clicks on the button
-            val userField = findViewById<View>(R.id.txtUserNameLogin) as EditText
-            val pwdField = findViewById<View>(R.id.pwdLogin) as EditText
-            var found = true;
-            (presenter as LoginPresenter).verifyUser(userField.toString(),pwdField.toString())
-            if (found){
+            val userField = (findViewById<View>(R.id.txtUserNameLogin) as EditText).getText().toString()
+            val pwdField = (findViewById<View>(R.id.pwdLogin) as EditText).getText().toString()
+            if ((presenter as LoginPresenter).verifyUser(userField.toString(),pwdField.toString())){
                 val intent = Intent(this, AddClothesActivity::class.java)
                 startActivity(intent)
             }

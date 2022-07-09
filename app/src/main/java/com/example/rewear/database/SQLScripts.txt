@@ -1,0 +1,60 @@
+CREATE TABLE User (
+    id serial PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(15) NOT NULL,
+    last_name VARCHAR(15) NOT NULL,
+    username VARCHAR(15) NOT NULL,
+    password VARCHAR(20) NOT NULL,
+    UNIQUE (Username,id)
+);
+
+CREATE TABLE BelongsTo (
+    group_id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(15) NOT NULL,
+);
+
+CREATE TABLE Group (
+    group_id INT NOT NULL AUTO_INCREMENT,
+    group_name VARCHAR(15) NOT NULL,
+    group_desc VARCHAR(128) NOT NULL
+);
+
+CREATE TABLE PictureGroup (
+    picture_id INT NOT NULL,
+    group_id INT NOT NULL,
+    username VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE Picture (
+    picture_id INT NOT NULL AUTO_INCREMENT,
+    picture_path BLOB NOT NULL,
+    caption VARCHAR(128) NOT NULL,
+    date_posted DATE,
+);
+
+CREATE TABLE Comment (
+    username VARCHAR(15) NOT NULL,
+    picture_id INT NOT NULL
+    comment_id INT NOT NULL AUTO_INCREMENT,
+    comment VARCHAR(128) NOT NULL
+);
+
+CREATE TABLE Liked (
+    username VARCHAR(15) NOT NULL,
+    picture_id INT NOT NULL
+    UNIQUE(username)
+);
+
+CREATE TABLE Clothes (
+    clothes_id INT NOT NULL AUTO_INCREMENT,
+    clothes_desc VARCHAR(256) NOT NULL,
+    clothes_pic BLOB NOT NULL,
+    username VARCHAR(15) NOT NULL,
+    date_created DATE NOT NULL,
+    date_added DATE NOT NULL
+    UNIQUE(clothes_id)
+);
+
+CREATE TABLE DateWorn (
+    clothes_id INT NOT NULL,
+    date_worn DATE
+);
