@@ -1,4 +1,10 @@
 package com.example.rewear.closet
 
-class ClosetPresenter {
+import com.example.rewear.DataBaseHelper
+
+class ClosetPresenter (
+    private val view: ClosetContract.View,
+    private val db: DataBaseHelper = DataBaseHelper()
+        ) : ClosetContract.Presenter {
+
 }
