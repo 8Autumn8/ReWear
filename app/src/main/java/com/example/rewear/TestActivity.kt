@@ -58,7 +58,7 @@ open class TestActivity : AppCompatActivity() {
         try {
             //Connect to Database
             Class.forName("com.mysql.jdbc.Driver")
-            val url = "jdbc:mysql://rewea.mysql.database.azure.com:3306/reweardb"
+            val url = "jdbc:mysql://rewea.mysql.database.azure.com:3306/quickstartdb"
             val con: Connection = DriverManager.getConnection(url, "belinda", "!adminpassword1")
 
             //Get Data
