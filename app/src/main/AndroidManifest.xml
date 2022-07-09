@@ -21,6 +21,8 @@
             android:name="TestActivity"
             android:exported="true"
             tools:ignore="Instantiatable" >
+
+            <!-- Main screen that opens when you run android app -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
