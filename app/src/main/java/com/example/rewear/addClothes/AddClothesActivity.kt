@@ -1,11 +1,12 @@
-package com.example.rewear
+package com.example.rewear.addClothes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.rewear.R
 
-class HomepageActivity : AppCompatActivity() {
+class AddClothesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_homepage)
+        setContentView(R.layout.activity_add_clothes)
     }
 }
