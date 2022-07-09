@@ -16,16 +16,14 @@ class DataBaseHelper : AppCompatActivity() {
 
     fun getUser() {
         var result: String = ""
-        var rs:ResultSet? = null
-
         val job = CoroutineScope(Dispatchers.IO).launch {
-            SampleOne()
+            createConnection()
             //Get Data
             if (conn != null){
+                var rs:ResultSet? = null
                 val st: Statement = conn!!.createStatement()
-                rs = st.executeQuery("SELECT * FROM inventory")
+                rs = st.executeQuery("SELECT * FROM User")
                 val rsmd: ResultSetMetaData = rs!!.getMetaData()
-
                 //Loop through Data
                 while (rs!!.next()) {
                     result += rs!!.getString(2).toString().toString() + "\n"
@@ -40,12 +38,12 @@ class DataBaseHelper : AppCompatActivity() {
         println(result)
         println("The End")
     }
-    private fun SampleOne(){
+    private fun createConnection(){
 
         try {
             //Connect to Database
             Class.forName("com.mysql.jdbc.Driver")
-            val url = "jdbc:mysql://rewea.mysql.database.azure.com:3306/quickstartdb"
+            val url = "jdbc:mysql://rewea.mysql.database.azure.com:3306/reweardb"
             conn = DriverManager.getConnection(url, "belinda", "!adminpassword1")
 
         } catch (e: Exception) {
