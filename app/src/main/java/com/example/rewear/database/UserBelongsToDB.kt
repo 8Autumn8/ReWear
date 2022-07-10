@@ -1,6 +1,6 @@
 package com.example.rewear.database
 
-class BelongsToDB : BelongsToInterface, GenerateConnection(){
+class UserBelongsToDB : UserBelongsToInterface, GenerateConnection(){
     override fun getBelongsTo(){
 
     }

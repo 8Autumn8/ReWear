@@ -1,6 +1,6 @@
 package com.example.rewear.database
 
-interface BelongsToInterface {
+interface UserBelongsToInterface {
     fun getBelongsTo()
 
     fun addBelongsTo()

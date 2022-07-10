@@ -1,17 +1,10 @@
 package com.example.rewear.database
 
-import android.graphics.Picture
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import java.security.acl.Group
-import java.sql.*
 
 
 class DataBaseHelper(
-    belongsToDB: BelongsToDB = BelongsToDB(),
+    belongsToDB: UserBelongsToDB = UserBelongsToDB(),
     clothesDB: ClothesDB = ClothesDB(),
     commentDB: CommentDB = CommentDB(),
     dateWornDB: DateWornDB = DateWornDB(),
@@ -21,7 +14,7 @@ class DataBaseHelper(
     pictureGroupDB: PictureGroupDB = PictureGroupDB(),
     userDB: UserDB = UserDB()
 ) :
-    BelongsToInterface by belongsToDB,
+    UserBelongsToInterface by belongsToDB,
     ClothesInterface by clothesDB,
     CommentInterface by commentDB,
     DateWornInterface by dateWornDB,

@@ -173,7 +173,7 @@ INSERT INTO DateWorn VALUES(1,'2008-11-11');
 
 
 
-DELETE FROM User WHERE username = 'userNumOne';
+#DELETE FROM User WHERE username = 'userNumOne';
 SELECT * FROM DateWorn;
 SELECT * FROM Clothes;
 SELECT * FROM ClothesBelongsTo;
