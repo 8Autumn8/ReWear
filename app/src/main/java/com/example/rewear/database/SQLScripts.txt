@@ -1,62 +1,187 @@
+use reweardb;
+DROP TABLE IF EXISTS DateWorn;
+DROP TABLE IF EXISTS ClothesBelongsTo;
+DROP TABLE IF EXISTS Clothes;
+DROP TABLE IF EXISTS ClothesCategory;
+DROP TABLE IF EXISTS Liked;
+DROP TABLE IF EXISTS Comment;
+DROP TABLE IF EXISTS PictureGroup;
+DROP TABLE IF EXISTS Picture;
+DROP TABLE IF EXISTS UserBelongsTo;
+DROP TABLE IF EXISTS Groups;
+DROP TABLE IF EXISTS User;
+
+#Entity
 CREATE TABLE User (
-    id serial PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(15) NOT NULL,
     last_name VARCHAR(15) NOT NULL,
     username VARCHAR(15) NOT NULL,
     password VARCHAR(20) NOT NULL,
-    UNIQUE (Username,id)
+    UNIQUE (username)
 );
 
-CREATE TABLE BelongsTo (
-    group_id INT NOT NULL AUTO_INCREMENT,
-    username VARCHAR(15) NOT NULL,
-);
+INSERT INTO User VALUES (1,'Belinda','Vela', 'userNumOne', 'testpassword!');
 
-CREATE TABLE Group (
-    group_id INT NOT NULL AUTO_INCREMENT,
+#Entity
+CREATE TABLE Groups (
+    group_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    group_password VARCHAR(15) NOT NULL,
     group_name VARCHAR(15) NOT NULL,
-    group_desc VARCHAR(128) NOT NULL
+    group_desc VARCHAR(128) NOT NULL,
     UNIQUE(group_id)
 );
 
+INSERT INTO Groups VALUES (1,'grouppassowrd', 'groupname', 'groupdescrp');
+
+#Associative Entity
+CREATE TABLE UserBelongsTo (
+    group_id INT NOT NULL,
+    user_id INT NOT NULL,
+
+    FOREIGN KEY (user_id)
+        REFERENCES User (user_id)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (group_id)
+        REFERENCES Groups (group_id)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    UNIQUE (group_ID, user_ID)
+);
+
+INSERT INTO UserBelongsTo VALUES (1, 1);
+
+#Entity
+CREATE TABLE Picture (
+    picture_id INT UNIQUE NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    user_ID INT NOT NULL,
+    picture BLOB NOT NULL,
+    caption VARCHAR(128) NOT NULL,
+    date_posted DATE NOT NULL,
+    FOREIGN KEY (user_ID)
+        REFERENCES User(user_ID)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+INSERT INTO Picture VALUES (1, 1, 'blob', 'CAPTION', '2008-11-11');
+
+#Associative Entity
 CREATE TABLE PictureGroup (
     picture_id INT NOT NULL,
     group_id INT NOT NULL,
-    username VARCHAR(15) NOT NULL
+
+    FOREIGN KEY (group_id)
+        REFERENCES Groups(group_id)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (picture_id)
+        REFERENCES Picture(picture_id)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    UNIQUE (picture_id,group_id)
 );
 
-CREATE TABLE Picture (
-    picture_id INT NOT NULL AUTO_INCREMENT,
-    picture_path BLOB NOT NULL,
-    caption VARCHAR(128) NOT NULL,
-    date_posted DATE,
-);
+INSERT INTO PictureGroup VALUES (1, 1);
 
+#Entity
 CREATE TABLE Comment (
-    username VARCHAR(15) NOT NULL,
-    picture_id INT NOT NULL
-    comment_id INT NOT NULL AUTO_INCREMENT,
-    comment VARCHAR(128) NOT NULL
-    UNIQUE(comment_id)
+    comment_id INT UNIQUE NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    picture_id INT NOT NULL,
+    comment_content VARCHAR(128) NOT NULL,
+
+    FOREIGN KEY (picture_id)
+        REFERENCES Picture(picture_id)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (user_id)
+        REFERENCES User(user_id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+
 );
 
+INSERT INTO Comment Values (1,1, 1, "COMMENT");
+
+#Associative Entity
 CREATE TABLE Liked (
-    username VARCHAR(15) NOT NULL,
-    picture_id INT NOT NULL
-    UNIQUE(username)
+    user_id INT NOT NULL,
+    picture_id INT NOT NULL,
+
+    FOREIGN KEY (picture_id)
+        REFERENCES Picture(picture_id)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (user_id)
+        REFERENCES User(user_id)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    UNIQUE (user_id, picture_id)
 );
 
+INSERT INTO Liked Values (1,1);
+
+#Entity
+CREATE TABLE ClothesCategory (
+    category_id INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    name VARCHAR(32) NOT NULL,
+    FOREIGN KEY (user_id)
+        REFERENCES User(user_id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+INSERT INTO ClothesCategory Values(1,1,"CATEGORY");
+
+#Entity
 CREATE TABLE Clothes (
-    clothes_id INT NOT NULL AUTO_INCREMENT,
-    clothes_desc VARCHAR(256) NOT NULL,
+    clothes_id INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
     clothes_pic BLOB NOT NULL,
-    username VARCHAR(15) NOT NULL,
+    clothes_desc VARCHAR(256) NOT NULL,
     date_created DATE NOT NULL,
-    date_added DATE NOT NULL
-    UNIQUE(clothes_id)
+
+    FOREIGN KEY (user_ID)
+        REFERENCES User(user_ID)
+        ON UPDATE CASCADE ON DELETE CASCADE
+
 );
 
+INSERT INTO Clothes Values (1,1,'blob', 'decscrip','2008-12-12');
+
+#Associative Entity
+CREATE TABLE ClothesBelongsTo (
+    clothes_id INT NOT NULL,
+    category_id INT,
+
+    FOREIGN KEY (clothes_id)
+        REFERENCES Clothes(clothes_id)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (category_id)
+        REFERENCES ClothesCategory(category_id)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    UNIQUE(clothes_id,category_id)
+);
+
+INSERT INTO ClothesBelongsTo Values (1,1);
+
+#Associative Entity
 CREATE TABLE DateWorn (
     clothes_id INT NOT NULL,
-    date_worn DATE
+    date DATE NOT NULL,
+
+    FOREIGN KEY (clothes_id)
+        REFERENCES Clothes (clothes_id)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    UNIQUE(clothes_id, date)
 );
+
+INSERT INTO DateWorn VALUES(1,'2008-11-11');
+
+
+
+DELETE FROM User WHERE username = 'userNumOne';
+SELECT * FROM DateWorn;
+SELECT * FROM Clothes;
+SELECT * FROM ClothesBelongsTo;
+SELECT * FROM Liked;
+SELECT * FROM Comment;
+SELECT * FROM Picture;
+SELECT * FROM PictureGroup;
+SELECT * FROM UserBelongsTo;
+SELECT * FROM Groups;
+SELECT * FROM DateWorn;
+SELECT * FROM User;
