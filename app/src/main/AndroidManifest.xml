@@ -18,21 +18,17 @@
         android:theme="@style/Theme.ReWear"
         tools:targetApi="31" >
         <activity
-            android:name="TestActivity"
-            android:exported="true"
-            tools:ignore="Instantiatable" >
-
-
-        </activity>
-        <activity
             android:name=".login.LoginActivity"
             android:exported="true" >
+
             <!-- Main screen that opens when you run android app -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- END -->
+
         </activity>
         <activity
             android:name=".clothtracking.ClothesTrackingActivity"

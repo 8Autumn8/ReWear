@@ -4,11 +4,11 @@ import com.example.rewear.objects.UserData
 
 
 interface UserInterface {
-    fun getUser(userNameInput: String) : UserData?
+    fun getUser(usernameInput: String) : UserData?
 
     fun addUser(user: UserData)
 
-    fun deleteUser(user:UserData)
+    fun deleteUser()
 
-    fun updateUser(user:UserData)
+    fun updateUser(updatedUser: UserData)
 }
