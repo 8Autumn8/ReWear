@@ -8,7 +8,7 @@ interface UserInterface {
 
     fun addUser(user: UserData)
 
-    fun deleteUser()
+    fun deleteUser(user:UserData)
 
-    fun updateUser()
+    fun updateUser(user:UserData)
 }

@@ -16,6 +16,7 @@ CREATE TABLE Group (
     group_id INT NOT NULL AUTO_INCREMENT,
     group_name VARCHAR(15) NOT NULL,
     group_desc VARCHAR(128) NOT NULL
+    UNIQUE(group_id)
 );
 
 CREATE TABLE PictureGroup (
@@ -36,6 +37,7 @@ CREATE TABLE Comment (
     picture_id INT NOT NULL
     comment_id INT NOT NULL AUTO_INCREMENT,
     comment VARCHAR(128) NOT NULL
+    UNIQUE(comment_id)
 );
 
 CREATE TABLE Liked (

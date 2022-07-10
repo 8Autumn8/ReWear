@@ -14,5 +14,7 @@ class CreateUserActivity : AppCompatActivity(), CreateUserContract.View {
         setContentView(R.layout.activity_create_user)
 
         presenter = CreateUserPresenter(this)
+
+
     }
 }
