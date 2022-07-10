@@ -1,3 +1,4 @@
 package com.example.rewear.objects
 
-data class LikedData(val username: String?, val pictureID: Int?)
+data class LikedData(val user_id: Int?,
+                     val picture_id: Int?)
