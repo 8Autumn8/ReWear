@@ -1,6 +1,6 @@
 package com.example.rewear.closet
 
-class ClosetContract {
+interface ClosetContract {
     interface View {
 
     }

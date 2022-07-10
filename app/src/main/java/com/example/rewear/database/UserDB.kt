@@ -21,18 +21,16 @@ class UserDB : UserInterface, GenerateConnection(){
             if (conn != null){
                 var rs: ResultSet? = null
                 val st: Statement = conn!!.createStatement()
-                var sql: String? = "SELECT * FROM User WHERE Username = '" + userNameInput + "'"
+                var sql: String? = "SELECT * " +
+                        "FROM User " +
+                        "WHERE Username = '" + userNameInput + "'"
                 rs = st.executeQuery(sql)
                 if (rs.next()){
-                    println(rs.getString(4).toString())
                     user = UserData(Integer.parseInt(rs.getString(1).toString()),
                         rs.getString(2).toString(),
                         rs.getString(3).toString(),
                         rs.getString(4).toString(),
                         rs.getString(5).toString())
-                    println("testingggggg")
-
-
                 }
             }
 
@@ -49,10 +47,9 @@ class UserDB : UserInterface, GenerateConnection(){
             conn = createConnection()
             //Get Data
             if (conn != null){
-                var rs: ResultSet? = null
                 val st: Statement = conn!!.createStatement()
-                rs = st.executeQuery("INSERT INTO User(F_name,L_name,Username,Password) VALUES (1,'Belinda','Vela', 'userNumOne', 'testpassword!');")
-
+                st.executeQuery("INSERT INTO User(F_name,L_name,Username,Password) " +
+                        "VALUES ('UserTwoF_NAME','UserTwoL_NAME', 'userNumTwo', 'testpassword!');")
 
             }
 
@@ -63,12 +60,27 @@ class UserDB : UserInterface, GenerateConnection(){
 
     }
 
-    override fun updateUser() {
-        TODO("Not yet implemented")
+    override fun updateUser(user:UserData) {
+
     }
 
-    override fun deleteUser() {
-        TODO("Not yet implemented")
+    override fun deleteUser(user:UserData) {
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            conn = createConnection()
+            //Get Data
+            if (conn != null){
+                var rs: ResultSet? = null
+                val st: Statement = conn!!.createStatement()
+                var sql: String? = "DELETE * " +
+                        "FROM User " +
+                        "WHERE Username = '" + user.username + "'"
+                st.executeQuery(sql)
+            }
+
+        }
+        runBlocking {
+            job.join()
+        }  //Program will wait until job is done
     }
 
 

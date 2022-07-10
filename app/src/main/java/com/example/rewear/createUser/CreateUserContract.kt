@@ -1,6 +1,6 @@
 package com.example.rewear.createUser
 
-class CreateUserContract {
+interface CreateUserContract {
     interface View {
 
     }
