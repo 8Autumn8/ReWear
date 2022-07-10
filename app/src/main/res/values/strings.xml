@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">ReWear</string>
     <string name="dataBaseURL">jdbc:mysql://rewea.mysql.database.azure.com:3306/reweardb</string>
-    <string name="username">belinda</string>
-    <string name="password">!adminpassword1</string>
+    <string name="db_username">belinda</string>
+    <string name="db_password">!adminpassword1</string>
+    <string name="password">password</string>
+    <string name="username">username</string>
+    <string name="log_in">Log In</string>
+    <string name="forgot_password">Forgot Password!</string>
+    <string name="create_account">Create Account!</string>
+    <string name="login_screen_msg">Welcome to ReWear!</string>
+    <string name="rewear_logo">ReWear Logo</string>
 </resources>

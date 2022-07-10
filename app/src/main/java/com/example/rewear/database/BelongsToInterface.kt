@@ -1,9 +1,11 @@
 package com.example.rewear.database
 
-interface BelongsToInterface {
-    fun getBelongsTo()
+import com.example.rewear.objects.BelongsToData
 
-    fun addBelongsTo()
+interface BelongsToInterface {
+    fun getBelongsTo(username: String): BelongsToData?
+
+    fun addBelongsTo(belongsTo: BelongsToData)
 
     fun deleteBelongsTo()
 }

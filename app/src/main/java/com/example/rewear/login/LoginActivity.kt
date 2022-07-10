@@ -6,8 +6,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import com.example.rewear.addClothes.AddClothesActivity
 import com.example.rewear.R
+import com.example.rewear.addClothes.AddClothesActivity
 
 
 class LoginActivity : AppCompatActivity(),  LoginContract.View{
@@ -18,7 +18,7 @@ class LoginActivity : AppCompatActivity(),  LoginContract.View{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        val btnLogin = findViewById(R.id.btnLogin) as Button
+        val btnLogin = findViewById<Button>(R.id.btnLogin)
 
         //MVP Initialized
         presenter = LoginPresenter(this)
@@ -28,7 +28,10 @@ class LoginActivity : AppCompatActivity(),  LoginContract.View{
             // your code to perform when the user clicks on the button
             val userField = (findViewById<View>(R.id.txtUserNameLogin) as EditText).getText().toString()
             val pwdField = (findViewById<View>(R.id.pwdLogin) as EditText).getText().toString()
-            if ((presenter as LoginPresenter).verifyUser(userField.toString(),pwdField.toString())){
+
+            // TODO: Notify user if any fields are blank or if given user & password combo is incorrect.
+
+            if ((presenter as LoginPresenter).verifyUser(userField, pwdField)){
                 val intent = Intent(this, AddClothesActivity::class.java)
                 startActivity(intent)
             }

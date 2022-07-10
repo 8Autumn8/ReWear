@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
-        android:text="Welcome to ReWear!"
+        android:text="@string/login_screen_msg"
         android:textAlignment="center"
         android:textSize="48sp"
         android:textStyle="bold"
@@ -28,12 +28,15 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="userNumOne" />
+        android:text=""
+        android:hint="@string/username"
+        android:autofillHints="username"
+        />
 
     <EditText
+        android:hint="@string/password"
         android:id="@+id/pwdLogin"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
@@ -41,7 +44,8 @@
         android:layout_centerVertical="true"
         android:layout_below="@+id/txtUserNameLogin"
         android:ems="10"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:autofillHints="username" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -50,7 +54,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/createAccount"
         android:layout_marginTop = "20dp"
-        android:text="Log In" />
+        android:text="@string/log_in" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -59,16 +63,17 @@
         android:scaleType="fitXY"
         android:layout_below="@+id/titleName"
         android:layout_centerHorizontal="true"
-        tools:src="@tools:sample/avatars" />
+        tools:src="@tools:sample/avatars"
+        android:contentDescription="@string/rewear_logo"/>
 
     <TextView
         android:id="@+id/forgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Forgot Password!"
+        android:text="@string/forgot_password"
         android:textAlignment="center"
-        android:textSize="12dp"
+        android:textSize="12sp"
         android:textStyle="bold"
         android:layout_below="@+id/pwdLogin"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -80,9 +85,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Create Account!"
+        android:text="@string/create_account"
         android:textAlignment="center"
-        android:textSize="12dp"
+        android:textSize="12sp"
         android:textStyle="bold"
         android:layout_below="@+id/forgotPassword"
         app:layout_constraintBottom_toBottomOf="parent"

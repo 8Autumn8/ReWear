@@ -1,5 +1,5 @@
 CREATE TABLE User (
-    id serial PRIMARY KEY AUTO_INCREMENT,
+    id serial AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(15) NOT NULL,
     last_name VARCHAR(15) NOT NULL,
     username VARCHAR(15) NOT NULL,
@@ -10,6 +10,10 @@ CREATE TABLE User (
 CREATE TABLE BelongsTo (
     group_id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(15) NOT NULL,
+
+    FOREIGN KEY (username)
+        REFERENCES User
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Group (
@@ -22,6 +26,10 @@ CREATE TABLE PictureGroup (
     picture_id INT NOT NULL,
     group_id INT NOT NULL,
     username VARCHAR(15) NOT NULL
+
+    FOREIGN KEY (username)
+        REFERENCES User
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Picture (
@@ -29,6 +37,10 @@ CREATE TABLE Picture (
     picture_path BLOB NOT NULL,
     caption VARCHAR(128) NOT NULL,
     date_posted DATE,
+
+    FOREIGN KEY (picture_id)
+        REFERENCES PictureGroup
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Comment (
@@ -36,25 +48,40 @@ CREATE TABLE Comment (
     picture_id INT NOT NULL
     comment_id INT NOT NULL AUTO_INCREMENT,
     comment VARCHAR(128) NOT NULL
+
+    FOREIGN KEY (username)
+        REFERENCES User
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Liked (
     username VARCHAR(15) NOT NULL,
     picture_id INT NOT NULL
-    UNIQUE(username)
+
+    FOREIGN KEY (username)
+        REFERENCES User
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Clothes (
     clothes_id INT NOT NULL AUTO_INCREMENT,
-    clothes_desc VARCHAR(256) NOT NULL,
     clothes_pic BLOB NOT NULL,
+    clothes_type VARCHAR(32) NOT NULL,
+    clothes_desc VARCHAR(256) NOT NULL,
     username VARCHAR(15) NOT NULL,
     date_created DATE NOT NULL,
     date_added DATE NOT NULL
-    UNIQUE(clothes_id)
+
+    FOREIGN KEY (username)
+        REFERENCES User
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE DateWorn (
     clothes_id INT NOT NULL,
     date_worn DATE
+
+    FOREIGN KEY (clothes_id)
+        REFERENCES Clothes
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
