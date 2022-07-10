@@ -1,11 +1,13 @@
 package com.example.rewear.database
 
+import com.example.rewear.objects.LikedData
+
+
 interface LikedInterface {
-    fun getLiked()
+    fun getLiked(picture_id: Int) : List<LikedData>?
 
-    fun addLiked()
+    fun addLiked(info: LikedData)
 
-    fun deleteLiked()
+    fun deleteLiked(info: LikedData)
 
-    fun updateLiked()
 }

@@ -1,11 +1,12 @@
 package com.example.rewear.database
+import com.example.rewear.objects.CommentData
 
 interface CommentInterface {
-    fun getComment()
+    fun getComment(picture_id: Int) : List<CommentData>?
 
-    fun addComment()
+    fun addComment(comment: CommentData)
 
-    fun deleteComment()
+    fun deleteComment(comment_id: Int)
 
     fun updateComment()
 }
