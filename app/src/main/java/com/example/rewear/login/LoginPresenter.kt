@@ -1,8 +1,7 @@
 package com.example.rewear.login
 
-import android.util.Log
-import com.example.rewear.database.*
-import com.example.rewear.objects.*
+import com.example.rewear.database.DataBaseHelper
+import com.example.rewear.objects.UserData
 
 class LoginPresenter(
     private val view: LoginContract.View,
@@ -13,17 +12,8 @@ class LoginPresenter(
 
     override fun verifyUser(userField:String, pwdField:String) : Boolean{
         val compareUser: UserData? = db.getUser(userField)
-        var toReturn: Boolean = false
-        println(compareUser!!.username)
-        println(compareUser!!.password)
-        println(userField)
-        println(pwdField)
-        if (compareUser != null && compareUser.username == userField && compareUser.password == pwdField){
-            toReturn = true
-        }
-        Log.d("TEST", "TEST")
-        println(toReturn)
-        return toReturn
+
+        return (compareUser != null) && (compareUser.username == userField) && (compareUser.password == pwdField)
 
      }
 }
