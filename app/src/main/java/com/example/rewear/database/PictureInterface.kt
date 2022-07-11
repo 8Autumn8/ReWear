@@ -1,12 +1,13 @@
 package com.example.rewear.database
 
+import com.example.rewear.objects.PictureData
+
 interface PictureInterface {
 
-    fun getPicture()
+    fun getPicture(picture_id: Int) : PictureData?
 
-    fun addPicture()
+    fun addPicture(pictureData: PictureData)
+    fun deletePicture(picture_id: Int)
 
-    fun deletePicture()
-
-    fun updatePicture()
+     fun updatePicture(pictureData: PictureData)
 }

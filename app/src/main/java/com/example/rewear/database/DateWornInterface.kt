@@ -1,12 +1,13 @@
 package com.example.rewear.database
 
+import com.example.rewear.objects.DateWorn
+
 interface DateWornInterface {
 
-    fun getDateWorn()
+    fun getDateWorn(clothes_id: Int) : List<DateWorn>?
 
-    fun addDateWorn()
+    fun addDateWorn(dateWorn: DateWorn)
 
-    fun deleteDateWorn()
+    fun deleteDateWorn(dateWorn: DateWorn)
 
-    fun updateDateWorn()
 }

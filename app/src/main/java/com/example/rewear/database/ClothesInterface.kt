@@ -1,12 +1,13 @@
 package com.example.rewear.database
+import com.example.rewear.objects.ClothesData
 
 interface ClothesInterface {
 
-    fun getClothes()
+    fun getClothes(clothes_id: Int) : ClothesData?
 
-    fun addClothes()
+    fun addClothes(clothesObject: ClothesData)
 
-    fun deleteClothes()
+    fun deleteClothes(clothes_id: Int)
 
-    fun updateClothes()
+    fun updateClothes(clothesObject: ClothesData)
 }

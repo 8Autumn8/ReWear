@@ -20,28 +20,25 @@ class UserDB : UserInterface, GenerateConnection(){
     override fun getUser(usernameInput: String): UserData? {
         var user: UserData? = null
         val job = CoroutineScope(Dispatchers.IO).launch {
-            conn = createConnection()
-            //Get Data
-            if (conn != null){
-                val rs: ResultSet?
-                val st: Statement = conn!!.createStatement()
-                rs = st.executeQuery("SELECT * " +
-                                     "FROM User " +
-                                     "WHERE username = '$usernameInput'"
-                )
+            conn = createConnection() ?: return@launch
+            val rs: ResultSet?
+            val st: Statement = conn!!.createStatement()
+            rs = st.executeQuery("SELECT * " +
+                                 "FROM User " +
+                                 "WHERE username = '$usernameInput'"
+            )
 
-                if (rs.next()){
-                    user = UserData(Integer.parseInt(rs.getString(1).toString()),
-                        rs.getString(2).toString(),
-                        rs.getString(3).toString(),
-                        rs.getString(4).toString(),
-                        rs.getString(5).toString())
-                }
+            if (rs.next()) {
+                user = UserData(
+                    Integer.parseInt(rs.getString(1).toString()),
+                    rs.getString(2).toString(),
+                    rs.getString(3).toString(),
+                    rs.getString(4).toString(),
+                    rs.getString(5).toString()
+                )
             }
         }
-        runBlocking {
-            job.join()
-        }  //Program will wait until job is done
+        runBlocking { job.join() }  //Program will wait until job is done
 
         return user
     }
@@ -52,17 +49,14 @@ class UserDB : UserInterface, GenerateConnection(){
      */
     override fun addUser(user:UserData) {
         val job = CoroutineScope(Dispatchers.IO).launch {
-            conn = createConnection()
-            //Get Data
-            if (conn != null){
-                val st: Statement = conn!!.createStatement()
-                st.execute("INSERT INTO User(first_name,last_name,username,password) VALUES ('${user.firstName}','${user.lastName}', '${user.username}', '${user.password}!');")
-            }
-        }
-        runBlocking {
-            job.join()
-        }
+            conn = createConnection() ?: return@launch
+            //getData
+            val st: Statement = conn!!.createStatement()
+            st.execute("INSERT INTO User(first_name,last_name,username,password) " +
+                       "VALUES (${user.first_name},${user.last_name}, ${user.username}, ${user.password});")
 
+        }
+        runBlocking { job.join() }
     }
 
     /**
@@ -76,21 +70,26 @@ class UserDB : UserInterface, GenerateConnection(){
             WHERE CustomerID = 1;
          */
         val job = CoroutineScope(Dispatchers.IO).launch {
-            conn = createConnection()
-            if (conn != null) {
+            conn = createConnection() ?: return@launch
 
-                val st: Statement = conn!!.createStatement()
-                st.execute("UPDATE User" +
-                           "SET first_name = '${updatedUser.firstName}', last_name = '${updatedUser.lastName}', username = '${updatedUser.username}', password = '${updatedUser.password}'" +
-                           "WHERE id = ${updatedUser.ID}"
-                )
-            }
+            val st: Statement = conn!!.createStatement()
+            st.execute("UPDATE User" +
+                       "SET first_name = '${updatedUser.first_name}', last_name = '${updatedUser.last_name}', username = '${updatedUser.username}', password = '${updatedUser.password}' " +
+                       "WHERE user_id = ${updatedUser.user_id};"
+            )
         }
         runBlocking { job.join() }
-        TODO("Not yet implemented")
     }
 
-    override fun deleteUser() {
-        TODO("Not yet implemented")
+    override fun deleteUser(user_id: Int) {
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            conn = createConnection() ?: return@launch
+            val st: Statement = conn!!.createStatement()
+            st.execute("DELETE FROM User " +
+                    "WHERE user_id = ${user_id};"
+            )
+        }
+
+        runBlocking { job.join() }
     }
 }

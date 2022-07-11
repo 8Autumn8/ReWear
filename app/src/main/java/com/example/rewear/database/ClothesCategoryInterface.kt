@@ -1,12 +1,14 @@
 package com.example.rewear.database
 
+import com.example.rewear.objects.ClothesCategoryData
+
 interface ClothesCategoryInterface {
 
-    fun getClothesCategory()
+    fun getClothesCategory(category_id: Int) : ClothesCategoryData?
 
-    fun addClothesCategory()
+    fun  addClothesCategory(clothescategory: ClothesCategoryData)
 
-    fun deleteClothesCategory()
+    fun deleteClothesCategory(category_id: Int)
 
-    fun updateClothesCategory()
+    fun updateClothesCategory(clothescategory: ClothesCategoryData)
 }

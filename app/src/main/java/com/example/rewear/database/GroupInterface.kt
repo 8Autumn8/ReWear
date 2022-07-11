@@ -1,12 +1,14 @@
 package com.example.rewear.database
 
+import com.example.rewear.objects.GroupsData
+
 interface GroupInterface {
 
-    fun getGroup()
+    fun updateGroup(group: GroupsData)
 
-    fun addGroup()
+    fun addGroup(group: GroupsData)
 
-    fun deleteGroup()
+    fun deleteGroup(group_id: Int)
 
-    fun updateGroup()
+    fun getGroup(group_id: Int) : GroupsData?
 }

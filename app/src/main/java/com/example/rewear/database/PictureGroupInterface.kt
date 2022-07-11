@@ -1,11 +1,12 @@
 package com.example.rewear.database
 
+import com.example.rewear.objects.PictureGroupData
+
 interface PictureGroupInterface {
-    fun getPictureGroup()
+    fun getPictureGroup(group_id: Int) : List<PictureGroupData>?
 
-    fun addPictureGroup()
+    fun addPictureGroup(picturegroup: PictureGroupData)
 
-    fun deletePictureGroup()
+    fun deletePictureGroup(picturegroup: PictureGroupData)
 
-    fun updatePictureGroup()
 }
