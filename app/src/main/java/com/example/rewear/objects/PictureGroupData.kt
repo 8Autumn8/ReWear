@@ -1,4 +1,3 @@
 package com.example.rewear.objects
 
-data class PictureGroupData(val picture_id: Int?,
-                            val group_id: String?)
+data class PictureGroupData(val pictureID: Int?, val groupID: String?, val username: String?)
