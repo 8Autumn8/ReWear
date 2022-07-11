@@ -17,7 +17,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_centerInParent="true"
-            android:srcCompact="@drawable/ic_baseline_group_24" />
+            android:src="@drawable/ic_baseline_group_24" />
     </RelativeLayout>
 </FrameLayout>
 
