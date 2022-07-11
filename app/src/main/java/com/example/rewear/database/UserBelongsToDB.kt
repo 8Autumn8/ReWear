@@ -11,44 +11,47 @@ import java.sql.ResultSet
 class UserBelongsToDB : UserBelongsToInterface, GenerateConnection(){
     private var conn: Connection? = null
 
-    override fun getBelongsTo(username: String): UserBelongsToData? {
-        var belongsTo: UserBelongsToData? = null
+    override fun getUserBelongsTo(user_id: Int): List<UserBelongsToData>? {
+        var toReturn: MutableList<UserBelongsToData> = mutableListOf()
         val job = CoroutineScope(Dispatchers.IO).launch {
-            conn = createConnection()
-
-            // pretty sure this guard clause just coses the coroutine early if there's no connection.
-            // we'll see if it works when we try it out. If it no work, then I'll just wrap the whole
-            // result set and stuff in a if statement. I just like guard clauses more
-            if (conn == null)
-                return@launch
+            conn = createConnection() ?: return@launch
 
             val rs: ResultSet? = conn!!.createStatement().executeQuery("SELECT * " +
                     "FROM BelongsTo " +
-                    "WHERE username = $username")
+                    "WHERE user_id = " + user_id)
 
-            if (rs != null && rs.next()) {
-                belongsTo = UserBelongsToData(Integer.parseInt(rs.getString(1).toString()),
-                    Integer.parseInt(rs.getString(2).toString())
-                )
+            while (rs != null && rs.next()) {
+                toReturn.add(UserBelongsToData(Integer.parseInt(rs.getString(1).toString()),
+                    Integer.parseInt(rs.getString(2).toString())))
             }
 
         }
         runBlocking { job.join() }
-        return belongsTo
+        return toReturn
     }
 
-    override fun addBelongsTo(belongsTo: UserBelongsToData){
+    override fun addUserBelongsTo(belongsTo: UserBelongsToData){
         val job = CoroutineScope(Dispatchers.IO).launch {
             conn = createConnection()
             if (conn == null)
                 return@launch
 
-            conn!!.createStatement().execute("INSERT INTO BelongsTo(group_id, username) VALUES ('${belongsTo.group_id}', '${belongsTo.user_id}")
+            conn!!.createStatement().execute("INSERT INTO BelongsTo(group_id, username) " +
+                    "VALUES ('${belongsTo.group_id}', '${belongsTo.user_id}")
         }
         runBlocking { job.join() }
     }
 
-    override fun deleteBelongsTo(){
+    override fun deleteUserBelongsTo(belongsTo: UserBelongsToData){
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            conn = createConnection()
+            if (conn == null)
+                return@launch
+
+            conn!!.createStatement().execute("DELETE FROM UserBelongsTo " +
+                                             "WHERE user_id = ${belongsTo.user_id} AND group_id = ${belongsTo.group_id}"  )
+        }
+        runBlocking { job.join() }
 
     }
 }

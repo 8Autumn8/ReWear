@@ -1,12 +1,13 @@
 package com.example.rewear.database
 
+import com.example.rewear.objects.ClothesBelongsToData
+
 interface ClothesBelongsToInterface {
 
-    fun getClothesBelongsTo()
+    fun getClothesBelongsTo(user_id: Int) : List<ClothesBelongsToData>?
 
-    fun addClothesBelongsTo()
+    fun addClothesBelongsTo(clothesBelongsToData: ClothesBelongsToData)
 
-    fun deleteClothesBelongsTo()
+    fun deleteClothesBelongsTo(clothesBelongsToData: ClothesBelongsToData)
 
-    fun updateClothesBelongsTo()
 }

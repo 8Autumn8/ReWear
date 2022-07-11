@@ -1,28 +1,29 @@
 package com.example.rewear.database
 
 import com.example.rewear.objects.ClothesBelongsToData
+import com.example.rewear.objects.DateWorn
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.sql.ResultSet
+import java.sql.Statement
 
-
-class ClothesBelongsToDB : ClothesBelongsToInterface, GenerateConnection(){
-
-    override fun getClothesBelongsTo(user_id: Int) : List<ClothesBelongsToData>?{
-        var toReturn: MutableList<ClothesBelongsToData> = mutableListOf()
+class DateWornDB: DateWornInterface, GenerateConnection(){
+    override fun getDateWorn(clothes_id: Int) : List<DateWorn>? {
+        var toReturn: MutableList<DateWorn> = mutableListOf()
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
 
             val rs: ResultSet? = conn!!.createStatement().executeQuery("SELECT * " +
                     "FROM BelongsTo " +
-                    "WHERE user_id = " + user_id)
+                    "WHERE clothes_id = " + clothes_id)
 
             while (rs != null && rs.next()) {
+                //need to fix
                 toReturn.add(
-                    ClothesBelongsToData(Integer.parseInt(rs.getString(1).toString()),
-                    Integer.parseInt(rs.getString(2).toString()))
+                    DateWorn(Integer.parseInt(rs.getString(1).toString()),
+                        null)
                 )
             }
 
@@ -32,27 +33,25 @@ class ClothesBelongsToDB : ClothesBelongsToInterface, GenerateConnection(){
 
     }
 
-    override fun addClothesBelongsTo(clothesBelongsToData: ClothesBelongsToData){
-
+    override fun addDateWorn(dateWorn: DateWorn) {
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
 
             conn!!.createStatement().execute("INSERT INTO ClothesBelongTo " +
-                    "VALUES (${clothesBelongsToData.clothes_id},${clothesBelongsToData.category_id};")
+                    "VALUES (${dateWorn.clothes_id},${dateWorn.date};")
         }
         runBlocking { job.join() }
     }
 
-    override fun deleteClothesBelongsTo(clothesBelongsToData: ClothesBelongsToData) {
+    override fun deleteDateWorn(dateWorn: DateWorn){
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
-
-            conn!!.createStatement().execute("DELETE FROM UserBelongsTo " +
-                    "WHERE user_id = ${clothesBelongsToData.clothes_id} AND group_id = ${clothesBelongsToData.category_id}"  )
+            val st: Statement = conn!!.createStatement()
+            st.execute("DELETE FROM User " +
+                    "WHERE clothes_id = ${dateWorn.clothes_id} AND date = ${dateWorn.date};"
+            )
         }
+
         runBlocking { job.join() }
-
     }
-
-
 }

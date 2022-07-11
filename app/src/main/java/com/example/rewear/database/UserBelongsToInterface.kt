@@ -3,9 +3,9 @@ package com.example.rewear.database
 import com.example.rewear.objects.UserBelongsToData
 
 interface UserBelongsToInterface {
-    fun getBelongsTo(username: String): UserBelongsToData?
+    fun getUserBelongsTo(user_id: Int): List<UserBelongsToData>?
 
-    fun addBelongsTo(belongsTo: UserBelongsToData)
+    fun addUserBelongsTo(belongsTo: UserBelongsToData)
 
-    fun deleteBelongsTo()
+    fun deleteUserBelongsTo(belongsTo: UserBelongsToData)
 }
