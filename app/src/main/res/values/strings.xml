@@ -10,4 +10,6 @@
     <string name="create_account">Create Account!</string>
     <string name="login_screen_msg">Welcome to ReWear!</string>
     <string name="rewear_logo">ReWear Logo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

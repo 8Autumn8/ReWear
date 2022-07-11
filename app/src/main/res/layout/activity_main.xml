@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:padding="16dp"
-    tools:context=".groups.GroupsActivity">
+    tools:context=".groups.GroupsFragment">
 
     <FrameLayout
         android:id="@+id/fl_wrapper"
@@ -24,7 +24,7 @@
         app:itemIconTint="@drawable/nav_item_color_selected"
         app:itemTextColo="@android:color/white"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/navigation"
+        app:menu="@menu/bottom_navigation"
 
         />
 

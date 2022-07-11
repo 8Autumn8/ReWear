@@ -39,7 +39,7 @@
             android:exported="true" >
         </activity>
         <activity
-            android:name=".groups.GroupsActivity"
+            android:name=".groups.GroupsFragment"
             android:exported="true" >
         </activity>
         <activity
