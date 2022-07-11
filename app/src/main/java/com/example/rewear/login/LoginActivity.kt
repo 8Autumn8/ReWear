@@ -1,5 +1,6 @@
 package com.example.rewear.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rewear.R
 import com.example.rewear.addClothes.AddClothesActivity
+import java.security.AccessController.getContext
 
 
 class LoginActivity : AppCompatActivity(),  LoginContract.View{
@@ -38,6 +40,10 @@ class LoginActivity : AppCompatActivity(),  LoginContract.View{
 
         }
 
+    }
+
+    override fun getContext(): Context{
+        return this
     }
 
 }

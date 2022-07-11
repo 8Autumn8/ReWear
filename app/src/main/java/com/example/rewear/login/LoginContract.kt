@@ -6,7 +6,7 @@ import android.util.Log
 
 interface LoginContract {
     interface View{
-
+         fun getContext(): Context
     }
     interface Presenter{
         fun verifyUser(userField:String, pwdField:String) : Boolean

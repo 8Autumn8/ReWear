@@ -1,5 +1,12 @@
 package com.example.rewear.database
 
+import android.content.Context
+import android.content.res.Resources
+import android.icu.util.TimeUnit.values
+import android.provider.Settings.System.getString
+
+import com.example.rewear.R
+import java.net.URL
 import java.sql.Connection
 import java.sql.DriverManager
 

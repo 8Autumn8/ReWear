@@ -10,7 +10,6 @@ import kotlinx.coroutines.runBlocking
 import java.sql.Date
 import java.sql.ResultSet
 import java.sql.Statement
-import java.time.LocalDate
 
 
 class ClothesDB: ClothesInterface, GenerateConnection() {
