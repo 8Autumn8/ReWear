@@ -14,9 +14,14 @@ class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>()
 
     var pictures: List<PictureData>? = null
 
-    /*fun GroupsAdaptorClass(onClickListener: GroupsAdaptorClass.OnCLickListener ){
+    //Recycler view onClick
+    interface OnClickListener {
+        fun constructor(position: Int)
+    }
 
-    }*/
+     fun GroupsAdaptorClass(onClickListener: GroupsAdaptorClass.OnCLickListener ){
+
+    }
 
     fun setPictureData(given: List<PictureData>?){ this.pictures = given}
 
