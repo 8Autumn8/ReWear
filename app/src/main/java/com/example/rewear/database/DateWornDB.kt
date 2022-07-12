@@ -8,8 +8,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.sql.ResultSet
 import java.sql.Statement
+import java.text.SimpleDateFormat
+import java.util.*
+import com.example.rewear.Utility
 
 class DateWornDB: DateWornInterface, GenerateConnection(){
+    val utility = Utility()
     override fun getDateWorn(clothes_id: Int) : List<DateWorn>? {
         var toReturn: MutableList<DateWorn> = mutableListOf()
         val job = CoroutineScope(Dispatchers.IO).launch {
@@ -23,7 +27,7 @@ class DateWornDB: DateWornInterface, GenerateConnection(){
                 //need to fix
                 toReturn.add(
                     DateWorn(Integer.parseInt(rs.getString(1).toString()),
-                        null)
+                        utility.parseDate(rs.getString(2).toString()))
                 )
             }
 
@@ -32,6 +36,7 @@ class DateWornDB: DateWornInterface, GenerateConnection(){
         return toReturn
 
     }
+
 
     override fun addDateWorn(dateWorn: DateWorn) {
         val job = CoroutineScope(Dispatchers.IO).launch {

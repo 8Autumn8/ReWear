@@ -46,7 +46,7 @@ class PictureGroupDB:PictureGroupInterface,GenerateConnection() {
                     "WHERE group_id = '$group_id'; "
             )
 
-            if (rs.next()) {
+            while (rs != null && rs.next()) {
                 toReturn.add(
                     PictureGroupData(
                         Integer.parseInt(rs.getString(1).toString()),

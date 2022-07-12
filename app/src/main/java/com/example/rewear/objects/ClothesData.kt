@@ -6,6 +6,7 @@ import java.util.*
 data class ClothesData(
     val clothes_id: Int?,
     val user_id: Int?,
-    val clothes_pic: String,
+    val clothes_pic: ByteArray?,
     val clothes_desc: String?,
-    val date_created: Date?)
+    val date_created: String
+)

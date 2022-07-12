@@ -1,18 +1,19 @@
 package com.example.rewear.database
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.example.rewear.objects.ClothesData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.sql.Date
 import java.sql.ResultSet
 import java.sql.Statement
+import java.text.SimpleDateFormat
+import java.util.*
+import com.example.rewear.Utility
 
 
 class ClothesDB: ClothesInterface, GenerateConnection() {
+    val utility = Utility()
     override fun addClothes(clothesObject: ClothesData){
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
@@ -53,9 +54,9 @@ class ClothesDB: ClothesInterface, GenerateConnection() {
                 clothes = ClothesData(
                     Integer.parseInt(rs.getString(1).toString()),
                     Integer.parseInt(rs.getString(2).toString()),
-                    rs.getString(3).toString(),
+                    utility.convert(rs.getBlob(3)),
                     rs.getString(4).toString(),
-                    null
+                    utility.parseDate(rs.getString(5).toString())
                 )
             }
         }
