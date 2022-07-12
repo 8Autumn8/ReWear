@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity(){
         val closetFragment = ClosetFragment()
         val statsFragment = StatsFragment()
         val leaderboardFragment = LeaderboardFragment()
-        val pertanyannFragment = PertanyaanFragment()
-        setsCurrentFragment(pertanyannFragment)
+
+        setsCurrentFragment(groupsFragment)
 
         bottom_navigation?.setOnItemSelectedListener{
             when(it.itemId){

@@ -27,12 +27,10 @@ class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>()
 
         var itemKode: TextView
         var itemKategori: TextView
-        var itemIsi: TextView
 
         init {
             itemKode = itemView.findViewById(R.id.kodePertanyaan)
             itemKategori = itemView.findViewById(R.id.kategori)
-            itemIsi = itemView.findViewById(R.id.isiPertanyaan)
 
             itemView.setOnClickListener {
                 var position: Int = getAdapterPosition()
@@ -52,14 +50,13 @@ class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val v = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.card_pertanyaan, viewGroup, false)
+            .inflate(R.layout.card_groups, viewGroup, false)
         return ViewHolder(v)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         viewHolder.itemKode.text = kode[i]
         viewHolder.itemKategori.text = kategori[i]
-        viewHolder.itemIsi.text = isi[i]
 
     }
 
