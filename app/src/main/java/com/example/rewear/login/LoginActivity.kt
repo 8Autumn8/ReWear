@@ -1,13 +1,16 @@
 package com.example.rewear.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import com.example.rewear.MainActivity
 import com.example.rewear.R
 import com.example.rewear.addClothes.AddClothesActivity
+import java.security.AccessController.getContext
 
 
 class LoginActivity : AppCompatActivity(),  LoginContract.View{
@@ -32,12 +35,16 @@ class LoginActivity : AppCompatActivity(),  LoginContract.View{
             // TODO: Notify user if any fields are blank or if given user & password combo is incorrect.
 
             if ((presenter as LoginPresenter).verifyUser(userField, pwdField)){
-                val intent = Intent(this, AddClothesActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
 
         }
 
+    }
+
+    override fun getContext(): Context{
+        return this
     }
 
 }

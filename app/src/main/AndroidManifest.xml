@@ -39,15 +39,11 @@
             android:exported="true" >
         </activity>
         <activity
-            android:name=".groups.GroupsActivity"
-            android:exported="true" >
-        </activity>
-        <activity
             android:name=".addClothes.AddClothesActivity"
             android:exported="true" >
         </activity>
         <activity
-            android:name=".profile.ProfileActivity"
+            android:name=".MainActivity"
             android:exported="true" >
         </activity>
         <activity
