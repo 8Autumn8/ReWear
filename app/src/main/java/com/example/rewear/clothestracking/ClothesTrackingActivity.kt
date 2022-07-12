@@ -1,7 +1,7 @@
-package com.example.rewear.clothtracking
+package com.example.rewear.clothestracking
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.rewear.R
 
 class ClothesTrackingActivity : AppCompatActivity(), ClothesTrackingContract.View {
