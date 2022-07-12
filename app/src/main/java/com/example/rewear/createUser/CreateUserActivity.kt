@@ -45,17 +45,27 @@ class CreateUserActivity : AppCompatActivity(), CreateUserContract.View {
                     applicationContext,
                     "Make sure your passwords match exactly",
                     Toast.LENGTH_LONG
-                )
-                    .show()
+                ).show()
                 return@setOnClickListener
             }
 
             // Create the user and add them to the database
             userDB.addUser(UserData(Calendar.DATE + username.length, fName, lName, username, password))
 
-            // switch to the login screen
-            val intent = Intent(this@CreateUserActivity, LoginActivity::class.java)
-            startActivity(intent)
+            // tell user if it was not added to database.
+            val user = userDB.getUser(username)
+            if (user == null) {
+                Toast.makeText(
+                    applicationContext,
+                    "Unable to create user. Please try again later.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            else {
+                // switch to the login screen
+                val intent = Intent(this@CreateUserActivity, LoginActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 }

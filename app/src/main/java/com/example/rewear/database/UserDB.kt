@@ -50,11 +50,9 @@ class UserDB : UserInterface, GenerateConnection(){
     override fun addUser(user:UserData) {
         val job = CoroutineScope(Dispatchers.IO).launch {
             conn = createConnection() ?: return@launch
-            //getData
             val st: Statement = conn!!.createStatement()
             st.execute("INSERT INTO User(first_name,last_name,username,password) " +
                        "VALUES (${user.first_name},${user.last_name}, ${user.username}, ${user.password});")
-
         }
         runBlocking { job.join() }
     }
