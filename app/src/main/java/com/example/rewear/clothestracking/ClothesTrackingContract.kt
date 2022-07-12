@@ -1,4 +1,4 @@
-package com.example.rewear.clothtracking
+package com.example.rewear.clothestracking
 
 interface ClothesTrackingContract {
     interface View {
