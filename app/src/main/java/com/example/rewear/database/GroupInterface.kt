@@ -11,4 +11,6 @@ interface GroupInterface {
     fun deleteGroup(group_id: Int)
 
     fun getGroup(group_id: Int) : GroupsData?
+
+    fun getGroupsByUser(user_id: Int): List<GroupsData>?
 }

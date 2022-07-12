@@ -1,21 +1,25 @@
 package com.example.rewear.groups
 
+//import kotlinx.android.synthetic.main.activity_group_contraintlayout.*
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rewear.GroupsAdaptorClass
 import com.example.rewear.R
-import com.example.rewear.objects.PictureData
-//import kotlinx.android.synthetic.main.activity_group_contraintlayout.*
+import com.example.rewear.objects.GroupsData
 import kotlinx.android.synthetic.main.fragment_groups.*
 
 
-class GroupsFragment : Fragment(), GroupsContract.View {
-    private var presenter: GroupsContract.Presenter? = null
+class GroupsFragment : Fragment(), GroupsContract.View{
+    private val presenter = GroupsPresenter(this)
+    var id: Int? = null
+
     private var layManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>? = null
 
@@ -23,7 +27,7 @@ class GroupsFragment : Fragment(), GroupsContract.View {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        presenter = GroupsPresenter(this)
+        id = Integer.parseInt(requireArguments().getString("user_id"))
         return inflater.inflate(R.layout.fragment_groups, container, false)
     }
 
@@ -31,6 +35,37 @@ class GroupsFragment : Fragment(), GroupsContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        var dropDownData: List<GroupsData>? = presenter.getGroups(id!!)
+
+        //********************create a list of items for the Category Spinner
+        var strCategory =
+            arrayOfNulls<String?>(dropDownData!!.size + 1) //{"Select Category", "Category 1", "Category 2", "Category 3"};
+
+        strCategory[0] = "Select Group"
+        for (i in 1..dropDownData!!.size) strCategory[i] = dropDownData!![i - 1].group_name
+
+        val adCategory = ArrayAdapter<String>(requireActivity(), android.R.layout.simple_spinner_dropdown_item, strCategory)
+        adCategory.notifyDataSetChanged()
+        spinnerGroups.adapter = adCategory
+//*************************************************
+        spinnerGroups.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View?,
+                position: Int,
+                id: Long
+            ) {
+                //Populate the adapter
+                adapter.setPicture(expenses);
+                adapter.notifyDataSetChanged();
+                alExpenses = expenses;
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+                // your code here
+            }
+        })
         recycler_view.apply {
             // set a LinearLayoutManager to handle Android
             // RecyclerView behavior
@@ -40,14 +75,8 @@ class GroupsFragment : Fragment(), GroupsContract.View {
         }
     }
 
+    //Populate the Category dropdown
 
 
 
-    //Handles on receive expense data
-    override fun onRecieveData(pictures: List<PictureData>?) {
-        //Populate the adapter
-        /*ListExpenseAdapterClass.setExpense(expenses);
-        ListExpenseAdapterClass.notifyDataSetChanged();
-        alExpenses = expenses;*/
-    }
 }

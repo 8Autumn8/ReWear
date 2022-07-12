@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.rewear.groups.GroupsFragment
 import com.example.rewear.closet.ClosetFragment
+import com.example.rewear.groups.GroupsFragment
 import com.example.rewear.leaderboard.LeaderboardFragment
 import com.example.rewear.stats.StatsFragment
 import com.example.rewear.viewUser.ProfileFragment
@@ -20,12 +20,23 @@ class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val id: String? = intent.getStringExtra("user_id")
+
+        val bundle = Bundle()
+        bundle.putString("user_id", id)
 
         val groupsFragment = GroupsFragment()
         val profileFragment = ProfileFragment()
         val closetFragment = ClosetFragment()
         val statsFragment = StatsFragment()
         val leaderboardFragment = LeaderboardFragment()
+
+        groupsFragment.setArguments(bundle)
+        profileFragment.setArguments(bundle)
+        closetFragment.setArguments(bundle)
+        statsFragment.setArguments(bundle)
+        leaderboardFragment.setArguments(bundle)
+
 
         setsCurrentFragment(groupsFragment)
 

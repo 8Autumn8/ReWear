@@ -9,6 +9,7 @@ import java.sql.Blob
 import java.sql.ResultSet
 import java.sql.Statement
 import com.example.rewear.Utility
+import java.util.*
 
 class PictureDB: PictureInterface, GenerateConnection() {
     val utility = Utility()
@@ -53,7 +54,39 @@ class PictureDB: PictureInterface, GenerateConnection() {
 
 
 
-                toReturn = PictureData(Integer.parseInt(rs.getString(1).toString()), Integer.parseInt(rs.getString(2).toString()), utility.convert(rs.getBlob(3)),rs.getString(4).toString(),rs.getString(5).toString())
+                toReturn = PictureData(Integer.parseInt(rs.getString(1).toString()),
+                    Integer.parseInt(rs.getString(2).toString()),
+                    utility.convert(rs.getBlob(3)),
+                    rs.getString(4).toString(),
+                    rs.getString(5).toString())
+            }
+        }
+        runBlocking { job.join() }  //Program will wait until job is done
+
+        return toReturn
+    }
+
+    override fun getPictureByGroup(group_id:Int) : List<PictureData>?{
+        var toReturn: MutableList<PictureData>? = mutableListOf()
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            val conn = createConnection() ?: return@launch
+            val rs: ResultSet?
+            val st: Statement = conn!!.createStatement()
+            rs = st.executeQuery("SELECT Picture.*, User.username " +
+                    "FROM Picture, PictureGroup, User " +
+                    "WHERE Picture.Picture_id = PictureGroup.picture_id " +
+                    "AND Picture.user_id = User.user_id " +
+                    "AND PictureGroup.group_id = ${group_id}; "
+            )
+
+            while (rs != null && rs.next()) {
+//utility.convert(rs.getBlob(3)),
+                toReturn!!.add(PictureData(Integer.parseInt(rs.getString(1).toString()),
+                    Integer.parseInt(rs.getString(2).toString()),
+                    null,
+                    rs.getString(4).toString(),
+                    rs.getString(5).toString(),
+                    rs.getString(6).toString()))
             }
         }
         runBlocking { job.join() }  //Program will wait until job is done

@@ -5,23 +5,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rewear.groups.GroupsContract
+import com.example.rewear.groups.GroupsPresenter
+import com.example.rewear.objects.PictureData
 
-class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>() {
+class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>(), GroupsContract.View {
+    private val presenter = GroupsPresenter(this)
+    private var data: List<PictureData>? = null
 
-    private val kode = arrayOf("d116df5",
-        "36ffc75", "f5cfe78", "5b87628",
-        "db8d14e", "9913dc4", "e120f96",
-        "466251b")
 
-    private val kategori = arrayOf("Kekayaan", "Teknologi",
-        "Keluarga", "Bisnis",
-        "Keluarga", "Hutang",
-        "Teknologi", "Pidana")
+    private val kode = arrayOf("d116df5")
 
-    private val isi = arrayOf("pertanyaan 9",
-        "pertanyaan 11", "pertanyaan 17", "test forum",
-        "pertanyaan 12", "pertanyaan 18", "pertanyaan 20",
-        "pertanyaan 21")
+    private val kategori = arrayOf("Kekayaan")
+
+    private val isi = arrayOf("pertanyaan 9")
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -49,19 +46,24 @@ class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>()
 
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
+
         val v = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.card_groups, viewGroup, false)
         return ViewHolder(v)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        viewHolder.itemKode.text = kode[i]
+        viewHolder.itemKode.text = data!![i]!!.username
         viewHolder.itemKategori.text = kategori[i]
 
     }
 
     override fun getItemCount(): Int {
         return kode.size
+    }
+
+    fun setPictures(group_id: Int){
+        data = presenter.getPictures(1)
     }
 }
 

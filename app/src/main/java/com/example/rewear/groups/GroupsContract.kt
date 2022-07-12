@@ -1,5 +1,6 @@
 package com.example.rewear.groups
 
+import com.example.rewear.objects.GroupsData
 import com.example.rewear.objects.PictureData
 import java.util.*
 
@@ -8,10 +9,11 @@ import java.util.*
 interface GroupsContract {
     // talks to the xml files; the frontend
     interface View {
-        fun onRecieveData(pictures: List<PictureData>?)
     }
     // talks to the database
     interface Presenter {
+        fun getPictures(group_id: Int) : List<PictureData>?
+        fun getGroups(user_id: Int): List<GroupsData>?
 
     }
 }
