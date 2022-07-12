@@ -1,12 +1,13 @@
 package com.example.rewear
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>() {
+class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     private val kode = arrayOf("d116df5",
         "36ffc75", "f5cfe78", "5b87628",
@@ -35,9 +36,8 @@ class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>()
             itemIsi = itemView.findViewById(R.id.isiPertanyaan)
 
             itemView.setOnClickListener {
-                var position: Int = getAdapterPosition()
+              /*var position: Int = getAdapterPosition()
                 val context = itemView.context
-                /*val intent = Intent(context, DetailPertanyaan::class.java).apply {
                 val intent = Intent(context, DetailPertanyaan::class.java).apply {
                     putExtra("NUMBER", position)
                     putExtra("CODE", itemKode.text)
@@ -67,4 +67,3 @@ class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>()
         return kode.size
     }
 }
-

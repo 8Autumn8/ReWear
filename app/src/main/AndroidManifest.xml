@@ -21,14 +21,6 @@
             android:name=".login.LoginActivity"
             android:exported="true" >
 
-            <!-- Main screen that opens when you run android app -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <!-- END -->
-
         </activity>
         <activity
             android:name=".clothtracking.ClothesTrackingActivity"
@@ -45,10 +37,13 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" >
-        </activity>
-        <activity
-            android:name=".closet.ClosetFragment"
-            android:exported="true" >
+            <!-- Main screen that opens when you run android app -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- END -->
         </activity>
     </application>
 
