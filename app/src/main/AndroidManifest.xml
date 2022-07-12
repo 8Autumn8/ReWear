@@ -47,7 +47,7 @@
             android:exported="true" >
         </activity>
         <activity
-            android:name=".closet.ClosetActivity"
+            android:name=".closet.ClosetFragment"
             android:exported="true" >
         </activity>
     </application>

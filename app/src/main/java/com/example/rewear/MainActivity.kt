@@ -1,5 +1,6 @@
 package com.example.rewear
 
+import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils.replace
 import android.util.Log
@@ -8,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.rewear.groups.GroupsFragment
 import com.example.rewear.profile.*
 import androidx.fragment.app.Fragment
+import com.example.rewear.closet.ClosetFragment
+import com.example.rewear.leaderboard.LeaderboardFragment
+import com.example.rewear.stats.StatsFragment
 import com.example.rewear.viewUser.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -24,7 +28,10 @@ class MainActivity : AppCompatActivity(){
 
         val groupsFragment = GroupsFragment()
         val profileFragment = ProfileFragment()
-        setsCurrentFragment(groupsFragment)
+        val closetFragment = ClosetFragment()
+        val statsFragment = StatsFragment()
+        val leaderboardFragment = LeaderboardFragment()
+        setsCurrentFragment(closetFragment)
 
         bottom_navigation?.setOnItemSelectedListener{
             when(it.itemId){
@@ -36,9 +43,19 @@ class MainActivity : AppCompatActivity(){
                     setsCurrentFragment(profileFragment)
                     Log.d(TAG, "Profile SELECTED")
                 }
+                R.id.nav_closet -> {
+                    setsCurrentFragment(closetFragment)
+                    Log.d(TAG, "CLOSET SELECTED")
+                }
+                R.id.nav_stats -> {
+                    setsCurrentFragment(statsFragment)
+                    Log.d(TAG, "STATS SELECTED")
+                }
 
-
-
+                R.id.nav_leaderboard -> {
+                    setsCurrentFragment(leaderboardFragment)
+                    Log.d(TAG, "LeaderBoard SELECTED")
+                }
             }
 
             return@setOnItemSelectedListener true

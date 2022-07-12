@@ -7,15 +7,26 @@
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/drawable/closet_icon.xml" value="0.185" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/drawable/home_icon.xml" value="0.185" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/drawable/ic_baseline_group_24.xml" value="0.185" />
+        <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/drawable/ic_baseline_sensor_door_24.xml" value="0.2595" />
+        <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/drawable/ic_graph_svgrepo_com.xml" value="0.2595" />
+        <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/drawable/ic_graph_svgrepo_com__1_.xml" value="0.2595" />
+        <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/drawable/ic_leaderboard_star_svgrepo_com.xml" value="0.2595" />
+        <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/drawable/ic_leaderboard_svgrepo_com__1_.xml" value="0.2595" />
+        <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/drawable/ic_medal_svgrepo_com.xml" value="0.2595" />
+        <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/drawable/ic_medal_svgrepo_com__1_.xml" value="0.2595" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/drawable/ic_outline_group_24.xml" value="0.185" />
+        <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/drawable/ic_outline_sensor_door_24.xml" value="0.2595" />
+        <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/drawable/leaderboard_icon.xml" value="0.2595" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/drawable/nav_item_color.xml" value="0.185" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/drawable/profile_icon.xml" value="0.1" />
+        <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/drawable/stats_icon.xml" value="0.2585" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/activity_add_clothes.xml" value="0.1" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/activity_closet.xml" value="0.1160081053698075" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/activity_cloth_tracking.xml" value="0.10371376811594203" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/activity_clothes_tracking.xml" value="0.225" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/activity_create_user.xml" value="0.1" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/activity_groups.xml" value="0.1" />
+        <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/activity_groups_layout.xml" value="0.136" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/activity_homepage.xml" value="0.1307785888077859" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/activity_main.xml" value="0.2" />
@@ -23,9 +34,13 @@
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/activity_test.xml" value="0.21105072463768115" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/activity_view_group.xml" value="0.10371376811594203" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/fragment_blank.xml" value="0.18614130434782608" />
+        <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/fragment_closet.xml" value="0.1" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/fragment_groups.xml" value="0.18614130434782608" />
+        <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/fragment_leaderboard.xml" value="0.11574074074074074" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/fragment_profile.xml" value="0.1160081053698075" />
+        <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/fragment_stats.xml" value="0.1" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/fragment_user.xml" value="0.18614130434782608" />
+        <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/layout/frame_textview.xml" value="0.264" />
         <entry key="..\:/Users/Belinda Vela/AndroidStudioProjects/ReWear/app/src/main/res/menu/navigation.xml" value="0.2375" />
       </map>
     </option>
