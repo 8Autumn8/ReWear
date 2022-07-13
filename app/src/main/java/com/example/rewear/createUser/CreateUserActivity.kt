@@ -15,7 +15,6 @@ import java.util.*
 class CreateUserActivity : AppCompatActivity(), CreateUserContract.View {
 
     private var presenter: CreateUserContract.Presenter? = null
-    private val userDB: UserDB = UserDB()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,11 +49,10 @@ class CreateUserActivity : AppCompatActivity(), CreateUserContract.View {
             }
 
             // Create the user and add them to the database
-            userDB.addUser(UserData(Calendar.DATE + username.length, fName, lName, username, password))
+            (presenter as CreateUserPresenter).addUser(fName,lName,username,password)
 
             // tell user if it was not added to database.
-            val user = userDB.getUser(username)
-            if (user == null) {
+            if (!(presenter as CreateUserPresenter).checkUserExist(username)) {
                 Toast.makeText(
                     applicationContext,
                     "Unable to create user. Please try again later.",
