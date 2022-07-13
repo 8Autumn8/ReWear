@@ -3,13 +3,17 @@
     <string name="dataBaseURL">jdbc:mysql://rewea.mysql.database.azure.com:3306/reweardb</string>
     <string name="db_username">belinda</string>
     <string name="db_password">!adminpassword1</string>
-    <string name="password">password</string>
-    <string name="username">username</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
     <string name="log_in">Log In</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
     <string name="forgot_password">Forgot Password!</string>
     <string name="create_account">Create Account!</string>
     <string name="login_screen_msg">Welcome to ReWear!</string>
     <string name="rewear_logo">ReWear Logo</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="create_account_btn_label">Create Account</string>
 </resources>

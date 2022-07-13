@@ -25,7 +25,7 @@ class UserDB : UserInterface, GenerateConnection(){
             val st: Statement = conn!!.createStatement()
             rs = st.executeQuery("SELECT * " +
                                  "FROM User " +
-                                 "WHERE username = '$usernameInput'"
+                                 "WHERE username = '${usernameInput}'"
             )
 
             if (rs.next()) {
@@ -50,11 +50,10 @@ class UserDB : UserInterface, GenerateConnection(){
     override fun addUser(user:UserData) {
         val job = CoroutineScope(Dispatchers.IO).launch {
             conn = createConnection() ?: return@launch
-            //getData
             val st: Statement = conn!!.createStatement()
-            st.execute("INSERT INTO User(first_name,last_name,username,password) " +
-                       "VALUES (${user.first_name},${user.last_name}, ${user.username}, ${user.password});")
-
+            val str = "INSERT INTO User(first_name,last_name,username,password) " +
+            "VALUES ('${user.first_name}','${user.last_name}', '${user.username}', '${user.password}');"
+            st.executeUpdate(str)
         }
         runBlocking { job.join() }
     }

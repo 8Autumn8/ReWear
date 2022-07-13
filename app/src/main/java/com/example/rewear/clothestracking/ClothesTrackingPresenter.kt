@@ -1,4 +1,4 @@
-package com.example.rewear.clothtracking
+package com.example.rewear.clothestracking
 
 import com.example.rewear.database.DataBaseHelper
 
