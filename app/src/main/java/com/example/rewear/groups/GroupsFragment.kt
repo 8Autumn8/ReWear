@@ -1,17 +1,19 @@
 package com.example.rewear.groups
 
 //import kotlinx.android.synthetic.main.activity_group_contraintlayout.*
+
+import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rewear.GroupsAdaptorClass
-import com.example.rewear.R
 import com.example.rewear.objects.GroupsData
 import kotlinx.android.synthetic.main.fragment_groups.*
 
@@ -19,16 +21,16 @@ import kotlinx.android.synthetic.main.fragment_groups.*
 class GroupsFragment : Fragment(), GroupsContract.View{
     private val presenter = GroupsPresenter(this)
     var id: Int? = null
-
-    private var layManager: RecyclerView.LayoutManager? = null
+    private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>? = null
+    //var recyclerView = requireActivity().findViewById(com.example.rewear.R.id.recycler_view) as RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         id = Integer.parseInt(requireArguments().getString("user_id"))
-        return inflater.inflate(R.layout.fragment_groups, container, false)
+        return inflater.inflate(com.example.rewear.R.layout.fragment_groups, container, false)
     }
 
 
@@ -37,6 +39,9 @@ class GroupsFragment : Fragment(), GroupsContract.View{
 
 
         var dropDownData: List<GroupsData>? = presenter.getGroups(id!!)
+
+
+        //pop up menu slide
 
         //********************create a list of items for the Category Spinner
         var strCategory =
@@ -54,12 +59,9 @@ class GroupsFragment : Fragment(), GroupsContract.View{
                 parentView: AdapterView<*>?,
                 selectedItemView: View?,
                 position: Int,
-                id: Long
-            ) {
-                //Populate the adapter
-                adapter.setPicture(expenses);
-                adapter.notifyDataSetChanged();
-                alExpenses = expenses;
+                id: Long) {
+
+                //adapter!!.notifyDataSetChanged()
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>?) {

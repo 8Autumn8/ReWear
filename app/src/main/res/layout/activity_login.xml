@@ -26,26 +26,24 @@
         android:id="@+id/txtUserNameLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        android:hint="@string/username"
+        android:layout_centerInParent="true"
         android:autofillHints="username"
-        />
+        android:ems="10"
+        android:hint="@string/username"
+        android:inputType="textPersonName"
+        android:text="userNumOne" />
 
     <EditText
-        android:hint="@string/password"
         android:id="@+id/pwdLogin"
-        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_below="@+id/txtUserNameLogin"
+        android:layout_centerInParent="true"
+        android:autofillHints="username"
         android:ems="10"
-        android:inputType="textPassword"
-        android:autofillHints="username" />
+        android:hint="@string/password"
+        android:text = "testpassword!"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -60,11 +58,11 @@
         android:id="@+id/imageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:scaleType="fitXY"
         android:layout_below="@+id/titleName"
         android:layout_centerHorizontal="true"
-        tools:src="@tools:sample/avatars"
-        android:contentDescription="@string/rewear_logo"/>
+        android:contentDescription="@string/rewear_logo"
+        android:scaleType="fitXY"
+        tools:src="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/forgotPassword"

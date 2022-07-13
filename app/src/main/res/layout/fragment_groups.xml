@@ -8,6 +8,7 @@
     tools:context=".groups.GroupsFragment">
 
     <Spinner
+        android:layout_marginLeft = "30dp"
         android:id="@+id/spinnerGroups"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,12 +17,29 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
+        android:layout_marginLeft = "30dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spCategory"
+        android:layout_below="@+id/spinnerGroups"
         android:text="delete_edit"
         tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/addPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="Button" />
+
+    <ImageButton
+        android:id="@+id/groupIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="350dp"
+        android:src="@drawable/ic_baseline_person_24" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -34,4 +52,6 @@
             android:layout_height="match_parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </RelativeLayout>

@@ -11,7 +11,7 @@ import com.example.rewear.objects.PictureData
 
 class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>(), GroupsContract.View {
     private val presenter = GroupsPresenter(this)
-    private var data: List<PictureData>? = null
+    private var data: List<PictureData>? = presenter.getPictures(1)
 
 
     private val kode = arrayOf("d116df5")
@@ -19,6 +19,13 @@ class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>()
     private val kategori = arrayOf("Kekayaan")
 
     private val isi = arrayOf("pertanyaan 9")
+
+    //Receive Pictures data
+    fun setPictures(group_id: Int){
+            data = presenter.getPictures(group_id)
+    }
+
+
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -30,9 +37,9 @@ class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>()
             itemKategori = itemView.findViewById(R.id.kategori)
 
             itemView.setOnClickListener {
-                var position: Int = getAdapterPosition()
+                /* position: Int = getAdapterPosition()
                 val context = itemView.context
-                /*val intent = Intent(context, DetailPertanyaan::class.java).apply {
+                val intent = Intent(context, DetailPertanyaan::class.java).apply {
                 val intent = Intent(context, DetailPertanyaan::class.java).apply {
                     putExtra("NUMBER", position)
                     putExtra("CODE", itemKode.text)
@@ -42,6 +49,7 @@ class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>()
                 context.startActivity(intent)*/
             }
         }
+
     }
 
 
@@ -53,6 +61,7 @@ class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>()
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
+
         viewHolder.itemKode.text = data!![i]!!.username
         viewHolder.itemKategori.text = kategori[i]
 
@@ -62,8 +71,6 @@ class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>()
         return kode.size
     }
 
-    fun setPictures(group_id: Int){
-        data = presenter.getPictures(1)
-    }
+
 }
 
