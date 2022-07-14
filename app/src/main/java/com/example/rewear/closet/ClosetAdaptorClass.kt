@@ -5,14 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rewear.closet.ClosetContract
+import com.example.rewear.closet.ClosetPresenter
 import com.example.rewear.groups.GroupsContract
 import com.example.rewear.groups.GroupsPresenter
+import com.example.rewear.objects.ClothesData
 import com.example.rewear.objects.LikedData
 import com.example.rewear.objects.PictureData
 
-class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>(), GroupsContract.View {
-    private val presenter = GroupsPresenter(this)
-    private var pictureData: List<PictureData>? = null
+class ClosetAdaptorClass : RecyclerView.Adapter<ClosetAdaptorClass.ViewHolder>(), ClosetContract.View {
+    private val presenter = ClosetPresenter(this)
+    private var clothesData: List<ClothesData>? = null
     private var likeData: List<LikedData>? = null
 
     private val kode: MutableList<String>? = mutableListOf()
@@ -44,7 +47,6 @@ class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>()
 
     }
 
-
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
 
         val v = LayoutInflater.from(viewGroup.context)
@@ -60,7 +62,7 @@ class GroupsAdaptorClass : RecyclerView.Adapter<GroupsAdaptorClass.ViewHolder>()
     }
 
     override fun getItemCount(): Int {
-        return kode!!.size
+        return likeData!!.size
     }
 
     //code to update recyclar view

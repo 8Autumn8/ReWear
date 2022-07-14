@@ -4,35 +4,36 @@
     android:id="@+id/topBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorAccent"
     tools:context=".groups.GroupsFragment">
 
     <Spinner
-        android:layout_marginLeft = "30dp"
         android:id="@+id/spinnerGroups"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
-        android:ems="10"
-        tools:ignore="MissingConstraints" />
+        android:ems="10" />
 
     <TextView
         android:layout_marginLeft = "30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginRight = "30dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/spinnerGroups"
-        android:text="delete_edit"
         tools:ignore="MissingConstraints" />
+        <!--android:text="Select a group above" -->
+
 
     <Button
         android:id="@+id/addPicture"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
-        android:text="Button" />
+        android:layout_marginTop="10dp"
+        android:text="+" />
 
     <ImageButton
         android:id="@+id/groupIcon"

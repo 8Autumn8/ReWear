@@ -76,7 +76,8 @@ class PictureDB: PictureInterface, GenerateConnection() {
                     "FROM Picture, PictureGroup, User " +
                     "WHERE Picture.Picture_id = PictureGroup.picture_id " +
                     "AND Picture.user_id = User.user_id " +
-                    "AND PictureGroup.group_id = ${group_id}; "
+                    "AND PictureGroup.group_id = ${group_id} " +
+                    "ORDER BY PictureGroup.picture_id DESC; "
             )
 
             while (rs != null && rs.next()) {

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.rewear.closet.ClosetFragment
+import com.example.rewear.groups.ClosetFragment
 import com.example.rewear.groups.GroupsFragment
 import com.example.rewear.leaderboard.LeaderboardFragment
 import com.example.rewear.stats.StatsFragment
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(){
         leaderboardFragment.setArguments(bundle)
 
 
-        setsCurrentFragment(groupsFragment)
+        setsCurrentFragment(closetFragment)
 
         bottom_navigation?.setOnItemSelectedListener{
             when(it.itemId){

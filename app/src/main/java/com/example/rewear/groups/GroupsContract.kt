@@ -1,6 +1,7 @@
 package com.example.rewear.groups
 
 import com.example.rewear.objects.GroupsData
+import com.example.rewear.objects.LikedData
 import com.example.rewear.objects.PictureData
 import java.util.*
 
@@ -14,6 +15,7 @@ interface GroupsContract {
     interface Presenter {
         fun getPictures(group_id: Int) : List<PictureData>?
         fun getGroups(user_id: Int): List<GroupsData>?
+        fun getUserLiked(user_id: Int, group_id: Int) : List<LikedData>?
 
     }
 }

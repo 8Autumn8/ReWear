@@ -10,13 +10,14 @@ import com.example.rewear.R
 
 class StatsFragment : Fragment(), StatsContract.View  {
     private var presenter: StatsContract.Presenter? = null
-
+    var user_id: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         presenter = StatsPresenter(this)
+        user_id = Integer.parseInt(requireArguments().getString("user_id"))
         return inflater.inflate(R.layout.fragment_stats, container, false)
     }
 

@@ -17,7 +17,7 @@ class LeaderboardFragment : Fragment(), LeaderboardContract.View  {
         savedInstanceState: Bundle?
     ): View? {
         presenter = LeaderboardPresenter(this)
-        return inflater.inflate(R.layout.fragment_groups, container, false)
+        return inflater.inflate(R.layout.fragment_leaderboard, container, false)
     }
 
 

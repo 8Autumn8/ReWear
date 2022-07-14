@@ -1,24 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:id="@+id/firstRow"
+    android:orientation="vertical"
+    tools:context=".addClothes.AddClothesActivity"
     android:layout_height="match_parent"
-    tools:context=".addClothes.AddClothesActivity">
-
-    <TextView
+    android:layout_width="match_parent">
+    <ImageButton
+        android:id="@+id/ibCamera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_below="@+id/spPaymentMethod"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/ic_baseline_camera_24"
+        android:contentDescription="takePicture"/>
+
+
+    <ImageView
+        android:id="@+id/ivReceipt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ibCamera"
+        android:layout_marginTop="0dp"
+        android:layout_centerHorizontal="true"
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="ClothingPicture"/>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btAddExpense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_marginTop="10dp"
+        android:text="Add To Closet" />
 
-</RelativeLayout>
+</LinearLayout>
+
+
+
+
+
+

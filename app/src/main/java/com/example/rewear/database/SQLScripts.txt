@@ -119,12 +119,13 @@ CREATE TABLE ClothesCategory (
     category_id INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     name VARCHAR(32) NOT NULL,
+    description VARCHAR(256) NOT NULL,
     FOREIGN KEY (user_id)
         REFERENCES User(user_id)
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-INSERT INTO ClothesCategory Values(1,1,"CATEGORY");
+INSERT INTO ClothesCategory Values(1,1,"CATEGORY", "Description");
 
 #Entity
 CREATE TABLE Clothes (
@@ -170,6 +171,14 @@ CREATE TABLE DateWorn (
 );
 
 INSERT INTO DateWorn VALUES(1,'2008-11-11');
+
+INSERT INTO User VALUES (2,'TWO','TWO', 'TWO', 'TWO!');
+INSERT INTO UserBelongsTo VALUES (1, 2);
+
+INSERT INTO Picture VALUES (3, 14, 'blob', 'CAPTION', '2008-11-11');
+INSERT INTO PictureGroup VALUES (2, 1);
+INSERT INTO Liked Values (2,1);
+INSERT INTO Liked Values (1,2);
 
 
 
