@@ -1,14 +1,14 @@
 package com.example.rewear.editProfile
 
-import android.content.Context
+import com.example.rewear.objects.UserData
 
 interface EditProfileContract {
 
     interface View {
-        fun getContext() : Context
     }
 
     interface Presenter {
-
+        fun getCurrentUser(userID: Int): UserData
+        fun updateUser(updatedUser: UserData)
     }
 }

@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity(),  LoginContract.View{
             if (uid != -1){
                 val intent = Intent(this, MainActivity::class.java)
                 // save the currently logged in user for later use in the app.
-                intent.putExtra("user_id", uid)
+                intent.putExtra("user_id", uid.toString())
                 startActivity(intent)
             } else {
                 Toast.makeText(applicationContext,

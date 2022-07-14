@@ -11,9 +11,6 @@ class ProfilePresenter(
 
     override fun getCurrentUser(userID: Int): UserData {
         // user should already exist at this point, so it should return a non-null value
-//        return db.getUserByID(userID)!!
-
-        // for now, just return my user
-        return db.getUser("mdnguyen")!!
+        return db.getUserByID(userID)!!
     }
 }
