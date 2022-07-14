@@ -14,6 +14,5 @@ class LoginPresenter(
         val compareUser: UserData? = db.getUser(userField)
 
         return (compareUser != null) && (compareUser.username == userField) && (compareUser.password == pwdField)
-
-     }
+    }
 }

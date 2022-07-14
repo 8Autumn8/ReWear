@@ -1,6 +1,7 @@
 package com.example.rewear.profile
 
 import com.example.rewear.database.DataBaseHelper
+import com.example.rewear.objects.UserData
 
 class ProfilePresenter(
     private val view: ProfileContract.View,
@@ -8,4 +9,11 @@ class ProfilePresenter(
 )
     : ProfileContract.Presenter {
 
+    override fun getCurrentUser(userID: Int): UserData {
+        // user should already exist at this point, so it should return a non-null value
+//        return db.getUserByID(userID)!!
+
+        // for now, just return my user
+        return db.getUser("mdnguyen")!!
+    }
 }

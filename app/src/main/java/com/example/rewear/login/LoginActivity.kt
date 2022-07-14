@@ -6,11 +6,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rewear.MainActivity
 import com.example.rewear.R
-import com.example.rewear.addClothes.AddClothesActivity
-import java.security.AccessController.getContext
+import com.example.rewear.createUser.CreateUserActivity
 
 
 class LoginActivity : AppCompatActivity(),  LoginContract.View{
@@ -21,24 +22,31 @@ class LoginActivity : AppCompatActivity(),  LoginContract.View{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        val btnLogin = findViewById<Button>(R.id.btnLogin)
 
         //MVP Initialized
         presenter = LoginPresenter(this)
 
         // set on-click listener
-        btnLogin.setOnClickListener {
+        findViewById<Button>(R.id.btnLogin).setOnClickListener {
             // your code to perform when the user clicks on the button
-            val userField = (findViewById<View>(R.id.txtUserNameLogin) as EditText).getText().toString()
-            val pwdField = (findViewById<View>(R.id.pwdLogin) as EditText).getText().toString()
+            val userField = (findViewById<View>(R.id.txtUserNameLogin) as EditText).text.toString()
+            val pwdField = (findViewById<View>(R.id.pwdLogin) as EditText).text.toString()
+            // supposed to return a number
+            val uid = (presenter as LoginPresenter).verifyUser(userField, pwdField)
 
-            // TODO: Notify user if any fields are blank or if given user & password combo is incorrect.
-
-            if ((presenter as LoginPresenter).verifyUser(userField, pwdField)){
+            if (uid){
                 val intent = Intent(this, MainActivity::class.java)
+                //intent.putExtra("user_id", )
                 startActivity(intent)
+            } else {
+                Toast.makeText(applicationContext,
+                "Cannot log in. Try again, or create a new user.",
+                Toast.LENGTH_LONG).show()
             }
+        }
 
+        findViewById<TextView>(R.id.createAccount).setOnClickListener {
+            startActivity(Intent(this, CreateUserActivity::class.java))
         }
 
     }
