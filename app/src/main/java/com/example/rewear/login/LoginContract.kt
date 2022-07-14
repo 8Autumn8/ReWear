@@ -9,6 +9,6 @@ interface LoginContract {
          fun getContext(): Context
     }
     interface Presenter{
-        fun verifyUser(userField:String, pwdField:String) : Boolean
+        fun verifyUser(userField:String, pwdField:String) : Int
     }
 }

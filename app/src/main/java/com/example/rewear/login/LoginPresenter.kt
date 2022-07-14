@@ -10,9 +10,12 @@ class LoginPresenter(
     : LoginContract.Presenter {
     //MVP ^^^
 
-    override fun verifyUser(userField:String, pwdField:String) : Boolean{
+    override fun verifyUser(userField:String, pwdField:String) : Int{
         val compareUser: UserData? = db.getUser(userField)
-
-        return (compareUser != null) && (compareUser.username == userField) && (compareUser.password == pwdField)
+        var uid = -1
+        if ((compareUser != null) && (compareUser.username == userField) && (compareUser.password == pwdField)){
+            uid = compareUser!!.user_id!!
+        }
+        return uid
     }
 }

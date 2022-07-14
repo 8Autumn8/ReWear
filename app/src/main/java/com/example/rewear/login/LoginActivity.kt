@@ -32,11 +32,12 @@ class LoginActivity : AppCompatActivity(),  LoginContract.View{
             val userField = (findViewById<View>(R.id.txtUserNameLogin) as EditText).text.toString()
             val pwdField = (findViewById<View>(R.id.pwdLogin) as EditText).text.toString()
             // supposed to return a number
-            val uid = (presenter as LoginPresenter).verifyUser(userField, pwdField)
 
-            if (uid){
+            val uid = (presenter as LoginPresenter).verifyUser(userField, pwdField)
+            if (uid != -1){
                 val intent = Intent(this, MainActivity::class.java)
-                //intent.putExtra("user_id", )
+                // save the currently logged in user for later use in the app.
+                intent.putExtra("user_id", uid)
                 startActivity(intent)
             } else {
                 Toast.makeText(applicationContext,
