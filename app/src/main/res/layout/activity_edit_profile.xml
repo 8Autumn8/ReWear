@@ -11,17 +11,18 @@
         android:id="@+id/createAccountTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create_account"
+        android:text="Edit Account Details"
+        android:textAlignment="center"
         android:textSize="48sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/createAccountFirstName"
+        app:layout_constraintBottom_toTopOf="@+id/updateAccountFirstName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/createAccountFirstName"
+        android:id="@+id/updateAccountFirstName"
         android:layout_width="224dp"
         android:layout_height="wrap_content"
 
@@ -39,7 +40,7 @@
         app:layout_constraintVertical_bias="0.398" />
 
     <EditText
-        android:id="@+id/createAccountLastName"
+        android:id="@+id/updateAccountLastName"
         android:layout_width="223dp"
         android:layout_height="wrap_content"
         android:autofillHints="name"
@@ -55,7 +56,7 @@
         app:layout_constraintVertical_bias="0.468" />
 
     <EditText
-        android:id="@+id/createAccountUsername"
+        android:id="@+id/updateAccountUsername"
         android:layout_width="223dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -71,7 +72,7 @@
         app:layout_constraintVertical_bias="0.538" />
 
     <EditText
-        android:id="@+id/createAccountPassword"
+        android:id="@+id/updateAccountPassword"
         android:layout_width="223dp"
         android:layout_height="wrap_content"
         android:autofillHints="password"
@@ -88,7 +89,7 @@
         app:layout_constraintVertical_bias="0.609" />
 
     <EditText
-        android:id="@+id/createAccountConfirmPassword"
+        android:id="@+id/updateAccountConfirmPassword"
         android:layout_width="223dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -105,13 +106,25 @@
         app:layout_constraintVertical_bias="0.679" />
 
     <Button
-        android:id="@+id/createAccountButton"
+        android:id="@+id/updateAccountButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="144dp"
-        android:text="@string/create_account_btn_label"
+        android:text="Update Account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/updateAccountDescription"
+        android:layout_width="322dp"
+        android:layout_height="wrap_content"
+        android:text="Any field left blank will be unchanged when you update your account."
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/updateAccountFirstName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createAccountTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

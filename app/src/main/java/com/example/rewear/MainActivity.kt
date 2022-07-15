@@ -1,15 +1,12 @@
 package com.example.rewear
 
 import android.os.Bundle
-import android.text.TextUtils.replace
 import android.util.Log
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.example.rewear.groups.GroupsFragment
-import com.example.rewear.profile.*
 import androidx.fragment.app.Fragment
+import com.example.rewear.editProfile.EditProfileActivity
+import com.example.rewear.groups.GroupsFragment
 import com.example.rewear.viewUser.ProfileFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){
@@ -22,8 +19,14 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val bundle = Bundle()
+        bundle.putString("user_id", intent.getStringExtra("user_id"))
+
         val groupsFragment = GroupsFragment()
         val profileFragment = ProfileFragment()
+        val editProfileActivity = EditProfileActivity()
+
+        profileFragment.arguments = bundle
         setsCurrentFragment(groupsFragment)
 
         bottom_navigation?.setOnItemSelectedListener{
@@ -36,9 +39,6 @@ class MainActivity : AppCompatActivity(){
                     setsCurrentFragment(profileFragment)
                     Log.d(TAG, "Profile SELECTED")
                 }
-
-
-
             }
 
             return@setOnItemSelectedListener true
