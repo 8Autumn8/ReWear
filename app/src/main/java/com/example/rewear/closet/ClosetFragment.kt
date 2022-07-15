@@ -12,6 +12,7 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rewear.ClosetAdaptorClass
 import com.example.rewear.GroupsAdaptorClass
 import com.example.rewear.R
 import com.example.rewear.addClothes.AddClothesActivity
@@ -25,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_groups.description
 class ClosetFragment : Fragment(), ClosetContract.View{
     private val presenter = ClosetPresenter(this)
     var id: Int? = null
-    private var closetAdaptor: GroupsAdaptorClass? = null
+    private var closetAdaptor: ClosetAdaptorClass? = null
     var rvCloset: RecyclerView? = null
     var btnAddPicture: Button? =  null
 
@@ -58,7 +59,7 @@ class ClosetFragment : Fragment(), ClosetContract.View{
         //Initialize controls
         rvCloset = getView()?.findViewById<RecyclerView>(com.example.rewear.R.id.recycler_view)
 
-        closetAdaptor = GroupsAdaptorClass()
+        closetAdaptor = ClosetAdaptorClass()
         rvCloset?.adapter = closetAdaptor
         rvCloset!!.layoutManager = LinearLayoutManager(activity)
 
@@ -81,7 +82,7 @@ class ClosetFragment : Fragment(), ClosetContract.View{
 
                 if(spinnerCloset.selectedItem.toString() != "All"){
                     description.text = dropDownData[spinnerCloset.selectedItemPosition-1].description
-                    closetAdaptor!!.setData(dropDownData[spinnerCloset.selectedItemPosition-1].category_id,id.toInt())
+                    closetAdaptor!!.setData(dropDownData[spinnerCloset.selectedItemPosition-1].category_id!!)
                     closetAdaptor!!.notifyDataSetChanged()
                 }
             }

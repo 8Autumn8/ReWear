@@ -131,7 +131,7 @@ INSERT INTO ClothesCategory Values(1,1,"CATEGORY", "Description");
 CREATE TABLE Clothes (
     clothes_id INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
-    clothes_pic BLOB NOT NULL,
+    clothes_pic VARBINARY(65000) NOT NULL,
     clothes_desc VARCHAR(256) NOT NULL,
     date_created DATE NOT NULL,
 

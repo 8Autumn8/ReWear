@@ -7,9 +7,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.sql.ResultSet
 import java.sql.Statement
-import java.text.SimpleDateFormat
-import java.util.*
 import com.example.rewear.Utility
+import java.io.ByteArrayInputStream
+import java.sql.Blob
+import java.sql.PreparedStatement
 
 
 class ClothesDB: ClothesInterface, GenerateConnection() {
@@ -19,8 +20,10 @@ class ClothesDB: ClothesInterface, GenerateConnection() {
             val conn = createConnection() ?: return@launch
             //getData
             val st: Statement = conn!!.createStatement()
-            st.execute("INSERT INTO Clothes(clothes_id,user_id,clothes_pic,clothes_desc,date_created) " +
-                    "VALUES (${clothesObject.clothes_id},${clothesObject.user_id}, ${clothesObject.clothes_pic}, ${clothesObject.clothes_desc}, ${clothesObject.date_created});")
+
+
+            st.execute("INSERT INTO Clothes(user_id,clothes_pic,clothes_desc,date_created) " +
+                   "VALUES ('${clothesObject.user_id}', '${clothesObject.clothes_pic}' , '${clothesObject.clothes_desc}', '2008-11-11');")
 
         }
         runBlocking { job.join() }
@@ -49,12 +52,15 @@ class ClothesDB: ClothesInterface, GenerateConnection() {
                     "WHERE clothes_id = '${clothes_id}'"
             )
 
-            if (rs.next()) {
+            while (rs != null && rs.next()) {
                 //NEED TO ADD ON TO THIS
+                var blob:Blob = rs.getBlob(3)
                 clothes = ClothesData(
                     Integer.parseInt(rs.getString(1).toString()),
                     Integer.parseInt(rs.getString(2).toString()),
-                    utility.convert(rs.getBlob(3)),
+
+
+                    blob.getBytes(1L, blob.length().toInt()),
                     rs.getString(4).toString(),
                     utility.parseDate(rs.getString(5).toString())
                 )
@@ -81,4 +87,36 @@ class ClothesDB: ClothesInterface, GenerateConnection() {
         }
         runBlocking { job.join() }
     }
+
+    override fun getClothesByID(clothesCategory: Int) : List<ClothesData>? {
+        var toReturn: MutableList<ClothesData>? = mutableListOf()
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            val conn = createConnection() ?: return@launch
+            val rs: ResultSet?
+            val st: Statement = conn!!.createStatement()
+            rs = st.executeQuery(
+                "SELECT Clothes.* " +
+                        "FROM Clothes, ClothesBelongsTo " +
+                        "WHERE Clothes.clothes_id = ClothesBelongsTo.clothes_id " +
+                        "AND ClothesBelongsTo.category_id = '${clothesCategory}'"
+            )
+
+            while (rs != null && rs.next()) {
+                val blob: Blob? = rs.getBlob(3)
+                //NEED TO ADD ON TO THIS
+                toReturn!!.add(
+                    ClothesData(
+                        Integer.parseInt(rs.getString(1).toString()),
+                        Integer.parseInt(rs.getString(2).toString()),
+                        rs.getArray(3)),
+                        rs.getString(4).toString(),
+                        rs.getString(5).toString()
+                    )
+                )
+            }
+        }
+        runBlocking { job.join() }
+        return toReturn
+    }
+
 }

@@ -6,6 +6,11 @@ class AddClothesContract {
     }
 
     interface Presenter {
+        fun addClothes( user_id: Int?,
+                        img: ByteArray,
+                        clothes_desc: String?,
+                        date_created: String){
 
+        }
     }
 }

@@ -34,6 +34,24 @@
         android:layout_marginTop="10dp"
         android:text="Add To Closet" />
 
+    <Button
+        android:id="@+id/addNumTwo"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="+" />
+
+    <ImageView
+        android:id="@+id/ivReceipt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ibCamera"
+        android:layout_marginTop="0dp"
+        android:layout_centerHorizontal="true"
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="ClothingPicture"/>
+
 </LinearLayout>
 
 

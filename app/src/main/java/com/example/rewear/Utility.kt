@@ -1,7 +1,5 @@
 package com.example.rewear
 
-import java.io.ByteArrayOutputStream
-import java.io.InputStream
 import java.sql.Blob
 import java.text.SimpleDateFormat
 import java.util.*
@@ -17,12 +15,9 @@ class Utility {
     }
 
     fun convert(blob: Blob): ByteArray {
-
-
-        val blobLength = blob.length() as Int
-        val blobAsBytes: ByteArray = blob.getBytes(1, blobLength)
+        val bytes = blob.getBytes(1L, blob.length().toInt())
         blob.free()
-        return blobAsBytes
+        return bytes
     }
 
 }
