@@ -95,8 +95,11 @@ class UserDB : UserInterface, GenerateConnection(){
             conn = createConnection() ?: return@launch
 
             val st: Statement = conn!!.createStatement()
-            st.execute("UPDATE User" +
-                       "SET first_name = '${updatedUser.first_name}', last_name = '${updatedUser.last_name}', username = '${updatedUser.username}', password = '${updatedUser.password}' " +
+            st.executeUpdate("UPDATE User " +
+                       "SET first_name = '${updatedUser.first_name}', " +
+                           "last_name = '${updatedUser.last_name}', " +
+                           "username = '${updatedUser.username}', " +
+                           "password = '${updatedUser.password}' " +
                        "WHERE user_id = ${updatedUser.user_id};"
             )
         }

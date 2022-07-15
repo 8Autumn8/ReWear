@@ -9,5 +9,6 @@ interface ProfileContract {
     }
     interface Presenter {
         fun getCurrentUser(userID: Int): UserData
+        fun deleteCurrentUser(userID: Int)
     }
 }

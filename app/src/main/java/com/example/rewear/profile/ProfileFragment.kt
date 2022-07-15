@@ -1,5 +1,6 @@
 package com.example.rewear.viewUser
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,9 +11,9 @@ import android.widget.TextView
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.example.rewear.R
+import com.example.rewear.editProfile.EditProfileActivity
+import com.example.rewear.login.LoginActivity
 import com.example.rewear.profile.ProfileContract
 import com.example.rewear.profile.ProfilePresenter
 
@@ -56,9 +57,24 @@ class ProfileFragment : Fragment(), ProfileContract.View  {
             }
         }
 
-        // go to the edit
+        // go to the edit user info page when this button is pressed
         view.findViewById<Button>(R.id.editUserInformationButton).setOnClickListener {
-            // go to the EditProfileFragment
+
+            // i could probably turn this into a function but i'm lazy.
+            val intent = Intent(activity, EditProfileActivity::class.java)
+            intent.putExtra("user_id", currentUser.user_id.toString())
+            startActivity(intent)
+            (activity as Activity).overridePendingTransition(0, 0)
+        }
+
+        // delete the user and take them back to the login page
+        view.findViewById<Button>(R.id.deleteUserButton).setOnClickListener {
+            presenter?.deleteCurrentUser(currentUser.user_id!!)
+
+            val intent = Intent(activity, LoginActivity::class.java)
+            intent.putExtra("user_id", currentUser.user_id.toString())
+            startActivity(intent)
+            (activity as Activity).overridePendingTransition(0, 0)
         }
     }
 }

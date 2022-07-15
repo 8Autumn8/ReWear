@@ -13,4 +13,8 @@ class ProfilePresenter(
         // user should already exist at this point, so it should return a non-null value
         return db.getUserByID(userID)!!
     }
+
+    override fun deleteCurrentUser(userID: Int) {
+        db.deleteUser(userID)
+    }
 }
