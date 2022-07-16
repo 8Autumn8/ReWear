@@ -2,55 +2,131 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/firstRow"
-    android:orientation="vertical"
-    tools:context=".addClothes.AddClothesActivity"
+    android:id="@+id/Rows"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
-    <ImageButton
-        android:id="@+id/ibCamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spPaymentMethod"
-        android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/ic_baseline_camera_24"
-        android:contentDescription="takePicture"/>
+    android:orientation="vertical"
+    tools:context=".addClothes.AddClothesActivity">
+
+    <LinearLayout
+        android:id="@+id/firstRow"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
 
-    <ImageView
-        android:id="@+id/ivReceipt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ibCamera"
-        android:layout_marginTop="0dp"
-        android:layout_centerHorizontal="true"
-        tools:srcCompat="@tools:sample/avatars"
-        android:contentDescription="ClothingPicture"/>
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed-light"
+            android:textSize="50dp"
+            android:autoSizeTextType="uniform"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:text="Edit Clothing" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btAddExpense"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Add To Closet" />
+    <LinearLayout
+        android:id="@+id/secondRow"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/addNumTwo"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="+" />
+        <LinearLayout
+            android:id="@+id/columnInSecondRow"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
 
-    <ImageView
-        android:id="@+id/ivReceipt2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ibCamera"
-        android:layout_marginTop="0dp"
-        android:layout_centerHorizontal="true"
-        tools:srcCompat="@tools:sample/avatars"
-        android:contentDescription="ClothingPicture"/>
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivReceipt"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_below="@id/ibCamera"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="0dp"
+                android:contentDescription="ClothingPicture"
+                tools:srcCompat="@drawable/no_image_icon_6" />
+
+            <ImageButton
+                android:id="@+id/ibCamera"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:contentDescription="takePicture"
+                app:srcCompat="@drawable/ic_baseline_camera_24" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/secondColumnInSecondRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity = "center"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_margin="1dp"
+                android:background="#FFEBCD"
+                android:gravity="top"
+                android:hint="description"
+                android:inputType="text|textMultiLine|textCapSentences"
+                android:padding="10dp"
+                android:paddingLeft="5sp"
+                android:textSize="26sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/thirdRow"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="150dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/dateAdded"
+            android:layout_marginLeft="10dp"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="Date Added to Closet (unchangable): " />
+
+        <CheckBox
+            android:id="@+id/woreToday"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="I wore this today." />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fourthRow"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btAddClothes"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Add To Closet" />
+    </LinearLayout>
+
 
 </LinearLayout>
 

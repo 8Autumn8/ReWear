@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS Picture;
 DROP TABLE IF EXISTS UserBelongsTo;
 DROP TABLE IF EXISTS Groups;
 DROP TABLE IF EXISTS User;
+DROP TRIGGER IF EXISTS delgroup;
 
 #Entity
 CREATE TABLE User (
@@ -131,7 +132,7 @@ INSERT INTO ClothesCategory Values(1,1,"CATEGORY", "Description");
 CREATE TABLE Clothes (
     clothes_id INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
-    clothes_pic VARBINARY(65000) NOT NULL,
+    clothes_pic longblob NOT NULL,
     clothes_desc VARCHAR(256) NOT NULL,
     date_created DATE NOT NULL,
 
@@ -172,13 +173,29 @@ CREATE TABLE DateWorn (
 
 INSERT INTO DateWorn VALUES(1,'2008-11-11');
 
-INSERT INTO User VALUES (2,'TWO','TWO', 'TWO', 'TWO!');
-INSERT INTO UserBelongsTo VALUES (1, 2);
+#INSERT INTO User VALUES (2,'TWO','TWO', 'TWO', 'TWO!');
+#INSERT INTO UserBelongsTo VALUES (1, 2);
 
-INSERT INTO Picture VALUES (3, 14, 'blob', 'CAPTION', '2008-11-11');
-INSERT INTO PictureGroup VALUES (2, 1);
-INSERT INTO Liked Values (2,1);
-INSERT INTO Liked Values (1,2);
+#INSERT INTO Picture VALUES (3, 14, 'blob', 'CAPTION', '2008-11-11');
+#INSERT INTO PictureGroup VALUES (2, 1);
+#INSERT INTO Liked Values (2,1);
+#INSERT INTO Liked Values (1,2);
+
+
+#Trigger for deleting groups that have no one in the group
+
+DELIMITER //
+CREATE TRIGGER delgroup
+    AFTER DELETE
+    ON User FOR EACH ROW
+BEGIN
+    DELETE FROM Groups
+    WHERE group_id NOT IN (
+    SELECT group_id
+    FROM UserBelongsTo
+    GROUP BY group_id);
+END; //
+DELIMITER ;
 
 
 

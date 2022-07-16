@@ -8,6 +8,7 @@ plugins {
 }
 
 android {
+
     compileSdk 32
 
     defaultConfig {
@@ -33,6 +34,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
 }
 
 dependencies {

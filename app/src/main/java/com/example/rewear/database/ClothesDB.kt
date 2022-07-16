@@ -19,11 +19,16 @@ class ClothesDB: ClothesInterface, GenerateConnection() {
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
             //getData
+            val query = "INSERT INTO Clothes (user_id, clothes_pic, clothes_desc, date_created) VALUES (?,?,?,?);"
             val st: Statement = conn!!.createStatement()
+            val pstmt: PreparedStatement = conn.prepareStatement(query)
+            pstmt.setInt(1, clothesObject.user_id!!)
+            pstmt.setBytes(2, clothesObject.clothes_pic!!)
+            pstmt.setString(3, clothesObject.clothes_desc!!)
+            pstmt.setString(4, clothesObject.date_created!!)
+            pstmt.execute()
 
 
-            st.execute("INSERT INTO Clothes(user_id,clothes_pic,clothes_desc,date_created) " +
-                   "VALUES ('${clothesObject.user_id}', '${clothesObject.clothes_pic}' , '${clothesObject.clothes_desc}', '2008-11-11');")
 
         }
         runBlocking { job.join() }
@@ -108,7 +113,7 @@ class ClothesDB: ClothesInterface, GenerateConnection() {
                     ClothesData(
                         Integer.parseInt(rs.getString(1).toString()),
                         Integer.parseInt(rs.getString(2).toString()),
-                        rs.getArray(3)),
+                        rs.getBytes(3),
                         rs.getString(4).toString(),
                         rs.getString(5).toString()
                     )

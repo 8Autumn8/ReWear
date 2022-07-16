@@ -47,7 +47,9 @@ class ClosetAdaptorClass : RecyclerView.Adapter<ClosetAdaptorClass.ViewHolder>()
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
 
         if (clothesData!![i].clothes_pic != null){
-            viewHolder.clothingPicture.setImageBitmap(BitmapFactory.decodeByteArray(clothesData!![i].clothes_pic, 0, clothesData!![i].clothes_pic!!.size));
+            val blob: ByteArray = clothesData!![i].clothes_pic!!
+            viewHolder.clothingPicture.setImageBitmap( BitmapFactory.decodeByteArray(blob, 0, blob!!.size)
+            )
 
         }
 
