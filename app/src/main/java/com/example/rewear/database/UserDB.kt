@@ -43,6 +43,29 @@ class UserDB : UserInterface, GenerateConnection(){
         return user
     }
 
+    override fun getUserByID(userID: Int): UserData? {
+        var user: UserData? = null
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            conn = createConnection() ?: return@launch
+            val statement = conn!!.createStatement()
+            val result_set = statement.executeQuery("SELECT * " +
+                    "FROM User " +
+                    "WHERE user_id = $userID")
+
+            if (result_set.next()) {
+                user = UserData(
+                    Integer.parseInt(result_set.getString(1).toString()),
+                    result_set.getString(2).toString(),
+                    result_set.getString(3).toString(),
+                    result_set.getString(4).toString(),
+                    result_set.getString(5).toString()
+                )
+            }
+        }
+        runBlocking { job.join() }
+        return user
+    }
+
     /**
      * Adds a user into the database
      * @param user The user to add
@@ -72,8 +95,11 @@ class UserDB : UserInterface, GenerateConnection(){
             conn = createConnection() ?: return@launch
 
             val st: Statement = conn!!.createStatement()
-            st.execute("UPDATE User" +
-                       "SET first_name = '${updatedUser.first_name}', last_name = '${updatedUser.last_name}', username = '${updatedUser.username}', password = '${updatedUser.password}' " +
+            st.executeUpdate("UPDATE User " +
+                       "SET first_name = '${updatedUser.first_name}', " +
+                           "last_name = '${updatedUser.last_name}', " +
+                           "username = '${updatedUser.username}', " +
+                           "password = '${updatedUser.password}' " +
                        "WHERE user_id = ${updatedUser.user_id};"
             )
         }

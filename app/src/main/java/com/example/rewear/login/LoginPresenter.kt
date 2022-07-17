@@ -12,11 +12,10 @@ class LoginPresenter(
 
     override fun verifyUser(userField:String, pwdField:String) : Int{
         val compareUser: UserData? = db.getUser(userField)
-        var toReturn = -1
+        var uid = -1
         if ((compareUser != null) && (compareUser.username == userField) && (compareUser.password == pwdField)){
-            toReturn = compareUser!!.user_id!!
+            uid = compareUser!!.user_id!!
         }
-        return toReturn
-
-     }
+        return uid
+    }
 }

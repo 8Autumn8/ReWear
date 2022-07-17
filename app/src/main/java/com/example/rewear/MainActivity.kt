@@ -1,14 +1,15 @@
 package com.example.rewear
 
 import android.os.Bundle
+import android.text.TextUtils.replace
 import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import com.example.rewear.groups.ClosetFragment
 import com.example.rewear.groups.GroupsFragment
-import com.example.rewear.leaderboard.LeaderboardFragment
-import com.example.rewear.stats.StatsFragment
+import com.example.rewear.profile.*
+import androidx.fragment.app.Fragment
 import com.example.rewear.viewUser.ProfileFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){
@@ -20,25 +21,10 @@ class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val id: String? = intent.getStringExtra("user_id")
-
-        val bundle = Bundle()
-        bundle.putString("user_id", id)
 
         val groupsFragment = GroupsFragment()
         val profileFragment = ProfileFragment()
-        val closetFragment = ClosetFragment()
-        val statsFragment = StatsFragment()
-        val leaderboardFragment = LeaderboardFragment()
-
-        groupsFragment.setArguments(bundle)
-        profileFragment.setArguments(bundle)
-        closetFragment.setArguments(bundle)
-        statsFragment.setArguments(bundle)
-        leaderboardFragment.setArguments(bundle)
-
-
-        setsCurrentFragment(closetFragment)
+        setsCurrentFragment(groupsFragment)
 
         bottom_navigation?.setOnItemSelectedListener{
             when(it.itemId){
@@ -50,6 +36,7 @@ class MainActivity : AppCompatActivity(){
                     setsCurrentFragment(profileFragment)
                     Log.d(TAG, "Profile SELECTED")
                 }
+
                 R.id.nav_closet -> {
                     setsCurrentFragment(closetFragment)
                     Log.d(TAG, "CLOSET SELECTED")
@@ -63,6 +50,7 @@ class MainActivity : AppCompatActivity(){
                     setsCurrentFragment(leaderboardFragment)
                     Log.d(TAG, "LeaderBoard SELECTED")
                 }
+
             }
 
             return@setOnItemSelectedListener true

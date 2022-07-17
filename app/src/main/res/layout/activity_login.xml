@@ -26,24 +26,26 @@
         android:id="@+id/txtUserNameLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:autofillHints="username"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
         android:ems="10"
-        android:hint="@string/username"
         android:inputType="textPersonName"
-        android:text="userNumOne" />
+        android:text=""
+        android:hint="@string/username"
+        android:autofillHints="username"
+        />
 
     <EditText
+        android:hint="@string/password"
         android:id="@+id/pwdLogin"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_below="@+id/txtUserNameLogin"
-        android:layout_centerInParent="true"
-        android:autofillHints="username"
         android:ems="10"
-        android:hint="@string/password"
-        android:text = "testpassword!"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:autofillHints="username" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -58,26 +60,11 @@
         android:id="@+id/imageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:scaleType="fitXY"
         android:layout_below="@+id/titleName"
         android:layout_centerHorizontal="true"
-        android:contentDescription="@string/rewear_logo"
-        android:scaleType="fitXY"
-        tools:src="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/forgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="@string/forgot_password"
-        android:textAlignment="center"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/pwdLogin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:src="@tools:sample/avatars"
+        android:contentDescription="@string/rewear_logo"/>
     <TextView
         android:id="@+id/createAccount"
         android:layout_width="wrap_content"
@@ -87,7 +74,7 @@
         android:textAlignment="center"
         android:textSize="12sp"
         android:textStyle="bold"
-        android:layout_below="@+id/forgotPassword"
+        android:layout_below="@+id/pwdLogin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
