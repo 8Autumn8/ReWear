@@ -32,14 +32,7 @@
         <activity
             android:name=".login.LoginActivity"
             android:exported="true" >
-        </activity>
-        <activity
-            android:name=".clothestracking.ClothesTrackingActivity"
-            android:exported="true" >
-        </activity>
-        <activity
-            android:name=".createUser.CreateUserActivity"
-            android:exported="true" >
+
 
             <!-- Main screen that opens when you run android app -->
             <intent-filter>
@@ -48,6 +41,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <!-- END -->
+        </activity>
+        <activity
+            android:name=".clothestracking.ClothesTrackingActivity"
+            android:exported="true" >
+        </activity>
+        <activity
+            android:name=".createUser.CreateUserActivity"
+            android:exported="true" >
 
         </activity>
         <activity
