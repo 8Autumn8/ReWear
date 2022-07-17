@@ -1,25 +1,34 @@
 package com.example.rewear.database
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.example.rewear.objects.ClothesData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.sql.Date
 import java.sql.ResultSet
 import java.sql.Statement
+import com.example.rewear.Utility
+import java.io.ByteArrayInputStream
+import java.sql.Blob
+import java.sql.PreparedStatement
 
 
 class ClothesDB: ClothesInterface, GenerateConnection() {
+    val utility = Utility()
     override fun addClothes(clothesObject: ClothesData){
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
             //getData
+            val query = "INSERT INTO Clothes (user_id, clothes_pic, clothes_desc, date_created) VALUES (?,?,?,?);"
             val st: Statement = conn!!.createStatement()
-            st.execute("INSERT INTO Clothes(clothes_id,user_id,clothes_pic,clothes_desc,date_created) " +
-                    "VALUES (${clothesObject.clothes_id},${clothesObject.user_id}, ${clothesObject.clothes_pic}, ${clothesObject.clothes_desc}, ${clothesObject.date_created});")
+            val pstmt: PreparedStatement = conn.prepareStatement(query)
+            pstmt.setInt(1, clothesObject.user_id!!)
+            pstmt.setBytes(2, clothesObject.clothes_pic!!)
+            pstmt.setString(3, clothesObject.clothes_desc!!)
+            pstmt.setString(4, clothesObject.date_created!!)
+            pstmt.execute()
+
+
 
         }
         runBlocking { job.join() }
@@ -48,14 +57,17 @@ class ClothesDB: ClothesInterface, GenerateConnection() {
                     "WHERE clothes_id = '${clothes_id}'"
             )
 
-            if (rs.next()) {
+            while (rs != null && rs.next()) {
                 //NEED TO ADD ON TO THIS
+                var blob:Blob = rs.getBlob(3)
                 clothes = ClothesData(
                     Integer.parseInt(rs.getString(1).toString()),
                     Integer.parseInt(rs.getString(2).toString()),
-                    rs.getString(3).toString(),
+
+
+                    blob.getBytes(1L, blob.length().toInt()),
                     rs.getString(4).toString(),
-                    null
+                    utility.parseDate(rs.getString(5).toString())
                 )
             }
         }
@@ -80,4 +92,36 @@ class ClothesDB: ClothesInterface, GenerateConnection() {
         }
         runBlocking { job.join() }
     }
+
+    override fun getClothesByID(clothesCategory: Int) : List<ClothesData>? {
+        var toReturn: MutableList<ClothesData>? = mutableListOf()
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            val conn = createConnection() ?: return@launch
+            val rs: ResultSet?
+            val st: Statement = conn!!.createStatement()
+            rs = st.executeQuery(
+                "SELECT Clothes.* " +
+                        "FROM Clothes, ClothesBelongsTo " +
+                        "WHERE Clothes.clothes_id = ClothesBelongsTo.clothes_id " +
+                        "AND ClothesBelongsTo.category_id = '${clothesCategory}'"
+            )
+
+            while (rs != null && rs.next()) {
+                val blob: Blob? = rs.getBlob(3)
+                //NEED TO ADD ON TO THIS
+                toReturn!!.add(
+                    ClothesData(
+                        Integer.parseInt(rs.getString(1).toString()),
+                        Integer.parseInt(rs.getString(2).toString()),
+                        rs.getBytes(3),
+                        rs.getString(4).toString(),
+                        rs.getString(5).toString()
+                    )
+                )
+            }
+        }
+        runBlocking { job.join() }
+        return toReturn
+    }
+
 }

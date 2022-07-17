@@ -41,7 +41,7 @@ class ClothesCategoryDB : ClothesCategoryInterface, GenerateConnection() {
 
             while (rs != null && rs.next()) {
                 toReturn = ClothesCategoryData(Integer.parseInt(rs.getString(1).toString()),
-                    Integer.parseInt(rs.getString(2).toString()),rs.getString(3).toString())
+                    Integer.parseInt(rs.getString(2).toString()),rs.getString(3).toString(),rs.getString(4).toString())
             }
 
         }
@@ -55,10 +55,31 @@ class ClothesCategoryDB : ClothesCategoryInterface, GenerateConnection() {
 
             val st: Statement = conn!!.createStatement()
             st.execute("UPDATE ClothesCategory " +
-                    "SET user_id = '${clothescategory.user_id}', name = '${clothescategory.name}' " +
+                    "SET user_id = '${clothescategory.user_id}', name = '${clothescategory.name}, description = '${clothescategory.description},' " +
                     "WHERE category_id = ${clothescategory.category_id};"
             )
         }
         runBlocking { job.join() }
     }
+
+
+    override fun getClothesCategoryByUserID(user_id: Int) : List<ClothesCategoryData>?{
+        var toReturn: MutableList<ClothesCategoryData>? = mutableListOf()
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            val conn = createConnection() ?: return@launch
+
+            val rs: ResultSet? = conn!!.createStatement().executeQuery("SELECT * " +
+                    "FROM ClothesCategory " +
+                    "WHERE user_id = " + user_id)
+
+            while (rs != null && rs.next()) {
+                toReturn!!.add(ClothesCategoryData(Integer.parseInt(rs.getString(1).toString()),
+                    Integer.parseInt(rs.getString(2).toString()),rs.getString(3).toString(),rs.getString(4).toString()))
+            }
+
+        }
+        runBlocking { job.join() }
+        return toReturn
+    }
+
 }

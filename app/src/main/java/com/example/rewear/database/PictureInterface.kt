@@ -8,6 +8,6 @@ interface PictureInterface {
 
     fun addPicture(pictureData: PictureData)
     fun deletePicture(picture_id: Int)
-
+    fun getPictureByGroup(group_id:Int) : List<PictureData>?
      fun updatePicture(pictureData: PictureData)
 }

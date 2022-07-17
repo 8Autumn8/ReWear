@@ -36,7 +36,7 @@ class UserBelongsToDB : UserBelongsToInterface, GenerateConnection(){
             if (conn == null)
                 return@launch
 
-            conn!!.createStatement().execute("INSERT INTO BelongsTo(group_id, username) " +
+            conn!!.createStatement().executeUpdate("INSERT INTO BelongsTo(group_id, username) " +
                     "VALUES ('${belongsTo.group_id}', '${belongsTo.user_id}")
         }
         runBlocking { job.join() }
@@ -48,7 +48,7 @@ class UserBelongsToDB : UserBelongsToInterface, GenerateConnection(){
             if (conn == null)
                 return@launch
 
-            conn!!.createStatement().execute("DELETE FROM UserBelongsTo " +
+            conn!!.createStatement().executeUpdate("DELETE FROM UserBelongsTo " +
                                              "WHERE user_id = ${belongsTo.user_id} AND group_id = ${belongsTo.group_id}"  )
         }
         runBlocking { job.join() }

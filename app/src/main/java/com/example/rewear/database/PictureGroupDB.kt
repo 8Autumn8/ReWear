@@ -16,7 +16,7 @@ class PictureGroupDB:PictureGroupInterface,GenerateConnection() {
             val conn = createConnection() ?: return@launch
             //getData
             val st: Statement = conn!!.createStatement()
-            st.execute("INSERT INTO PictureGroupData(picture_id,group_id) " +
+            st.executeUpdate("INSERT INTO PictureGroupData(picture_id,group_id) " +
                     "VALUES (${picturegroup.picture_id},${picturegroup.group_id}; ")
 
         }
@@ -46,7 +46,7 @@ class PictureGroupDB:PictureGroupInterface,GenerateConnection() {
                     "WHERE group_id = '$group_id'; "
             )
 
-            if (rs.next()) {
+            while (rs != null && rs.next()) {
                 toReturn.add(
                     PictureGroupData(
                         Integer.parseInt(rs.getString(1).toString()),

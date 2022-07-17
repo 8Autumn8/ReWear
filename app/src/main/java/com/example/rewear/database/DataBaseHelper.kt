@@ -12,7 +12,8 @@ class DataBaseHelper(
     likedDB: LikedDB = LikedDB(),
     pictureDB: PictureDB = PictureDB(),
     pictureGroupDB: PictureGroupDB = PictureGroupDB(),
-    userDB: UserDB = UserDB()
+    userDB: UserDB = UserDB(),
+    clothesCategory: ClothesCategoryDB = ClothesCategoryDB()
 ) :
     UserBelongsToInterface by belongsToDB,
     ClothesInterface by clothesDB,
@@ -23,6 +24,7 @@ class DataBaseHelper(
     PictureInterface by pictureDB,
     PictureGroupInterface by pictureGroupDB,
     UserInterface by userDB,
+    ClothesCategoryInterface by clothesCategory,
     AppCompatActivity(){
 
 }

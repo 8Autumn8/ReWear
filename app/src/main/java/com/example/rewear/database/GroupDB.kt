@@ -2,6 +2,7 @@ package com.example.rewear.database
 
 import com.example.rewear.objects.DateWorn
 import com.example.rewear.objects.GroupsData
+import com.example.rewear.objects.PictureData
 import java.sql.Statement
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -69,4 +70,32 @@ class GroupDB : GroupInterface, GenerateConnection() {
         }
         runBlocking { job.join() }
     }
+
+    override fun getGroupsByUser(user_id: Int): List<GroupsData>?{
+        var toReturn: MutableList<GroupsData>? = mutableListOf()
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            val conn = createConnection() ?: return@launch
+            val rs: ResultSet?
+            val st: Statement = conn!!.createStatement()
+            rs = st.executeQuery(" SELECT Groups.* " +
+                    "FROM Groups, UserBelongsTo " +
+                    "WHERE Groups.group_id = UserBelongsTo.group_id " +
+                    "AND user_id = ${user_id}; "
+            )
+
+            while (rs != null && rs.next()) {
+                toReturn!!.add(
+                    GroupsData(Integer.parseInt(rs.getString(1).toString()),
+                    rs.getString(2).toString(),
+                    rs.getString(3).toString(),
+                    rs.getString(4).toString())
+                )
+            }
+        }
+        runBlocking { job.join() }  //Program will wait until job is done
+
+        return toReturn
+    }
+
+
 }
