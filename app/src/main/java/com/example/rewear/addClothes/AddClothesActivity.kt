@@ -1,37 +1,18 @@
 package com.example.rewear.addClothes
 
-import android.Manifest
-import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.os.Environment.getExternalStoragePublicDirectory
-import android.provider.MediaStore
-import android.util.Log
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import com.example.rewear.BuildConfig
 import com.example.rewear.R
-import com.example.rewear.database.DataBaseHelper
-import com.example.rewear.objects.ClothesData
 import kotlinx.android.synthetic.main.activity_add_clothes.*
-import kotlinx.android.synthetic.main.activity_clothes_tracking.*
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.card_closet.*
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 
@@ -53,7 +34,6 @@ class AddClothesActivity : AppCompatActivity(), AddClothesContract.View {
         registerTakePictureLauncher(tempImageUri) //Binds button to launch camera activity
 
         btAddClothes.setOnClickListener {
-
             if (imageView?.drawable != null) {
                 val bmTemp:Bitmap = (ivReceipt!!.drawable as BitmapDrawable).bitmap //(ivReceipt!!.drawable as BitmapDrawable) ivReceipt
                 val bos = ByteArrayOutputStream()
@@ -61,13 +41,8 @@ class AddClothesActivity : AppCompatActivity(), AddClothesContract.View {
                 val img: ByteArray = bos.toByteArray()
 
                 presenter.addClothes(1,img,"","2022-8-23")
-
-
             }
-
         }
-
-
     }
     private fun initTempUri(): Uri {
         //gets the temp_images dir
@@ -105,11 +80,5 @@ class AddClothesActivity : AppCompatActivity(), AddClothesContract.View {
         ibCamara!!.setOnClickListener {
             resultLauncher.launch(path) //launches the activity here
         }
-
-
     }
-
-
-
-
 }

@@ -1,19 +1,14 @@
 package com.example.rewear
 
 import android.os.Bundle
-import android.text.TextUtils.replace
 import android.util.Log
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.example.rewear.groups.GroupsFragment
-import com.example.rewear.profile.*
 import androidx.fragment.app.Fragment
-import com.example.rewear.editProfile.EditProfileActivity
 import com.example.rewear.groups.ClosetFragment
+import com.example.rewear.groups.GroupsFragment
 import com.example.rewear.leaderboard.LeaderboardFragment
 import com.example.rewear.stats.StatsFragment
 import com.example.rewear.viewUser.ProfileFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){
@@ -67,7 +62,6 @@ class MainActivity : AppCompatActivity(){
                     setsCurrentFragment(leaderboardFragment)
                     Log.d(TAG, "LeaderBoard SELECTED")
                 }
-
             }
 
             return@setOnItemSelectedListener true
