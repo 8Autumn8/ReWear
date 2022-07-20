@@ -1,5 +1,7 @@
 package com.example.rewear.database
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.rewear.objects.ClothesData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -11,6 +13,7 @@ import com.example.rewear.Utility
 import java.io.ByteArrayInputStream
 import java.sql.Blob
 import java.sql.PreparedStatement
+import java.time.LocalDateTime
 
 
 class ClothesDB: ClothesInterface, GenerateConnection() {
@@ -177,37 +180,6 @@ class ClothesDB: ClothesInterface, GenerateConnection() {
                         rs.getString(7).toString(),
                         rs.getInt(8),
                         rs.getString(9).toString()
-                    )
-                )
-            }
-        }
-        runBlocking { job.join() }
-        return toReturn
-    }
-
-    override fun getClothesByID(clothesCategory: Int) : List<ClothesData>? {
-        var toReturn: MutableList<ClothesData>? = mutableListOf()
-        val job = CoroutineScope(Dispatchers.IO).launch {
-            val conn = createConnection() ?: return@launch
-            val rs: ResultSet?
-            val st: Statement = conn!!.createStatement()
-            rs = st.executeQuery(
-                "SELECT Clothes.* " +
-                        "FROM Clothes, ClothesBelongsTo " +
-                        "WHERE Clothes.clothes_id = ClothesBelongsTo.clothes_id " +
-                        "AND ClothesBelongsTo.category_id = '${clothesCategory}'"
-            )
-
-            while (rs != null && rs.next()) {
-                val blob: Blob? = rs.getBlob(3)
-                //NEED TO ADD ON TO THIS
-                toReturn!!.add(
-                    ClothesData(
-                        Integer.parseInt(rs.getString(1).toString()),
-                        Integer.parseInt(rs.getString(2).toString()),
-                        rs.getBytes(3),
-                        rs.getString(4).toString(),
-                        rs.getString(5).toString()
                     )
                 )
             }

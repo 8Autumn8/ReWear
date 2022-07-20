@@ -11,8 +11,6 @@ interface ClothesInterface {
 
     fun updateClothes(clothesObject: ClothesData)
 
-    fun getClothesByID(clothesCategory: Int): List<ClothesData>?
-
     fun getClothesByClothesID(clothes_id: List<Int>?) : List<ClothesData>?
 
     fun getClothesByUserID(user_id: Int?) : List<ClothesData>?

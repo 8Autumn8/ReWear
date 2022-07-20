@@ -27,7 +27,7 @@ class StatsFragment : Fragment(), StatsContract.View {
         savedInstanceState: Bundle?
     ): View? {
         presenter = StatsPresenter(this)
-        user_id = Integer.parseInt(requireArguments().getString("user_id")!!)
+        user_id = requireArguments().getInt("user_id")
         return inflater.inflate(R.layout.fragment_stats, container, false)
     }
 
