@@ -6,15 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.rewear.R
 import com.example.rewear.objects.ClothesData
+import java.util.*
 
 
-class StatsFragment : Fragment(), StatsContract.View  {
+class StatsFragment : Fragment(), StatsContract.View {
     private lateinit var presenter: StatsContract.Presenter
-    var user_id: Int? = null
+    private var user_id: Int? = null
+    private var WEEK = 604800000L
+    private var MONTH = 2629800000L
+    private val DESC_MAX_LENGTH = 64
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,10 +33,30 @@ class StatsFragment : Fragment(), StatsContract.View  {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // If user_id is still null somehow, then send a toast and die
+        if (user_id == null) {
+            Toast.makeText(
+                context,
+                "Error retrieving user from database. Try again later",
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
 
         // ends function if mostWorn clothes was not found...
-        val mostWorn: ClothesData? = presenter.getMostWorn(Integer.parseInt(requireArguments().getString("user_id").toString())) ?: return
-        updateMostWornCard(view, mostWorn!!)
+        val mostWorn: ClothesData = presenter.getMostWorn(user_id!!) ?: return
+        updateMostWornCard(view, mostWorn)
+
+        // Gets the percentage of closet worn from date...
+        val percentWornLastWeek = presenter.getPercentageWornFromDate(user_id!!, java.sql.Date(Date().time - WEEK))
+        val percentWornLastMonth = presenter.getPercentageWornFromDate(user_id!!, java.sql.Date(Date().time - MONTH))
+
+        // update the progress bars
+        view.findViewById<ProgressBar>(R.id.percentWornLastWeekProgress).progress = percentWornLastWeek
+        view.findViewById<ProgressBar>(R.id.percentWornLastMonthProgress).progress = percentWornLastMonth
+
+        view.findViewById<TextView>(R.id.percentWornLastWeekProgressText).text = "$percentWornLastWeek"
+        view.findViewById<TextView>(R.id.percentWornLastMonthProgressText).text = "$percentWornLastMonth"
     }
 
     private fun updateMostWornCard(view: View, clothesData: ClothesData) {
@@ -38,12 +64,17 @@ class StatsFragment : Fragment(), StatsContract.View  {
         if (clothesData.clothes_pic == null) return
 
         // Update the image
-        var img = view.findViewById<ImageView>(R.id.mostWornImage)
-        var bitmap = BitmapFactory.decodeByteArray(clothesData.clothes_pic, 0, clothesData.clothes_pic!!.size)
+        val img = view.findViewById<ImageView>(R.id.mostWornImage)
+        val bitmap =
+            BitmapFactory.decodeByteArray(clothesData.clothes_pic, 0, clothesData.clothes_pic.size)
         img.setImageBitmap(bitmap)
 
         // Update the image description
-        view.findViewById<TextView>(R.id.mostWornImageDesc).text = clothesData.clothes_desc
+        var desc = clothesData.clothes_desc
+        if (clothesData.clothes_desc!!.length > DESC_MAX_LENGTH)
+            desc = clothesData.clothes_desc.substring(0, DESC_MAX_LENGTH)
+
+        view.findViewById<TextView>(R.id.mostWornImageDesc).text = desc
     }
 
     /*

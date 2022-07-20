@@ -32,10 +32,10 @@
         app:layout_constraintTop_toBottomOf="@id/statsTitle"
         app:layout_constraintVertical_bias="0.2" />
 
-<!--This section is a little hard to understand,
-     but essentially the % worn CardViews has a title, a
-     graphic depicting how much of the closet was worn in
-     that week / month-->
+    <!--This section is a little hard to understand,
+         but essentially the % worn CardViews has a title, a
+         graphic depicting how much of the closet was worn in
+         that week / month-->
     <androidx.cardview.widget.CardView
         android:id="@+id/percentWornLastWeekCard"
         android:layout_width="wrap_content"
@@ -64,17 +64,35 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-<!--Replace that ImageView with an actual graphic-->
-            <ImageView
-                android:id="@+id/percentWornLastWeekImage"
+            <!--Replace that ImageView with an actual graphic-->
+            <ProgressBar
+                android:id="@+id/percentWornLastWeekProgress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circular_shape"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/percentWornLastWeekTitle" />
+            <!--Text implementation in center of the progress bar-->
+            <TextView
+                android:id="@+id/percentWornLastWeekProgressText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="---"
+                android:textColor="@color/colorPrimary"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/percentWornLastWeekTitle"
-                tools:src="@tools:sample/avatars"
-                android:contentDescription="percentage of worn clothes in the last week" />
+                app:layout_constraintTop_toBottomOf="@id/percentWornLastWeekTitle" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -98,7 +116,7 @@
                 android:id="@+id/percentWornLastMonthTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="% Worn Last\nWeek"
+                android:text="% Worn Last\nMonth"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -107,30 +125,49 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-<!--Repalce that ImageView with an accurate graphic-->
-            <ImageView
-                android:id="@+id/percentWornLastMonthImage"
+            <!--Replace that ImageView with an accurate graphic-->
+            <ProgressBar
+                android:id="@+id/percentWornLastMonthProgress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circular_shape"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/percentWornLastMonthTitle" />
+            <!--Text implementation in center of the progress bar-->
+            <TextView
+                android:id="@+id/percentWornLastMonthProgressText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="---"
+                android:textColor="@color/colorPrimary"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/percentWornLastMonthTitle"
-                tools:src="@tools:sample/avatars" />
+                app:layout_constraintTop_toBottomOf="@id/percentWornLastMonthTitle" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-<!--    This CardView is special; it has its title, an image of the
-        most worn clothing, and a description of that clothing underneath.-->
+    <!--    This CardView is special; it has its title, an image of the
+            most worn clothing, and a description of that clothing underneath.-->
     <androidx.cardview.widget.CardView
         android:id="@+id/mostWornCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barrier"
-        app:cardBackgroundColor="@color/colorAccent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
@@ -157,23 +194,23 @@
                 android:id="@+id/mostWornImage"
                 android:layout_width="125dp"
                 android:layout_height="0dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mostWornTitle"
-                android:scaleType="centerCrop"
                 tools:src="@tools:sample/avatars" />
+
             <TextView
                 android:id="@+id/mostWornImageDesc"
                 android:layout_width="125dp"
-                android:textAlignment="center"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/mostWornImage"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:text="Nothing to see here!"
-                />
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mostWornImage" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
