@@ -58,6 +58,7 @@
                 android:layout_height="wrap_content"
                 android:text="% Worn Last\nWeek"
                 android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -67,12 +68,13 @@
             <!--Replace that ImageView with an actual graphic-->
             <ProgressBar
                 android:id="@+id/percentWornLastWeekProgress"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:background="@drawable/circular_shape"
                 android:indeterminate="false"
                 android:progressDrawable="@drawable/circular_progress_bar"
-                android:textAlignment="center"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -85,12 +87,12 @@
                 android:layout_centerVertical="true"
                 android:gravity="center"
                 android:text="---"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="28sp"
                 android:textStyle="bold"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/percentWornLastWeekTitle" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -120,6 +122,7 @@
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -128,12 +131,13 @@
             <!--Replace that ImageView with an accurate graphic-->
             <ProgressBar
                 android:id="@+id/percentWornLastMonthProgress"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/circular_shape"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:indeterminate="false"
+                android:background="@drawable/circular_shape"
                 android:progressDrawable="@drawable/circular_progress_bar"
-                android:textAlignment="center"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -146,7 +150,7 @@
                 android:layout_centerVertical="true"
                 android:gravity="center"
                 android:text="---"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -164,10 +168,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/colorAccent"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barrier">
+        app:layout_constraintTop_toBottomOf="@id/percentWornLastMonthCard">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
@@ -182,6 +187,8 @@
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,7 @@
 package com.example.rewear.stats
 
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.rewear.R
 import com.example.rewear.objects.ClothesData
@@ -31,6 +33,7 @@ class StatsFragment : Fragment(), StatsContract.View {
         return inflater.inflate(R.layout.fragment_stats, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // If user_id is still null somehow, then send a toast and die
@@ -66,13 +69,15 @@ class StatsFragment : Fragment(), StatsContract.View {
         // Update the image
         val img = view.findViewById<ImageView>(R.id.mostWornImage)
         val bitmap =
-            BitmapFactory.decodeByteArray(clothesData.clothes_pic, 0, clothesData!!.clothes_pic!!.size)
+            BitmapFactory.decodeByteArray(clothesData.clothes_pic, 0, clothesData.clothes_pic!!.size)
         img.setImageBitmap(bitmap)
 
         // Update the image description
         var desc = clothesData.clothes_desc
+
+        // makes sure clothing description isn't too long
         if (clothesData.clothes_desc!!.length > DESC_MAX_LENGTH)
-            desc = clothesData!!.clothes_desc!!.substring(0, DESC_MAX_LENGTH)
+            desc = clothesData.clothes_desc!!.substring(0, DESC_MAX_LENGTH)
 
         view.findViewById<TextView>(R.id.mostWornImageDesc).text = desc
     }
