@@ -124,4 +124,24 @@ class ClothesDB: ClothesInterface, GenerateConnection() {
         return toReturn
     }
 
+    override fun countClothes(user_id: Int): Int?{
+        var toReturn: Int = 0
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            val conn = createConnection() ?: return@launch
+            val rs: ResultSet?
+            val st: Statement = conn!!.createStatement()
+            rs = st.executeQuery("SELECT COUNT(Clothes.clothes_id) " +
+                    "FROM Clothes " +
+                    "WHERE clothes.user_id = ${user_id}"
+            )
+
+            if (rs != null && rs.next()) {
+                toReturn = rs.getInt(1)
+            }
+        }
+        runBlocking { job.join() }  //Program will wait until job is done
+
+        return toReturn
+    }
+
 }

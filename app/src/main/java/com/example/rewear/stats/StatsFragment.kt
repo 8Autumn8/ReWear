@@ -66,13 +66,13 @@ class StatsFragment : Fragment(), StatsContract.View {
         // Update the image
         val img = view.findViewById<ImageView>(R.id.mostWornImage)
         val bitmap =
-            BitmapFactory.decodeByteArray(clothesData.clothes_pic, 0, clothesData.clothes_pic.size)
+            BitmapFactory.decodeByteArray(clothesData.clothes_pic, 0, clothesData!!.clothes_pic!!.size)
         img.setImageBitmap(bitmap)
 
         // Update the image description
         var desc = clothesData.clothes_desc
         if (clothesData.clothes_desc!!.length > DESC_MAX_LENGTH)
-            desc = clothesData.clothes_desc.substring(0, DESC_MAX_LENGTH)
+            desc = clothesData!!.clothes_desc!!.substring(0, DESC_MAX_LENGTH)
 
         view.findViewById<TextView>(R.id.mostWornImageDesc).text = desc
     }
