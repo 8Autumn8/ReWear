@@ -10,6 +10,6 @@ class EditClothesPresenter(
     private val db: DataBaseHelper = DataBaseHelper()
 ) : EditClothesContract.Presenter {
     override fun editClothes(clothesRecord: ClothesData) {
-    db.addClothes(clothesRecord)
+        db.updateClothes(clothesRecord)
     }
 }

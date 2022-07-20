@@ -32,9 +32,8 @@ class ProfileFragment : Fragment(), ProfileContract.View  {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // this is an incredibly ugly statement.
-        Intent().getStringExtra("user_id")
-        val currentUser = presenter?.getCurrentUser(Integer.parseInt(requireArguments().getString("user_id").toString()))
+        // this is an incredibly ugly statement. (not anymore -belinda)
+        val currentUser = presenter?.getCurrentUser((requireArguments().getInt("user_id")))
 
         if (currentUser == null) {
             Toast.makeText(context,

@@ -5,10 +5,10 @@ import java.io.Serializable
 import java.sql.Blob
 
 data class ClothesData(
-    val clothes_id: Int? ,
+    val clothes_id: Int?,
     val user_id: Int?,
-    val clothes_pic: ByteArray?,
-    val clothes_desc: String?,
+    var clothes_pic: ByteArray?,
+    var clothes_desc: String?,
     val date_created: String?,
     val category_id: Int?,
     val category_name: String?,
@@ -37,6 +37,7 @@ data class ClothesData(
         "null",
         0,
         "9999-99-9");
+    constructor() : this(null, null,null,null,null,null,null,null,null)
 
 
 

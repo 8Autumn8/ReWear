@@ -12,6 +12,7 @@ import com.example.rewear.MainActivity
 import com.example.rewear.R
 import com.example.rewear.addEditClothes.AddEditClothesActivity
 import com.example.rewear.addEditClothes.AddEditClothesContract
+import kotlinx.android.synthetic.main.activity_add_edit_clothes.*
 import kotlinx.android.synthetic.main.fragment_addclothes.*
 import kotlinx.android.synthetic.main.fragment_editclothes.*
 
@@ -35,8 +36,8 @@ class EditClothesFragment : Fragment(), EditClothesContract.View{
             intent.putExtra("user_id", user_id)
             intent.putExtra("CURR_FRAG", "CLOSET")
             startActivity(intent)
-            (activity as Activity?)!!.overridePendingTransition(0, 0)
 
         }
+
     }
 }

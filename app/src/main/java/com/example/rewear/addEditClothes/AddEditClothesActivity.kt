@@ -52,11 +52,11 @@ class AddEditClothesActivity() : AppCompatActivity(), AddEditClothesContract.Vie
         initializeViews()
 
         val bundle = Bundle()
-        bundle.putInt("user_id", intent.getIntExtra("user_id",0))
+        bundle.putInt("user_id", clothesData!!.user_id!!)
         if (screenDisplay == 1) {
-            addClothes()
+            addClothes(bundle)
         } else if (screenDisplay == 0) {
-            editClothes()
+            editClothes(bundle)
             fillScreen()
         }
         contentFragment!!.arguments = bundle
@@ -118,15 +118,17 @@ class AddEditClothesActivity() : AppCompatActivity(), AddEditClothesContract.Vie
     }
 
 
-    private fun addClothes() {
+    private fun addClothes(bundle: Bundle) {
         contentFragment = AddClothesFragment()
+        contentFragment!!.arguments = bundle
         supportFragmentManager.beginTransaction().add(com.example.rewear.R.id.container, contentFragment!!).commit()
         dateAdded!!.text = dateAdded!!.text.toString() + Calendar.getInstance().time;
 
     }
 
-    private fun editClothes() {
+    private fun editClothes(bundle: Bundle) {
         contentFragment = EditClothesFragment()
+        contentFragment!!.arguments = bundle
         supportFragmentManager.beginTransaction().add(com.example.rewear.R.id.container, contentFragment!!).commit()
     }
 
@@ -139,8 +141,9 @@ class AddEditClothesActivity() : AppCompatActivity(), AddEditClothesContract.Vie
             bmTemp.compress(Bitmap.CompressFormat.JPEG, 100, bos)
              img = bos.toByteArray()
         }
-
-        return ClothesData(1, img, desc)
+        clothesData!!.clothes_desc = desc
+        clothesData!!.clothes_pic = img
+        return clothesData as ClothesData
     }
 
     private fun adaptor(){

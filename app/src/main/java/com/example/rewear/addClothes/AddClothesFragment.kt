@@ -40,8 +40,6 @@ class AddClothesFragment : Fragment(), AddClothesContract.View {
             intent.putExtra("user_id", user_id)
             intent.putExtra("CURR_FRAG", "CLOSET")
             startActivity(intent)
-            (activity as Activity?)!!.overridePendingTransition(0, 0)
-
         }
     }
 }

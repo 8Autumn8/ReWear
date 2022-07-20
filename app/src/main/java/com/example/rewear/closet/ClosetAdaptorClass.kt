@@ -91,7 +91,7 @@ class ClosetAdaptorClass(val categories: List<ClothesCategoryData>) :
     fun launchEditClothes(context:Context, position: Int){
         val intent = Intent(context, AddEditClothesActivity::class.java)
 
-        intent.putExtra("OBJECT", clothesData!![0])
+        intent.putExtra("OBJECT", clothesData!![position])
         intent.putExtra("screenDisplay", 0)
         val args = Bundle()
         args.putSerializable("ARRAYLIST", categories as Serializable?)

@@ -20,6 +20,8 @@ import com.example.rewear.closet.ClosetPresenter
 import com.example.rewear.objects.ClothesCategoryData
 import com.example.rewear.objects.ClothesData
 import kotlinx.android.synthetic.main.fragment_closet.*
+import kotlinx.android.synthetic.main.fragment_closet.addPicture
+import kotlinx.android.synthetic.main.fragment_groups.*
 import kotlinx.android.synthetic.main.fragment_groups.description
 import java.io.Serializable
 
@@ -37,6 +39,7 @@ class ClosetFragment : Fragment(), ClosetContract.View {
     ): View {
         user_id = requireArguments().getInt("user_id")
         dropDownData = presenter.getCategories(user_id!!)
+
         return inflater.inflate(com.example.rewear.R.layout.fragment_closet, container, false)
     }
 
@@ -73,14 +76,19 @@ class ClosetFragment : Fragment(), ClosetContract.View {
                 parent: AdapterView<*>,
                 view: View?, position: Int, id: Long
             ) {
-                description.text =
-                    dropDownData!![spinnerCloset.selectedItemPosition].description
+                if (spinnerCloset.selectedItemPosition != 0) {
+                    noneSelected.visibility = View.GONE
+                    description.text =
+                        dropDownData!![spinnerCloset.selectedItemPosition-1].description
 
-                closetAdaptor!!.setData(
-                    dropDownData!![spinnerCloset.selectedItemPosition].category_id!!
-                )
-                closetAdaptor!!.notifyDataSetChanged()
-                loadingIcon.visibility = View.GONE
+                    closetAdaptor!!.setData(
+                        dropDownData!![spinnerCloset.selectedItemPosition-1].category_id!!
+                    )
+                    closetAdaptor!!.notifyDataSetChanged()
+                } else {
+                    noneSelected.visibility = View.VISIBLE
+                }
+                    loadingIcon.visibility = View.GONE
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -89,7 +97,6 @@ class ClosetFragment : Fragment(), ClosetContract.View {
 
 
     fun initializeControls() {
-
         rvCloset = view?.findViewById(R.id.recycler_view)
 
         closetAdaptor = ClosetAdaptorClass(dropDownData!!)
@@ -100,8 +107,9 @@ class ClosetFragment : Fragment(), ClosetContract.View {
     fun createSpinnerList() {
         loadingIcon.visibility = View.VISIBLE
         var strCategory =
-            arrayOfNulls<String?>(dropDownData!!.size) //{"Select Category", "Category 1", "Category 2", "Category 3"};
-        for (i in 1..dropDownData!!.size) strCategory[i - 1] = dropDownData!![i - 1].name
+            arrayOfNulls<String?>(dropDownData!!.size+1) //{"Select Category", "Category 1", "Category 2", "Category 3"};
+        strCategory[0] = "Select Category"
+        for (i in 1..dropDownData!!.size) strCategory[i] = dropDownData!![i-1].name
 
         val adCategory = ArrayAdapter<String>(
             requireActivity(),

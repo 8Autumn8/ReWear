@@ -88,16 +88,19 @@ class ClothesDB : ClothesInterface, GenerateConnection() {
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
 
-            val st: Statement = conn!!.createStatement()
-            st.execute(
-                "UPDATE Clothes" +
-                        "SET user_id = '${clothesObject.user_id}', " +
-                        "clothes_pic = '${clothesObject.clothes_pic}', " +
-                        "username = '${clothesObject.clothes_desc}', " +
-                        "clothes_desc = '${clothesObject.clothes_desc}', " +
-                        "date_created = '${clothesObject.date_created}' " +
-                        "WHERE clothes_id = ${clothesObject.clothes_id};"
-            )
+            val query = "UPDATE Clothes " +
+                    "SET user_id = ?, " +
+                    "clothes_pic = ?, " +
+                    "clothes_desc = ?, " +
+                    "date_created = ? " +
+                    "WHERE clothes_id = ?;"
+            val pstmt: PreparedStatement = conn.prepareStatement(query)
+            pstmt.setInt(1, clothesObject.user_id!!)
+            pstmt.setBytes(2, clothesObject.clothes_pic!!)
+            pstmt.setString(3, clothesObject.clothes_desc!!)
+            pstmt.setString(4, clothesObject.date_created!!)
+            pstmt.setInt(5, clothesObject.clothes_id!!)
+            pstmt.executeUpdate()
         }
         runBlocking { job.join() }
     }
