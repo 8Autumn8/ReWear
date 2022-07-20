@@ -29,7 +29,7 @@ class GroupsFragment : Fragment(), GroupsContract.View{
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        id = Integer.parseInt(requireArguments().getString("user_id"))
+        id = requireArguments().getInt("user_id")
         return inflater.inflate(R.layout.fragment_groups, container, false)
     }
 

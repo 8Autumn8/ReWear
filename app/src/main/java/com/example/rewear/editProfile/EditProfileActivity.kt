@@ -77,6 +77,7 @@ class EditProfileActivity: AppCompatActivity(), EditProfileContract.View {
 
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("user_id", currentUser.user_id.toString())
+            intent.putExtra("CURR_FRAG", "CLOSET")
             startActivity(intent)
         }
     }

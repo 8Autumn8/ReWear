@@ -1,7 +1,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_pertanyaan"
+    android:id="@+id/card_closet"
     android:layout_width="match_parent"
     android:layout_height="125dp"
     android:layout_marginLeft="16dp"
@@ -25,13 +25,54 @@
             android:id="@+id/clothingPicture"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+
             tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout
-            android:id="@+id/columns"
-            android:layout_marginLeft="10dp"
-            android:layout_width="match_parent"
+            android:id = "@+id/columnOne"
+            android:layout_width="wrap_content"
+
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:textStyle="bold"
+                android:text="Date Created:" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:textStyle="bold"
+                android:text="Date Last Worn:" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:textStyle="bold"
+                android:text="Days Worn:" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:textStyle="bold"
+                android:text="Categories:" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:textStyle="bold"
+                android:text="Description:" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/columnTwo"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -39,23 +80,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:text="value" />
-            <TextView
-                android:id="@+id/txtDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:text="value" />
+
             <TextView
                 android:id="@+id/txtLastWorn"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:text="value" />
+
             <TextView
                 android:id="@+id/txtTotalDaysWorn"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:text="value" />
+
             <TextView
                 android:id="@+id/txtClothesBelongsTo"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="value" />
+
+            <TextView
+                android:id="@+id/txtDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:text="value" />

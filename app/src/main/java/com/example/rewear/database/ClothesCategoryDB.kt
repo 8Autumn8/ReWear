@@ -14,8 +14,8 @@ class ClothesCategoryDB : ClothesCategoryInterface, GenerateConnection() {
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
 
-            conn!!.createStatement().execute("INSERT INTO ClothesCategory(user_id, name) " +
-                    "VALUES (${clothescategory.user_id},${clothescategory.name}")
+            conn!!.createStatement().execute("INSERT INTO ClothesCategory(user_id, name, description) " +
+                    "VALUES (${clothescategory.user_id},${clothescategory.name},${clothescategory.description}")
         }
         runBlocking { job.join() }
     }

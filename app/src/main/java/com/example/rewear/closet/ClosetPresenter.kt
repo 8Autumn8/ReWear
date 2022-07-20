@@ -11,7 +11,7 @@ class ClosetPresenter (
     override fun getCategories(user_id: Int) : List<ClothesCategoryData>? {
         return  db.getClothesCategoryByUserID(user_id)
     }
-    override fun getPictures(clothesCategory: Int): List<ClothesData>?{
-        return db.getClothesByID(clothesCategory)
+    override fun getPicturesByCategory(clothesCategory: Int?): List<ClothesData>?{
+         return db.getClothesByClothesID(db.getClothesIDByCategory(clothesCategory!!))
     }
 }

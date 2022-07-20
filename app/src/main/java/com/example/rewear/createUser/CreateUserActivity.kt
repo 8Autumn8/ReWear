@@ -60,6 +60,7 @@ class CreateUserActivity : AppCompatActivity(), CreateUserContract.View {
                 ).show()
             }
             else {
+
                 // switch to the login screen
                 val intent = Intent(this@CreateUserActivity, LoginActivity::class.java)
                 startActivity(intent)

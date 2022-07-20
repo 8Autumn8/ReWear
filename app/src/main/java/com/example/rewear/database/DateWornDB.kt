@@ -42,7 +42,7 @@ class DateWornDB: DateWornInterface, GenerateConnection(){
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
 
-            conn!!.createStatement().execute("INSERT INTO ClothesBelongTo " +
+            conn!!.createStatement().execute("INSERT IGNORE INTO ClothesBelongTo " +
                     "VALUES (${dateWorn.clothes_id},${dateWorn.date};")
         }
         runBlocking { job.join() }
