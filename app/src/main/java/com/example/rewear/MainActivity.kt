@@ -71,7 +71,6 @@ class MainActivity : AppCompatActivity(){
                     setsCurrentFragment(leaderboardFragment)
                     Log.d(TAG, "LeaderBoard SELECTED")
                 }
-
             }
 
             return@setOnItemSelectedListener true

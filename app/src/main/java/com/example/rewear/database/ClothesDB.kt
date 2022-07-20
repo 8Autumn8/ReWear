@@ -1,21 +1,19 @@
 package com.example.rewear.database
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import com.example.rewear.Utility
 import com.example.rewear.objects.ClothesData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.sql.Blob
-import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.Statement
-import java.time.LocalDateTime
+import com.example.rewear.Utility
+import java.io.ByteArrayInputStream
+import java.sql.Blob
+import java.sql.PreparedStatement
 
 
-class ClothesDB : ClothesInterface, GenerateConnection() {
+class ClothesDB: ClothesInterface, GenerateConnection() {
     val utility = Utility()
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -32,6 +30,7 @@ class ClothesDB : ClothesInterface, GenerateConnection() {
             pstmt.setString(3, clothesObject.clothes_desc!!)
             pstmt.setString(4, LocalDateTime.now().toString())
             pstmt.execute()
+
 
 
         }
@@ -51,16 +50,15 @@ class ClothesDB : ClothesInterface, GenerateConnection() {
         runBlocking { job.join() }
     }
 
-    override fun getClothes(clothes_id: Int): ClothesData? {
+    override fun getClothes(clothes_id: Int) : ClothesData? {
         var clothes: ClothesData? = null
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
             val rs: ResultSet?
             val st: Statement = conn!!.createStatement()
-            rs = st.executeQuery(
-                "SELECT * " +
-                        "FROM Clothes " +
-                        "WHERE clothes_id = '${clothes_id}'"
+            rs = st.executeQuery("SELECT * " +
+                    "FROM Clothes " +
+                    "WHERE clothes_id = '${clothes_id}'"
             )
 
             while (rs != null && rs.next()) {
@@ -187,6 +185,39 @@ class ClothesDB : ClothesInterface, GenerateConnection() {
         return toReturn
     }
 
+    override fun getClothesByID(clothesCategory: Int) : List<ClothesData>? {
+        var toReturn: MutableList<ClothesData>? = mutableListOf()
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            val conn = createConnection() ?: return@launch
+            val rs: ResultSet?
+            val st: Statement = conn!!.createStatement()
+            rs = st.executeQuery(
+                "SELECT Clothes.* " +
+                        "FROM Clothes, ClothesBelongsTo " +
+                        "WHERE Clothes.clothes_id = ClothesBelongsTo.clothes_id " +
+                        "AND ClothesBelongsTo.category_id = '${clothesCategory}'"
+            )
+
+            while (rs != null && rs.next()) {
+                val blob: Blob? = rs.getBlob(3)
+                //NEED TO ADD ON TO THIS
+                toReturn!!.add(
+                    ClothesData(
+                        Integer.parseInt(rs.getString(1).toString()),
+                        Integer.parseInt(rs.getString(2).toString()),
+                        rs.getBytes(3),
+                        rs.getString(4).toString(),
+                        rs.getString(5).toString()
+                    )
+                )
+            }
+        }
+        runBlocking { job.join() }
+        return toReturn
+    }
+
+
+
     override fun getClothesIDByCategory(category: Int): List<Int>? {
         var toReturn: MutableList<Int>? = mutableListOf()
         val job = CoroutineScope(Dispatchers.IO).launch {
@@ -206,6 +237,26 @@ class ClothesDB : ClothesInterface, GenerateConnection() {
             }
         }
         runBlocking { job.join() }
+        return toReturn
+    }
+
+    override fun countClothes(user_id: Int): Int?{
+        var toReturn: Int = 0
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            val conn = createConnection() ?: return@launch
+            val rs: ResultSet?
+            val st: Statement = conn!!.createStatement()
+            rs = st.executeQuery("SELECT COUNT(Clothes.clothes_id) " +
+                    "FROM Clothes " +
+                    "WHERE clothes.user_id = ${user_id}"
+            )
+
+            if (rs != null && rs.next()) {
+                toReturn = rs.getInt(1)
+            }
+        }
+        runBlocking { job.join() }  //Program will wait until job is done
+
         return toReturn
     }
 

@@ -1,7 +1,6 @@
 package com.example.rewear.objects
 
 import android.graphics.Bitmap
-import java.io.Serializable
 import java.sql.Blob
 
 data class ClothesData(
@@ -14,32 +13,23 @@ data class ClothesData(
     val category_name: String?,
     val total_days_worn: Int?,
     val last_worn: String?
-) : Serializable{
+){
     constructor(user_id: Int?,
                 clothes_pic: ByteArray?,
-                clothes_desc: String?) :
+                clothes_desc: String?,
+                date_created: String?) : this(null, user_id, clothes_pic, clothes_desc,date_created)
+
+    constructor(user_id: Int?) :
             this(0,
                 user_id,
-                clothes_pic,
-                clothes_desc,
+                null,
+                "",
                 "9999-9-9",
                 0,
                 "null",
                 0,
                 "9999-99-9");
-    constructor(user_id: Int?) :
-        this(0,
-        user_id,
-        null,
-        "",
-        "9999-9-9",
-        0,
-        "null",
-        0,
-        "9999-99-9");
     constructor() : this(null, null,null,null,null,null,null,null,null)
-
-
 
 
 }
