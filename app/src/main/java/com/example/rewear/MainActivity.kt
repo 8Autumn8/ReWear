@@ -1,19 +1,15 @@
 package com.example.rewear
 
 import android.os.Bundle
-import android.text.TextUtils.replace
 import android.util.Log
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.example.rewear.groups.GroupsFragment
-import com.example.rewear.profile.*
 import androidx.fragment.app.Fragment
-import com.example.rewear.editProfile.EditProfileActivity
 import com.example.rewear.groups.ClosetFragment
+import com.example.rewear.groups.GroupsFragment
 import com.example.rewear.leaderboard.LeaderboardFragment
+import com.example.rewear.profile.*
 import com.example.rewear.stats.StatsFragment
 import com.example.rewear.viewUser.ProfileFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){
@@ -27,7 +23,7 @@ class MainActivity : AppCompatActivity(){
         setContentView(R.layout.activity_main)
 
         val bundle = Bundle()
-        bundle.putString("user_id", intent.getStringExtra("user_id"))
+        bundle.putInt("user_id", intent.getIntExtra("user_id",0))
         val groupsFragment = GroupsFragment()
         val profileFragment = ProfileFragment()
         val closetFragment = ClosetFragment()
@@ -40,9 +36,17 @@ class MainActivity : AppCompatActivity(){
         closetFragment.arguments = bundle
         statsFragment.arguments = bundle
         leaderboardFragment.arguments = bundle
-        setsCurrentFragment(closetFragment)
 
+        //SET CURRENT FRAGMENT
+        when (intent.extras!!.getString("CURR_FRAG")) {
+            "CLOSET" -> {setsCurrentFragment(closetFragment)}
+            "LEADERBOARD" -> {setsCurrentFragment(closetFragment)}
+            "GROUPS" -> {setsCurrentFragment(closetFragment)}
+            "PROFILE" -> {setsCurrentFragment(profileFragment)}
+            "STATS" -> {setsCurrentFragment(statsFragment)}
+        }
 
+        //BUTTON CONTROLER
         bottom_navigation?.setOnItemSelectedListener{
             when(it.itemId){
                 R.id.nav_group -> {
@@ -67,7 +71,6 @@ class MainActivity : AppCompatActivity(){
                     setsCurrentFragment(leaderboardFragment)
                     Log.d(TAG, "LeaderBoard SELECTED")
                 }
-
             }
 
             return@setOnItemSelectedListener true

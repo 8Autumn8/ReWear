@@ -77,6 +77,7 @@ class UserDB : UserInterface, GenerateConnection(){
             val str = "INSERT INTO User(first_name,last_name,username,password) " +
             "VALUES ('${user.first_name}','${user.last_name}', '${user.username}', '${user.password}');"
             st.executeUpdate(str)
+
         }
         runBlocking { job.join() }
     }

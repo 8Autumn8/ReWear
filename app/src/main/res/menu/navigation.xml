@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id = "@+id/nav_closet"
-        android:title="Closet"
-        android:icon = "@drawable/closet_icon" />
+    <item android:id = "@+id/nav_leaderboard"
+        android:title="Groups"
+        android:icon = "@drawable/leaderboard_icon" />
 
     <item android:id = "@+id/nav_group"
         android:title="Groups"
         android:icon = "@drawable/group_icon" />
 
+    <item android:id = "@+id/nav_closet"
+        android:title="Closet"
+        android:icon = "@drawable/closet_icon" />
+
     <item android:id = "@+id/nav_stats"
         android:title="Groups"
         android:icon = "@drawable/stats_icon" />
-
-    <item android:id = "@+id/nav_leaderboard"
-        android:title="Groups"
-        android:icon = "@drawable/leaderboard_icon" />
 
 
     <item android:id = "@+id/nav_profile"

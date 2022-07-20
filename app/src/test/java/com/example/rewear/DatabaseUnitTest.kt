@@ -11,9 +11,9 @@ import org.junit.Test
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class DatabaseUnitTest {
+    private val db: DataBaseHelper = DataBaseHelper()
     @Test
     fun canAddAndGet_user() {
-        val db = DataBaseHelper()
         val testUser = UserData(null, "first_name", "last_name", "username", "password")
         // add user to database
         db.addUser(testUser)

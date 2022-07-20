@@ -1,4 +1,6 @@
-package com.example.rewear.addClothes
+package com.example.rewear.addEditClothes
+
+import com.example.rewear.objects.ClothesData
 
 class AddClothesContract {
     interface View {
@@ -6,11 +8,7 @@ class AddClothesContract {
     }
 
     interface Presenter {
-        fun addClothes( user_id: Int?,
-                        img: ByteArray,
-                        clothes_desc: String?,
-                        date_created: String){
+        fun addClothes(clothes: ClothesData)
 
-        }
     }
 }

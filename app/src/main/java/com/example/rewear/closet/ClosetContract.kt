@@ -9,7 +9,6 @@ interface ClosetContract {
     }
     interface Presenter {
         fun getCategories(user_id: Int) : List<ClothesCategoryData>?
-        fun getPictures(pictureCategory: Int): List<ClothesData>?
-
+        fun getPicturesByCategory(pictureCategory: Int?): List<ClothesData>?
     }
 }

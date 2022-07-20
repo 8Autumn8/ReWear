@@ -29,15 +29,16 @@ class LoginActivity : AppCompatActivity(),  LoginContract.View{
         // set on-click listener
         findViewById<Button>(R.id.btnLogin).setOnClickListener {
             // your code to perform when the user clicks on the button
-            val userField = (findViewById<View>(R.id.txtUserNameLogin) as EditText).text.toString()
-            val pwdField = (findViewById<View>(R.id.pwdLogin) as EditText).text.toString()
+            val userField = findViewById<EditText>(R.id.txtUserNameLogin).text.toString()
+            val pwdField = findViewById<EditText>(R.id.pwdLogin).text.toString()
             // supposed to return a number
 
             val uid = (presenter as LoginPresenter).verifyUser(userField, pwdField)
             if (uid != -1){
                 val intent = Intent(this, MainActivity::class.java)
                 // save the currently logged in user for later use in the app.
-                intent.putExtra("user_id", uid.toString())
+                intent.putExtra("user_id", uid)
+                intent.putExtra("CURR_FRAG", "CLOSET")
                 startActivity(intent)
             } else {
                 Toast.makeText(applicationContext,

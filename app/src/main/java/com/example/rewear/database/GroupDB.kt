@@ -1,14 +1,12 @@
 package com.example.rewear.database
 
-import com.example.rewear.objects.DateWorn
 import com.example.rewear.objects.GroupsData
-import com.example.rewear.objects.PictureData
-import java.sql.Statement
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.sql.ResultSet
+import java.sql.Statement
 
 
 class GroupDB : GroupInterface, GenerateConnection() {
@@ -32,7 +30,6 @@ class GroupDB : GroupInterface, GenerateConnection() {
         }
         runBlocking { job.join() }
         return toReturn
-
     }
 
 
