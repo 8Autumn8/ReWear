@@ -53,7 +53,7 @@ class StatsFragment : Fragment(), StatsContract.View {
 
         if (percentWornLastWeek != null && percentWornLastMonth != null) {
             // update most worn card
-            updateMostWornCard(view, mostWorn!!)
+            updateMostWornCard(mostWorn!!)
             updatePercentageCards()
         }
 
