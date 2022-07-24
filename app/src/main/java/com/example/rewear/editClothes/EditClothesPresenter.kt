@@ -1,7 +1,5 @@
 package com.example.rewear.editClothes
 
-import androidx.appcompat.app.AppCompatActivity
-import com.example.rewear.addEditClothes.AddEditClothesContract
 import com.example.rewear.database.DataBaseHelper
 import com.example.rewear.objects.ClothesData
 

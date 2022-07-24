@@ -1,7 +1,6 @@
 package com.example.rewear.createUser
 
 import com.example.rewear.database.DataBaseHelper
-import com.example.rewear.objects.ClothesCategoryData
 import com.example.rewear.objects.UserData
 
 class CreateUserPresenter(
@@ -14,8 +13,8 @@ class CreateUserPresenter(
         db.addUser(userData)
     }
 
-    override fun checkUserExist(userName: String) : Boolean{
-        return db.getUser(userName) != null
+    override fun checkUserExist(userName: String){
+        view.returnCheckUserExist(db.getUser(userName) != null)
     }
 
 }

@@ -1,6 +1,5 @@
 package com.example.rewear.editClothes
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,9 +10,6 @@ import com.example.rewear.MainActivity
 
 import com.example.rewear.R
 import com.example.rewear.addEditClothes.AddEditClothesActivity
-import com.example.rewear.addEditClothes.AddEditClothesContract
-import kotlinx.android.synthetic.main.activity_add_edit_clothes.*
-import kotlinx.android.synthetic.main.fragment_addclothes.*
 import kotlinx.android.synthetic.main.fragment_editclothes.*
 
 class EditClothesFragment : Fragment(), EditClothesContract.View{

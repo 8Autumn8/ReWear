@@ -7,11 +7,7 @@ import java.util.*
 class Utility {
 
     fun parseDate(date: String): String {
-        var simpleDateFormat: SimpleDateFormat
-
-        simpleDateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.US)
-        var toReturn = simpleDateFormat.format(date)
-        return toReturn
+        return SimpleDateFormat("MM/dd/yyyy", Locale.US).format(date)
     }
 
     fun convert(blob: Blob): ByteArray {

@@ -7,14 +7,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rewear.R
-import com.example.rewear.database.UserDB
 import com.example.rewear.login.LoginActivity
-import com.example.rewear.objects.UserData
-import java.util.*
 
 class CreateUserActivity : AppCompatActivity(), CreateUserContract.View {
 
     private var presenter: CreateUserContract.Presenter? = null
+    var userExistence: Boolean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +50,8 @@ class CreateUserActivity : AppCompatActivity(), CreateUserContract.View {
             (presenter as CreateUserPresenter).addUser(fName,lName,username,password)
 
             // tell user if it was not added to database.
-            if (!(presenter as CreateUserPresenter).checkUserExist(username)) {
+
+            if (userExistence == false) {
                 Toast.makeText(
                     applicationContext,
                     "Unable to create user. Please try again later.",
@@ -60,11 +59,14 @@ class CreateUserActivity : AppCompatActivity(), CreateUserContract.View {
                 ).show()
             }
             else {
-
                 // switch to the login screen
                 val intent = Intent(this@CreateUserActivity, LoginActivity::class.java)
                 startActivity(intent)
             }
         }
+    }
+
+    override fun returnCheckUserExist(userExists: Boolean) {
+        userExistence = userExists
     }
 }

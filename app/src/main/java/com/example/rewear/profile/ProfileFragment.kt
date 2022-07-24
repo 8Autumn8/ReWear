@@ -6,26 +6,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
-import android.widget.ToggleButton
 import androidx.fragment.app.Fragment
 import com.example.rewear.R
 import com.example.rewear.editProfile.EditProfileActivity
 import com.example.rewear.login.LoginActivity
+import com.example.rewear.objects.UserData
 import com.example.rewear.profile.ProfileContract
 import com.example.rewear.profile.ProfilePresenter
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 
-class ProfileFragment : Fragment(), ProfileContract.View  {
+class ProfileFragment : Fragment(), ProfileContract.View {
     private var presenter: ProfileContract.Presenter? = null
+    private var currentUser: UserData? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         presenter = ProfilePresenter(this)
+        (presenter as ProfilePresenter).getCurrentUser(requireArguments().getInt("user_id"))
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
@@ -33,47 +34,53 @@ class ProfileFragment : Fragment(), ProfileContract.View  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // this is an incredibly ugly statement. (not anymore -belinda)
-        val currentUser = presenter?.getCurrentUser((requireArguments().getInt("user_id")))
-
         if (currentUser == null) {
-            Toast.makeText(context,
+            Toast.makeText(
+                context,
                 "Error occurred while displaying profile",
-                Toast.LENGTH_LONG).show()
+                Toast.LENGTH_LONG
+            ).show()
+            returnToLoginPage()
             return
         }
 
         // change the dummy text to show the user information
-        view.findViewById<TextView>(R.id.name).text = "${currentUser.first_name} ${currentUser.last_name}"
-        view.findViewById<TextView>(R.id.usernameDisplay).text = currentUser.username
+        name.text = "${currentUser!!.first_name} ${currentUser!!.last_name}"
+        usernameDisplay.text = currentUser!!.username
 
         // display the user's password when the "show password" button is pressed
-        view.findViewById<ToggleButton>(R.id.showPasswordButton).setOnCheckedChangeListener { _, isChecked ->
+        showPasswordButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                view.findViewById<TextView>(R.id.passwordDisplay).text = currentUser.password
-            }
-            else {
-                view.findViewById<TextView>(R.id.passwordDisplay).text = "████████"
+                passwordDisplay.text = currentUser!!.password
+            } else {
+                passwordDisplay.text = "████████"
             }
         }
 
         // go to the edit user info page when this button is pressed
-        view.findViewById<Button>(R.id.editUserInformationButton).setOnClickListener {
+        editUserInformationButton.setOnClickListener {
 
             // i could probably turn this into a function but i'm lazy.
             val intent = Intent(activity, EditProfileActivity::class.java)
-            intent.putExtra("user_id", currentUser.user_id.toString())
+            intent.putExtra("user_id", currentUser!!.user_id.toString())
             startActivity(intent)
             (activity as Activity).overridePendingTransition(0, 0)
         }
 
         // delete the user and take them back to the login page
-        view.findViewById<Button>(R.id.deleteUserButton).setOnClickListener {
-            presenter?.deleteCurrentUser(currentUser.user_id!!)
-
-            val intent = Intent(activity, LoginActivity::class.java)
-            intent.putExtra("user_id", currentUser.user_id.toString())
-            startActivity(intent)
-            (activity as Activity).overridePendingTransition(0, 0)
+        deleteUserButton.setOnClickListener {
+            presenter?.deleteCurrentUser(currentUser!!.user_id!!)
+            returnToLoginPage()
         }
+    }
+
+    private fun returnToLoginPage() {
+        val intent = Intent(activity, LoginActivity::class.java)
+        startActivity(intent)
+        (activity as Activity).overridePendingTransition(0, 0)
+    }
+
+    override fun returnCurrentUser(databaseUser: UserData) {
+        currentUser = databaseUser
     }
 }
