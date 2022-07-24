@@ -1,6 +1,5 @@
 package com.example.rewear.addEditClothes
 
-import android.R
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -9,7 +8,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.SpannableStringBuilder
-import android.view.View
 import android.widget.*
 import android.widget.MultiAutoCompleteTextView.CommaTokenizer
 import androidx.activity.result.contract.ActivityResultContracts
@@ -30,8 +28,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 
-class AddEditClothesActivity() : AppCompatActivity(), AddEditClothesContract.View {
-    private var presenter: AddEditClothesContract.Presenter? = AddEditClothesPresenter(this)
+class AddEditClothesActivity() : AppCompatActivity() {
     private var ibCamara: ImageButton? = null
     private var imageView: ImageView? = null
     private var tempImagesDir: File? = null
@@ -122,7 +119,7 @@ class AddEditClothesActivity() : AppCompatActivity(), AddEditClothesContract.Vie
         contentFragment = AddClothesFragment()
         contentFragment!!.arguments = bundle
         supportFragmentManager.beginTransaction().add(com.example.rewear.R.id.container, contentFragment!!).commit()
-        dateAdded!!.text = dateAdded!!.text.toString() + Calendar.getInstance().time;
+        dateAdded!!.text = dateAdded!!.text.toString() + Calendar.getInstance().time
 
     }
 
@@ -134,7 +131,7 @@ class AddEditClothesActivity() : AppCompatActivity(), AddEditClothesContract.Vie
 
     fun getInformation() : ClothesData {
         var img: ByteArray? = null
-        val desc: String? = description!!.text.toString()
+        val desc: String = description!!.text.toString()
         if (imageView?.drawable != null) {
             val bmTemp: Bitmap = (ivClothingItem!!.drawable as BitmapDrawable).bitmap
             val bos = ByteArrayOutputStream()
@@ -147,7 +144,7 @@ class AddEditClothesActivity() : AppCompatActivity(), AddEditClothesContract.Vie
     }
 
     private fun adaptor(){
-        var names = categories!!.map { it.name}
+        val names = categories!!.map { it.name}
         val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
             this,
             android.R.layout.simple_dropdown_item_1line, names

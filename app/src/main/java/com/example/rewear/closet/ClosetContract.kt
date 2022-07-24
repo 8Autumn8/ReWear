@@ -1,14 +1,12 @@
 package com.example.rewear.closet
 
 import com.example.rewear.objects.ClothesCategoryData
-import com.example.rewear.objects.ClothesData
 
 interface ClosetContract {
     interface View {
-
+        fun returnGetCategories(clothesCategories: List<ClothesCategoryData>?)
     }
     interface Presenter {
-        fun getCategories(user_id: Int) : List<ClothesCategoryData>?
-        fun getPicturesByCategory(pictureCategory: Int?): List<ClothesData>?
+        fun getCategories(user_id: Int)
     }
 }

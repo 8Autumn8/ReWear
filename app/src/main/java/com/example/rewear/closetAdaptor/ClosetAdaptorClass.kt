@@ -1,4 +1,4 @@
-package com.example.rewear
+package com.example.rewear.closetAdaptor
 
 import android.content.Context
 import android.content.Intent
@@ -10,17 +10,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rewear.R
 import com.example.rewear.addEditClothes.AddEditClothesActivity
-import com.example.rewear.closet.ClosetContract
-import com.example.rewear.closet.ClosetPresenter
 import com.example.rewear.objects.ClothesCategoryData
 import com.example.rewear.objects.ClothesData
 import java.io.Serializable
 
 
 class ClosetAdaptorClass(val categories: List<ClothesCategoryData>) :
-    RecyclerView.Adapter<ClosetAdaptorClass.ViewHolder>(), ClosetContract.View {
-    private val presenter = ClosetPresenter(this)
+    RecyclerView.Adapter<ClosetAdaptorClass.ViewHolder>(), ClosetAdaptorContract.View {
+    private val presenter = ClosetAdaptorPresenter(this)
     private var clothesData: List<ClothesData>? = null
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -66,7 +65,7 @@ class ClosetAdaptorClass(val categories: List<ClothesCategoryData>) :
             viewHolder.categoriesBelongTo.text = clothesData!![i].category_name
             viewHolder.txtTotalDaysWorn.text = clothesData!![i].total_days_worn.toString()
             viewHolder.clothingPicture.setImageBitmap(
-                BitmapFactory.decodeByteArray(blob, 0, blob!!.size)
+                BitmapFactory.decodeByteArray(blob, 0, blob.size)
             )
 
         }
@@ -79,13 +78,15 @@ class ClosetAdaptorClass(val categories: List<ClothesCategoryData>) :
             return clothesData!!.size
         }
         return 0
-
     }
 
     //code to update recyclar view
     fun setData(clothesCategoryData: Int?) {
-        clothesData = presenter.getPicturesByCategory(clothesCategoryData)
+        presenter.getPicturesByCategory(clothesCategoryData)
+    }
 
+    override fun returnGetPicturesByCategory(pictureCategories: List<ClothesData>?) {
+        clothesData = pictureCategories
     }
 
     fun launchEditClothes(context:Context, position: Int){

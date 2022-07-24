@@ -8,27 +8,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rewear.ClosetAdaptorClass
 import com.example.rewear.R
 import com.example.rewear.addEditClothes.AddEditClothesActivity
 import com.example.rewear.closet.ClosetContract
 import com.example.rewear.closet.ClosetPresenter
+import com.example.rewear.closetAdaptor.ClosetAdaptorClass
 import com.example.rewear.objects.ClothesCategoryData
 import com.example.rewear.objects.ClothesData
 import kotlinx.android.synthetic.main.fragment_closet.*
 import kotlinx.android.synthetic.main.fragment_closet.addPicture
-import kotlinx.android.synthetic.main.fragment_groups.*
 import kotlinx.android.synthetic.main.fragment_groups.description
 import java.io.Serializable
 
 
 class ClosetFragment : Fragment(), ClosetContract.View {
     private val presenter = ClosetPresenter(this)
-    var user_id: Int? = null
+    var userID: Int? = null
     private var closetAdaptor: ClosetAdaptorClass? = null
     var rvCloset: RecyclerView? = null
     var dropDownData: List<ClothesCategoryData>? = null
@@ -37,10 +37,10 @@ class ClosetFragment : Fragment(), ClosetContract.View {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        user_id = requireArguments().getInt("user_id")
-        dropDownData = presenter.getCategories(user_id!!)
+        userID = requireArguments().getInt("user_id")
+        presenter.getCategories(userID!!)
 
-        return inflater.inflate(com.example.rewear.R.layout.fragment_closet, container, false)
+        return inflater.inflate(R.layout.fragment_closet, container, false)
     }
 
 
@@ -56,11 +56,10 @@ class ClosetFragment : Fragment(), ClosetContract.View {
             args.putSerializable("ARRAYLIST", dropDownData as Serializable?)
             intent.putExtra("BUNDLE", args)
             intent.putExtra("screenDisplay", 1)
-            intent.putExtra("OBJECT", ClothesData(user_id))
+            intent.putExtra("OBJECT", ClothesData(userID))
             startActivity(intent)
             (activity as Activity?)!!.overridePendingTransition(0, 0)
         }
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -90,11 +89,13 @@ class ClosetFragment : Fragment(), ClosetContract.View {
                 }
                     loadingIcon.visibility = View.GONE
             }
-
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
     }
 
+    override fun returnGetCategories(clothesCategories: List<ClothesCategoryData>?) {
+        dropDownData = clothesCategories
+    }
 
     fun initializeControls() {
         rvCloset = view?.findViewById(R.id.recycler_view)
@@ -106,7 +107,7 @@ class ClosetFragment : Fragment(), ClosetContract.View {
 
     fun createSpinnerList() {
         loadingIcon.visibility = View.VISIBLE
-        var strCategory =
+        val strCategory =
             arrayOfNulls<String?>(dropDownData!!.size+1) //{"Select Category", "Category 1", "Category 2", "Category 3"};
         strCategory[0] = "Select Category"
         for (i in 1..dropDownData!!.size) strCategory[i] = dropDownData!![i-1].name

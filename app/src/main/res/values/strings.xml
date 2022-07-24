@@ -21,5 +21,7 @@
     <string name="temp_images_dir">temp_images</string>
     <string name="temp_image">temp_image.jpg</string>
     <string name="authorities">com.example.rewear</string>
+    <string name="blankPercentage">---</string>
+    <string name="default_image_description">Nothing to see here!</string>
 
 </resources>
