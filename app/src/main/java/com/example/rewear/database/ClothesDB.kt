@@ -26,15 +26,12 @@ class ClothesDB: ClothesInterface, GenerateConnection() {
             //getData
             val query =
                 "INSERT INTO Clothes (user_id, clothes_pic, clothes_desc, date_created) VALUES (?,?,?,?);"
-            val st: Statement = conn!!.createStatement()
             val pstmt: PreparedStatement = conn.prepareStatement(query)
             pstmt.setInt(1, clothesObject.user_id!!)
             pstmt.setBytes(2, clothesObject.clothes_pic!!)
             pstmt.setString(3, clothesObject.clothes_desc!!)
             pstmt.setString(4, LocalDateTime.now().toString())
             pstmt.execute()
-
-
 
         }
         runBlocking { job.join() }

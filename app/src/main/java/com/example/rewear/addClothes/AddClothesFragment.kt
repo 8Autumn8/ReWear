@@ -11,6 +11,8 @@ import com.example.rewear.R
 import com.example.rewear.addEditClothes.AddClothesContract
 import com.example.rewear.addEditClothes.AddClothesPresenter
 import com.example.rewear.addEditClothes.AddEditClothesActivity
+import com.example.rewear.objects.ClothesBelongsToData
+import com.example.rewear.objects.ClothesCategoryData
 import kotlinx.android.synthetic.main.fragment_addclothes.*
 
 class AddClothesFragment : Fragment(), AddClothesContract.View {
@@ -30,7 +32,16 @@ class AddClothesFragment : Fragment(), AddClothesContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btAddClothes.setOnClickListener {
-            presenter.addClothes((activity as AddEditClothesActivity?)!!.getInformation())
+            (activity as AddEditClothesActivity?)!!.getCategories()
+            val newTags: List<ClothesCategoryData>? = (activity as AddEditClothesActivity?)!!.getNewTags()
+            val existingTags: List<ClothesBelongsToData>? = (activity as AddEditClothesActivity?)!!.getExistingTags()
+            val clothes = (activity as AddEditClothesActivity?)!!.getInformation()
+
+            presenter.addNewTags(newTags, clothes)
+            presenter.addToTags(existingTags)
+            presenter.addClothes(clothes)
+
+
             val intent = Intent(activity, MainActivity::class.java)
             intent.putExtra("user_id", user_id)
             intent.putExtra("CURR_FRAG", "CLOSET")

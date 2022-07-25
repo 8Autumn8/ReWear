@@ -1,6 +1,5 @@
 package com.example.rewear.addEditClothes
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
@@ -15,10 +14,9 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import com.example.rewear.MainActivity
-import com.example.rewear.Utility
 import com.example.rewear.addClothes.AddClothesFragment
 import com.example.rewear.editClothes.EditClothesFragment
+import com.example.rewear.objects.ClothesBelongsToData
 import com.example.rewear.objects.ClothesCategoryData
 import com.example.rewear.objects.ClothesData
 import kotlinx.android.synthetic.main.activity_add_edit_clothes.*
@@ -39,7 +37,12 @@ class AddEditClothesActivity() : AppCompatActivity() {
     private var dateAdded: TextView? = null
     private var description: TextView? = null
     private var checkBox: CheckBox? = null
-    private val util = Utility()
+    private var adapter:  ArrayAdapter<String>?  = null
+    private var names: List<String>? = null
+    private var autoCompleteView: MultiAutoCompleteTextView?  = null
+    private var deletedIDs: MutableList<ClothesBelongsToData> = mutableListOf()
+    private var listOfTagsID: MutableList<ClothesBelongsToData> = mutableListOf()
+    private var listOfNewTags: MutableList<ClothesCategoryData> = mutableListOf()
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,13 +65,6 @@ class AddEditClothesActivity() : AppCompatActivity() {
         val tempImageUri = initTempUri()
 
         registerTakePictureLauncher(tempImageUri) //Binds button to launch camera activity
-
-        btExit.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("user_id", clothesData!!.user_id)
-            intent.putExtra("CURR_FRAG", "CLOSET")
-            startActivity(intent)
-        }
 
         adaptor()
     }
@@ -138,20 +134,26 @@ class AddEditClothesActivity() : AppCompatActivity() {
             bmTemp.compress(Bitmap.CompressFormat.JPEG, 100, bos)
              img = bos.toByteArray()
         }
+        if (checkBox!!.isChecked()){
+            clothesData!!.last_worn = Calendar.getInstance().time.toString()
+        } else {
+            clothesData!!.last_worn = null
+        }
+
         clothesData!!.clothes_desc = desc
         clothesData!!.clothes_pic = img
         return clothesData as ClothesData
     }
 
     private fun adaptor(){
-        val names = categories!!.map { it.name}
-        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
+        names = categories!!.map { it.name!!}
+        adapter = ArrayAdapter<String>(
             this,
-            android.R.layout.simple_dropdown_item_1line, names
+            android.R.layout.simple_dropdown_item_1line, names!!
         )
-        val textView = findViewById<MultiAutoCompleteTextView>(com.example.rewear.R.id.autoComplete)
-        textView.setAdapter(adapter)
-        textView.setTokenizer(CommaTokenizer())
+
+        autoCompleteView!!.setAdapter(adapter)
+        autoCompleteView!!.setTokenizer(CommaTokenizer())
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -168,14 +170,55 @@ class AddEditClothesActivity() : AppCompatActivity() {
     }
 
     private fun initializeViews(){
+        autoCompleteView = findViewById(com.example.rewear.R.id.autoComplete)
         dateAdded = findViewById<EditText>(com.example.rewear.R.id.dateAdded)
         imageView = findViewById(com.example.rewear.R.id.ivClothingItem)
         ibCamara = findViewById(com.example.rewear.R.id.ibCamera) //gets the ImageView object
-        description = findViewById<TextView>(com.example.rewear.R.id.description)
-        checkBox = findViewById<CheckBox>(com.example.rewear.R.id.woreToday)
+        description = findViewById(com.example.rewear.R.id.description)
+        checkBox = findViewById(com.example.rewear.R.id.woreToday)
         clothesData = intent.getSerializableExtra("OBJECT") as ClothesData
         screenDisplay = intent.getIntExtra("screenDisplay", 0)
         categories = intent.getBundleExtra("BUNDLE")!!.getSerializable("ARRAYLIST") as ArrayList<ClothesCategoryData>?
+    }
+
+    fun getCategories(){
+        val newTags = autoCompleteView!!.text.filter { !it.isWhitespace() }.split(",").toTypedArray()
+        val oldTags = clothesData!!.category_name!!.filter { !it.isWhitespace() }.split(",").toTypedArray()
+
+        //get deleted categories
+        for (s: String in oldTags){
+            val index = newTags.indexOf(s)
+            if (index == -1 && s != "ALL"){
+                val namesIndex = names!!.indexOf(s)
+                val record = ClothesBelongsToData(clothesData!!.clothes_id,categories!![namesIndex].category_id)
+                deletedIDs.add(record)
+            }
+        }
+
+        //get new categories
+        for (s: String in newTags){
+            val index = names!!.indexOf(s) //checks in all existing tags
+            if(index != -1 && oldTags!!.indexOf(s) == -1 && s != ""){  //if tag exists for user, and did Cloth Did not have it before
+                val record = ClothesBelongsToData(clothesData!!.clothes_id, categories!![index].category_id)
+                listOfTagsID.add(record)
+            } else if (index == -1 && s != "") { //if tag does not exist for user
+                val record = ClothesCategoryData(null,clothesData!!.user_id!!,s,null)
+                listOfNewTags.add(record)
+            }
+        }
+
+    }
+
+    fun getNewTags():List<ClothesCategoryData>?{
+        return listOfNewTags
+    }
+
+    fun getExistingTags(): List<ClothesBelongsToData>?{
+        return listOfTagsID
+    }
+
+    fun getDeleted(): List<ClothesBelongsToData>{
+        return deletedIDs
     }
 
 }
