@@ -6,7 +6,7 @@ interface ClothesCategoryInterface {
 
     fun getClothesCategory(category_id: Int) : ClothesCategoryData?
 
-    fun getClothesCategory(user_id: Int, clothesID: Int) : ClothesCategoryData?
+    fun getClothesCategory(user_id: Int, clothes: ClothesCategoryData) : ClothesCategoryData?
 
     fun getClothesCategoryByUserID(user_id: Int) : List<ClothesCategoryData>?
 

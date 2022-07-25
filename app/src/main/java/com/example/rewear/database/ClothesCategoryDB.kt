@@ -1,6 +1,7 @@
 package com.example.rewear.database
 
 import com.example.rewear.objects.ClothesCategoryData
+import com.example.rewear.objects.ClothesData
 import com.example.rewear.objects.UserBelongsToData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -52,7 +53,7 @@ class ClothesCategoryDB : ClothesCategoryInterface, GenerateConnection() {
                     "FROM ClothesCategory " +
                     "WHERE category_id = " + category_id)
 
-            while (rs != null && rs.next()) {
+            if (rs != null && rs.next()) {
                 toReturn = ClothesCategoryData(Integer.parseInt(rs.getString(1).toString()),
                     Integer.parseInt(rs.getString(2).toString()),rs.getString(3).toString(),rs.getString(4).toString())
             }
@@ -62,24 +63,26 @@ class ClothesCategoryDB : ClothesCategoryInterface, GenerateConnection() {
         return toReturn
     }
 
-    override fun getClothesCategory(user_id: Int, clothesID: Int) : ClothesCategoryData?{
+    override fun getClothesCategory(user_id: Int, clothes: ClothesCategoryData) : ClothesCategoryData?{
         var toReturn: ClothesCategoryData? = null
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
 
             val rs: ResultSet? = conn!!.createStatement().executeQuery("SELECT * " +
                     "FROM ClothesCategory " +
-                    "WHERE user_id = ${user_id} AND name = ${clothesID};")
+                    "WHERE user_id = ${user_id} AND name = '${clothes.name}';")
 
-            while (rs != null && rs.next()) {
+            if (rs != null && rs.next()) {
                 toReturn = ClothesCategoryData(Integer.parseInt(rs.getString(1).toString()),
-                    Integer.parseInt(rs.getString(2).toString()),rs.getString(3).toString(),rs.getString(4).toString())
+                    Integer.parseInt(rs.getString(2).toString()),rs.getString(3).toString(),null)
             }
 
         }
         runBlocking { job.join() }
         return toReturn
     }
+
+
 
     override fun updateClothesCategory(clothescategory: ClothesCategoryData) {
         val job = CoroutineScope(Dispatchers.IO).launch {

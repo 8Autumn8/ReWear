@@ -10,6 +10,7 @@ import kotlinx.coroutines.runBlocking
 import java.sql.ResultSet
 import java.sql.Statement
 import com.example.rewear.Utility
+import com.example.rewear.objects.ClothesCategoryData
 import java.io.ByteArrayInputStream
 import java.sql.Blob
 import java.sql.PreparedStatement
@@ -20,7 +21,8 @@ class ClothesDB: ClothesInterface, GenerateConnection() {
     val utility = Utility()
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun addClothes(clothesObject: ClothesData) {
+    override fun addClothes(clothesObject: ClothesData) : Int?{
+        var toReturn: Int? = null
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
             //getData
@@ -33,8 +35,15 @@ class ClothesDB: ClothesInterface, GenerateConnection() {
             pstmt.setString(4, LocalDateTime.now().toString())
             pstmt.execute()
 
+            val rs: ResultSet? = conn!!.createStatement().executeQuery("SELECT LAST_INSERT_ID();")
+
+            if (rs != null && rs.next()) {
+                toReturn = rs.getInt(1)
+            }
+
         }
         runBlocking { job.join() }
+        return toReturn
     }
 
     override fun deleteClothes(clothes_id: Int) {
@@ -103,6 +112,8 @@ class ClothesDB: ClothesInterface, GenerateConnection() {
         runBlocking { job.join() }
     }
 
+
+
     override fun getClothesByClothesID(clothes_id: List<Int>?): List<ClothesData>? {
         var toReturn: MutableList<ClothesData>? = mutableListOf()
         val job = CoroutineScope(Dispatchers.IO).launch {
@@ -126,8 +137,6 @@ class ClothesDB: ClothesInterface, GenerateConnection() {
                             "GROUP BY clothes_id, user_id, clothes_pic, clothes_desc, date_created, timesworn, lastworn;"
                 )
                 if (rs != null && rs.next()) {
-                    val blob: Blob? = rs.getBlob(3)
-                    //NEED TO ADD ON TO THIS
                     toReturn!!.add(
                         ClothesData(
                             rs.getInt(1),

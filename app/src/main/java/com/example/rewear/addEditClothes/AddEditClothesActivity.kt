@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
+import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.widget.*
@@ -52,6 +53,7 @@ class AddEditClothesActivity() : AppCompatActivity() {
         initializeViews()
 
         val bundle = Bundle()
+
         bundle.putInt("user_id", clothesData!!.user_id!!)
         if (screenDisplay == 1) {
             addClothes(bundle)
@@ -186,19 +188,22 @@ class AddEditClothesActivity() : AppCompatActivity() {
         val oldTags = clothesData!!.category_name!!.filter { !it.isWhitespace() }.split(",").toTypedArray()
 
         //get deleted categories
-        for (s: String in oldTags){
-            val index = newTags.indexOf(s)
-            if (index == -1 && s != "ALL"){
-                val namesIndex = names!!.indexOf(s)
-                val record = ClothesBelongsToData(clothesData!!.clothes_id,categories!![namesIndex].category_id)
-                deletedIDs.add(record)
+        if (screenDisplay == 0){
+            for (s: String in oldTags){
+                val index = newTags.indexOf(s)
+                if (index == -1 && s != "ALL"){
+                    val namesIndex = names!!.indexOf(s)
+                    val record = ClothesBelongsToData(clothesData!!.clothes_id,categories!![namesIndex].category_id)
+                    deletedIDs.add(record)
+                }
             }
         }
+
 
         //get new categories
         for (s: String in newTags){
             val index = names!!.indexOf(s) //checks in all existing tags
-            if(index != -1 && oldTags!!.indexOf(s) == -1 && s != ""){  //if tag exists for user, and did Cloth Did not have it before
+            if(index != -1 && oldTags!!.indexOf(s) == -1 && s != ""){  //if tag exists for user, and  Cloth Did not have it before
                 val record = ClothesBelongsToData(clothesData!!.clothes_id, categories!![index].category_id)
                 listOfTagsID.add(record)
             } else if (index == -1 && s != "") { //if tag does not exist for user

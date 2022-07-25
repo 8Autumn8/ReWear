@@ -22,7 +22,7 @@ class EditClothesPresenter(
                 val clothingList =
                     clothes!!.category_id?.let { clothes!!.user_id?.let { it1 ->
                         db.getClothesCategory(
-                            it1, it)
+                            it1, cat)
                     } }
                 val clothesBelongs = ClothesBelongsToData(clothingList!!.category_id,clothes.user_id)
 

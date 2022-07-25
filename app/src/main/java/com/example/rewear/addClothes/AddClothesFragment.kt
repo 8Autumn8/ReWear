@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_addclothes.*
 class AddClothesFragment : Fragment(), AddClothesContract.View {
     var user_id: Int? = null
     private val presenter = AddClothesPresenter(this)
-
+    private var clothesID: Int? = null
 
 
     override fun onCreateView(
@@ -37,9 +37,11 @@ class AddClothesFragment : Fragment(), AddClothesContract.View {
             val existingTags: List<ClothesBelongsToData>? = (activity as AddEditClothesActivity?)!!.getExistingTags()
             val clothes = (activity as AddEditClothesActivity?)!!.getInformation()
 
-            presenter.addNewTags(newTags, clothes)
-            presenter.addToTags(existingTags)
+
             presenter.addClothes(clothes)
+            presenter.addNewTags(newTags, user_id!!, clothesID!!)
+            presenter.addToTags(existingTags, clothesID!!)
+
 
 
             val intent = Intent(activity, MainActivity::class.java)
@@ -47,6 +49,10 @@ class AddClothesFragment : Fragment(), AddClothesContract.View {
             intent.putExtra("CURR_FRAG", "CLOSET")
             startActivity(intent)
         }
+    }
+
+    override fun setClothesID(id: Int){
+        clothesID = id
     }
 }
 

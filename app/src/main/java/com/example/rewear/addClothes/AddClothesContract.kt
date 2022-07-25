@@ -6,13 +6,14 @@ import com.example.rewear.objects.ClothesData
 
 class AddClothesContract {
     interface View {
+        fun setClothesID(id: Int)
     }
 
     interface Presenter {
         fun addClothes(clothes: ClothesData)
 
-        fun addNewTags(category: List<ClothesCategoryData>?, clothes: ClothesData)
+        fun addNewTags(category: List<ClothesCategoryData>?, user_id: Int, clothes_id: Int)
 
-        fun addToTags(category: List<ClothesBelongsToData>?)
+        fun addToTags(category: List<ClothesBelongsToData>?, clothesID: Int)
     }
 }
