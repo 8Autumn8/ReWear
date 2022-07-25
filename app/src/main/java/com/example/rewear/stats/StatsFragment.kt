@@ -33,7 +33,6 @@ class StatsFragment : Fragment(), StatsContract.View {
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         // If user_id is still null somehow, then send a toast and die
         if (userID == null) {
             Toast.makeText(

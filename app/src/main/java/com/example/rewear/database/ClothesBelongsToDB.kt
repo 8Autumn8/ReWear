@@ -37,8 +37,21 @@ class ClothesBelongsToDB : ClothesBelongsToInterface, GenerateConnection(){
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
 
-            conn!!.createStatement().execute("INSERT INTO ClothesBelongTo " +
-                    "VALUES (${clothesBelongsToData.clothes_id},${clothesBelongsToData.category_id};")
+            conn!!.createStatement().execute("INSERT IGNORE INTO ClothesBelongsTo " +
+                    "VALUES (${clothesBelongsToData.clothes_id},${clothesBelongsToData.category_id});")
+        }
+        runBlocking { job.join() }
+    }
+
+    override fun addClothesBelongsTo(clothesBelongsToData: List<ClothesBelongsToData>){
+
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            val conn = createConnection() ?: return@launch
+            for (clothes: ClothesBelongsToData in clothesBelongsToData){
+                conn!!.createStatement().execute("INSERT IGNORE INTO ClothesBelongsTo " +
+                        "VALUES ('${clothes.clothes_id}','${clothes.category_id}');")
+            }
+
         }
         runBlocking { job.join() }
     }
@@ -52,6 +65,18 @@ class ClothesBelongsToDB : ClothesBelongsToInterface, GenerateConnection(){
         }
         runBlocking { job.join() }
 
+    }
+
+    override fun deleteClothesBelongsTo(clothesBelongsToData: List<ClothesBelongsToData>){
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            val conn = createConnection() ?: return@launch
+            for (clothes: ClothesBelongsToData in clothesBelongsToData){
+                conn!!.createStatement().execute("DELETE FROM UserBelongsTo " +
+                        "WHERE user_id = ${clothes.clothes_id} AND group_id = ${clothes.category_id}"  )
+            }
+
+        }
+        runBlocking { job.join() }
     }
 
 

@@ -8,6 +8,10 @@ interface ClothesBelongsToInterface {
 
     fun addClothesBelongsTo(clothesBelongsToData: ClothesBelongsToData)
 
+    fun addClothesBelongsTo(clothesBelongsToData: List<ClothesBelongsToData>)
+
     fun deleteClothesBelongsTo(clothesBelongsToData: ClothesBelongsToData)
+
+    fun deleteClothesBelongsTo(clothesBelongsToData: List<ClothesBelongsToData>)
 
 }

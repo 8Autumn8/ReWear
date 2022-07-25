@@ -75,9 +75,12 @@ class ClosetAdaptorClass(val categories: List<ClothesCategoryData>) :
 
     override fun getItemCount(): Int {
         if (clothesData != null) {
+
             return clothesData!!.size
         }
+
         return 0
+
     }
 
     //code to update recyclar view

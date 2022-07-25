@@ -5,7 +5,7 @@ interface ClothesInterface {
 
     fun getClothes(clothes_id: Int): ClothesData?
 
-    fun addClothes(clothesObject: ClothesData)
+    fun addClothes(clothesObject: ClothesData) : Int?
 
     fun deleteClothes(clothes_id: Int)
 

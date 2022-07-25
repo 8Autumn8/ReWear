@@ -135,7 +135,7 @@ CREATE TABLE Clothes (
     clothes_id INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     clothes_pic longblob NOT NULL,
-    clothes_desc VARCHAR(256) NOT NULL,
+    #clothes_desc VARCHAR(256) NOT NULL,
     date_created DATE NOT NULL,
 
     FOREIGN KEY (user_ID)

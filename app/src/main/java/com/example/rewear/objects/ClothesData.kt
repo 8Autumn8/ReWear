@@ -13,7 +13,7 @@ data class ClothesData(
     val category_id: Int?,
     val category_name: String?,
     val total_days_worn: Int?,
-    val last_worn: String?
+    var last_worn: String?
 ) : Serializable{
     constructor(user_id: Int?,
                 clothes_pic: ByteArray?,

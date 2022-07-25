@@ -3,13 +3,19 @@ package com.example.rewear.groups
 //import kotlinx.android.synthetic.main.activity_group_contraintlayout.*
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.ListView
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,8 +27,7 @@ import com.example.rewear.closetAdaptor.ClosetAdaptorClass
 import com.example.rewear.objects.ClothesCategoryData
 import com.example.rewear.objects.ClothesData
 import kotlinx.android.synthetic.main.fragment_closet.*
-import kotlinx.android.synthetic.main.fragment_closet.addPicture
-import kotlinx.android.synthetic.main.fragment_groups.description
+import kotlinx.android.synthetic.main.fragment_closet.view.*
 import java.io.Serializable
 
 
@@ -32,6 +37,8 @@ class ClosetFragment : Fragment(), ClosetContract.View {
     private var closetAdaptor: ClosetAdaptorClass? = null
     var rvCloset: RecyclerView? = null
     var dropDownData: List<ClothesCategoryData>? = null
+    var dialog: Dialog? = null
+    var adapter: ArrayAdapter<String>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,9 +53,7 @@ class ClosetFragment : Fragment(), ClosetContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initializeControls()
-        createSpinnerList()
-        manageSpinner()
+        initializeVals()
 
         addPicture.setOnClickListener {
             val intent = Intent(activity, AddEditClothesActivity::class.java)
@@ -60,64 +65,107 @@ class ClosetFragment : Fragment(), ClosetContract.View {
             startActivity(intent)
             (activity as Activity?)!!.overridePendingTransition(0, 0)
         }
-    }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putAll(outState)
-    }
+        if (spinnerCloset.text == "Search Tags"){
+            noneSelected.visibility = View.VISIBLE
+        } else {
+            noneSelected.visibility = View.GONE
+        }
 
-    fun manageSpinner() {
-        loadingIcon.visibility = View.VISIBLE
-        spinnerCloset.onItemSelectedListener = object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View?, position: Int, id: Long
-            ) {
-                if (spinnerCloset.selectedItemPosition != 0) {
-                    noneSelected.visibility = View.GONE
-                    description.text =
-                        dropDownData!![spinnerCloset.selectedItemPosition-1].description
+        spinnerCloset.setOnClickListener(View.OnClickListener {
+            dialog = activity?.let { Dialog(it,android.R.style.Theme_Black_NoTitleBar_Fullscreen)}
+            dialog!!.setCanceledOnTouchOutside(true) //close when click outside of screen
+            // set custom dialog
+            dialog!!.setContentView(R.layout.dialog_searchable_spinner)
+
+            //setting background
+            val window: Window = dialog!!.window!!
+            val windowParams: WindowManager.LayoutParams = window.attributes
+            windowParams.dimAmount = 0.70f
+            windowParams.flags = windowParams.flags or WindowManager.LayoutParams.FLAG_DIM_BEHIND
+
+            // set custom height and width
+            val width = (resources.displayMetrics.widthPixels * 0.90).toInt()
+            val height = (resources.displayMetrics.heightPixels * 0.90).toInt()
+            dialog!!.window!!.setLayout(width, height)
+
+            //setting it to the window
+            window.attributes = windowParams
+
+            // set transparent background so it doesn't cover page
+            dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            // show dialog
+            dialog!!.show()
+            // set adapter
+
+            val editText: EditText = dialog!!.findViewById(R.id.search_bar)
+            val listView: ListView = dialog!!.findViewById(R.id.list_view)
+            listView.adapter = adapter
+            editText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    adapter!!.filter.filter(s)
+                }
+
+                override fun afterTextChanged(s: Editable) {}
+            })
+
+            listView.onItemClickListener =
+                AdapterView.OnItemClickListener { _, _, position, _ -> // when item selected from list
+                    // set selected item on textView
+                    view.spinnerCloset.text = adapter!!.getItem(position)
+                    // Dismiss dialog
+                    dialog!!.dismiss()
+                    backgroundLoading(true)
 
                     closetAdaptor!!.setData(
-                        dropDownData!![spinnerCloset.selectedItemPosition-1].category_id!!
+                        dropDownData!![position].category_id!!
                     )
                     closetAdaptor!!.notifyDataSetChanged()
-                } else {
-                    noneSelected.visibility = View.VISIBLE
+                    backgroundLoading(false)
+
+
                 }
-                    loadingIcon.visibility = View.GONE
-            }
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
+        })
     }
+
 
     override fun returnGetCategories(clothesCategories: List<ClothesCategoryData>?) {
         dropDownData = clothesCategories
     }
 
-    fun initializeControls() {
+    private fun initializeVals() {
+        // Initialize array adapter
+        val names = dropDownData!!.map { it.name}
+        adapter = activity?.let { it1 ->
+            ArrayAdapter<String>(
+                it1,
+                android.R.layout.simple_dropdown_item_1line, names
+            )
+        }
+        //controls
         rvCloset = view?.findViewById(R.id.recycler_view)
-
         closetAdaptor = ClosetAdaptorClass(dropDownData!!)
         rvCloset?.adapter = closetAdaptor
         rvCloset!!.layoutManager = LinearLayoutManager(activity)
     }
 
-    fun createSpinnerList() {
-        loadingIcon.visibility = View.VISIBLE
-        val strCategory =
-            arrayOfNulls<String?>(dropDownData!!.size+1) //{"Select Category", "Category 1", "Category 2", "Category 3"};
-        strCategory[0] = "Select Category"
-        for (i in 1..dropDownData!!.size) strCategory[i] = dropDownData!![i-1].name
+    private fun backgroundLoading(isLoading: Boolean){
+        if (isLoading){
+            rvCloset!!.visibility = View.GONE
+            loadingIcon.visibility = View.VISIBLE
+        } else {
+            loadingIcon.visibility = View.GONE
+            rvCloset!!.visibility = View.VISIBLE
+        }
 
-        val adCategory = ArrayAdapter<String>(
-            requireActivity(),
-            android.R.layout.simple_spinner_dropdown_item,
-            strCategory
-        )
-
-        spinnerCloset.adapter = adCategory
     }
+
 }

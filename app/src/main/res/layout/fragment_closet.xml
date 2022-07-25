@@ -7,32 +7,20 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
-    <Spinner
-        android:id="@+id/spinnerCloset"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:ems="10" />
 
-    <ImageButton
-        android:id="@+id/addCategory"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="360dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/ic_closet_svgrepo_com"
-        android:contentDescription="Create a new category" />
-
+    <!-- text view to show the selected item-->
     <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
+        android:id="@+id/spinnerCloset"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinnerCloset"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        tools:ignore="MissingConstraints" />
-    <!--android:text="Select a group above" -->
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="25dp"
+        android:gravity="center_vertical"
+        android:hint="Search Tags"
+        android:padding="12dp"
+        app:drawableEndCompat="@drawable/ic_dropdown_svgrepo_com" />
+
 
 
     <!--Searchbar inserted here-->
@@ -62,13 +50,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <ImageButton
+        <Button
             android:id="@+id/addPicture"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/roundcorner"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_hanger_svgrepo_com"
+            android:text = "+"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/recycler_view"
             app:layout_constraintHorizontal_bias="0.948"
@@ -80,10 +69,10 @@
             android:id="@+id/noneSelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select the category on the top left!"
+            android:text="Select a tag on the top!"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/recycler_view" />
 
