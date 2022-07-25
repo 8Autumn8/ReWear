@@ -37,8 +37,8 @@ class ClothesBelongsToDB : ClothesBelongsToInterface, GenerateConnection(){
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
 
-            conn!!.createStatement().execute("INSERT INTO ClothesBelongTo " +
-                    "VALUES (${clothesBelongsToData.clothes_id},${clothesBelongsToData.category_id};")
+            conn!!.createStatement().execute("INSERT IGNORE INTO ClothesBelongsTo " +
+                    "VALUES (${clothesBelongsToData.clothes_id},${clothesBelongsToData.category_id});")
         }
         runBlocking { job.join() }
     }

@@ -22,7 +22,7 @@ class AddClothesPresenter (
             for (cat: ClothesCategoryData in category){
                 val clothingList = db.getClothesCategory(user_id, cat)
 
-                belongTo.add(ClothesBelongsToData(clothingList!!.category_id, clothes_id))
+                belongTo.add(ClothesBelongsToData(clothes_id,clothingList!!.category_id))
             }
             db.addClothesBelongsTo(belongTo)
         }
