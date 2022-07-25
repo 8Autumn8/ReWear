@@ -23,15 +23,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.05" />
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/statsLoadingIcon"
-        style="?android:attr/progressBarStyle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/statsTitle"
-        app:layout_constraintTop_toTopOf="@+id/statsTitle" />
 
     <!--This section is a little hard to understand,
          but essentially the % worn CardViews has a title, a
