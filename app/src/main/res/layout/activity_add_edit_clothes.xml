@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="4"
-                android:text="Date Added to Closet (unchangable): " />
+                android:text="Date Added to Closet (unchangable):\n" />
 
             <CheckBox
                 android:id="@+id/woreToday"
@@ -121,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint = "categories"
+            android:hint = "tags (separate each tag with comma)"
             android:text="" />
     </LinearLayout>
 
