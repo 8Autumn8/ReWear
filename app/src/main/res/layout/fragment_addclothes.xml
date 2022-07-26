@@ -49,25 +49,12 @@
         android:layout_gravity="bottom"
         app:layout_constraintTop_toBottomOf="@+id/middle">
 
-        <Button
-            android:id="@+id/btCancel"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:text="Cancel"
-            android:backgroundTint="@color/colorGrey" />
 
         <Button
             android:id="@+id/btAddClothes"
             android:layout_width="100dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="50dp"
             android:layout_gravity="center"
-            android:layout_marginStart="50dp"
             android:text="Add To Closet" />
 
 

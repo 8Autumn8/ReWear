@@ -23,6 +23,7 @@ import com.example.rewear.objects.ClothesData
 import kotlinx.android.synthetic.main.activity_add_edit_clothes.*
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 
@@ -113,11 +114,12 @@ class AddEditClothesActivity() : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun addClothes(bundle: Bundle) {
         contentFragment = AddClothesFragment()
         contentFragment!!.arguments = bundle
         supportFragmentManager.beginTransaction().add(com.example.rewear.R.id.container, contentFragment!!).commit()
-        dateAdded!!.text = dateAdded!!.text.toString() + Calendar.getInstance().time
+        dateAdded!!.text = dateAdded!!.text.toString() + LocalDate.now().toString()
 
     }
 
@@ -127,6 +129,7 @@ class AddEditClothesActivity() : AppCompatActivity() {
         supportFragmentManager.beginTransaction().add(com.example.rewear.R.id.container, contentFragment!!).commit()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getInformation() : ClothesData {
         var img: ByteArray? = null
         val desc: String = description!!.text.toString()
@@ -136,8 +139,8 @@ class AddEditClothesActivity() : AppCompatActivity() {
             bmTemp.compress(Bitmap.CompressFormat.JPEG, 100, bos)
              img = bos.toByteArray()
         }
-        if (checkBox!!.isChecked()){
-            clothesData!!.last_worn = Calendar.getInstance().time.toString()
+        if (checkBox!!.isChecked){
+            clothesData!!.last_worn = LocalDate.now().toString()
         } else {
             clothesData!!.last_worn = null
         }
@@ -166,8 +169,8 @@ class AddEditClothesActivity() : AppCompatActivity() {
         description!!.text = clothesData!!.clothes_desc
         findViewById<MultiAutoCompleteTextView>(com.example.rewear.R.id.autoComplete).text = SpannableStringBuilder(clothesData!!.category_name + ", ")
         dateAdded!!.text = dateAdded!!.text.toString() + clothesData!!.date_created
-        if (clothesData!!.last_worn == LocalDateTime.now().toString()){
-            checkBox!!.isChecked
+        if (clothesData!!.last_worn == LocalDate.now().toString()){
+            checkBox!!.isChecked = true
         }
     }
 
@@ -183,6 +186,8 @@ class AddEditClothesActivity() : AppCompatActivity() {
         categories = intent.getBundleExtra("BUNDLE")!!.getSerializable("ARRAYLIST") as ArrayList<ClothesCategoryData>?
     }
 
+
+    //setting the tags to the global variables before getting them
     fun getCategories(){
         val newTags = autoCompleteView!!.text.filter { !it.isWhitespace() }.split(",").toTypedArray()
         val oldTags = clothesData!!.category_name!!.filter { !it.isWhitespace() }.split(",").toTypedArray()

@@ -46,6 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:layout_alignParentBottom="true"
+        android:weightSum="2"
         android:orientation="horizontal"
         android:layout_gravity="bottom"
         app:layout_constraintTop_toBottomOf="@+id/middle">
@@ -55,20 +56,20 @@
             android:layout_width="110dp"
             android:layout_height="60dp"
             android:layout_centerInParent="true"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:text="Delete Clothing"
-            android:backgroundTint="@color/colorGrey" />
+            android:layout_gravity="center"
+            android:layout_marginStart="30dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorGrey"
+            android:text="Delete Clothing" />
 
         <Button
             android:id="@+id/btEditClothes"
             android:layout_width="110dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
+            android:layout_marginEnd="30dp"
             android:layout_gravity="center"
             android:layout_marginStart="50dp"
+            android:layout_weight="1"
             android:text="Save Changes" />
 
 

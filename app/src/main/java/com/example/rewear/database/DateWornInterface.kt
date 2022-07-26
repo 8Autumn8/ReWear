@@ -1,16 +1,16 @@
 package com.example.rewear.database
 
 import com.example.rewear.objects.ClothesData
-import com.example.rewear.objects.DateWorn
+import com.example.rewear.objects.DateWornData
 import java.util.*
 
 interface DateWornInterface {
 
-    fun getDateWorn(clothes_id: Int) : List<DateWorn>?
+    fun getDateWorn(clothes_id: Int) : List<DateWornData>?
 
-    fun addDateWorn(dateWorn: DateWorn)
+    fun addDateWorn(dateWorn: DateWornData)
 
-    fun deleteDateWorn(dateWorn: DateWorn)
+    fun deleteDateWorn(dateWorn: DateWornData)
 
     fun getMostWorn(user_id: Int) : ClothesData?
 

@@ -1,17 +1,28 @@
 package com.example.rewear.editClothes
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.rewear.database.ClothesBelongsToDB
 import com.example.rewear.database.DataBaseHelper
 import com.example.rewear.objects.ClothesBelongsToData
 import com.example.rewear.objects.ClothesCategoryData
 import com.example.rewear.objects.ClothesData
+import com.example.rewear.objects.DateWornData
+import java.time.LocalDate
 
 class EditClothesPresenter(
     private val view: EditClothesFragment,
     private val db: DataBaseHelper = DataBaseHelper()
 ) : EditClothesContract.Presenter {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun editClothes(clothesRecord: ClothesData) {
         db.updateClothes(clothesRecord)
+        val date = DateWornData(clothesRecord.clothes_id, LocalDate.now().toString())
+        if (clothesRecord.last_worn != null){
+            db.addDateWorn(date)
+        } else {
+            db.deleteDateWorn(date)
+        }
     }
 
     override fun addNewTags(category: List<ClothesCategoryData>?, clothes: ClothesData){
