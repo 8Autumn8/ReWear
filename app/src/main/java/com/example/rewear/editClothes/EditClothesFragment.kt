@@ -48,7 +48,13 @@ class EditClothesFragment : Fragment(), EditClothesContract.View{
             startActivity(intent)
         }
         btDeleteClothes.setOnClickListener{
-
+            (activity as AddEditClothesActivity?)!!.getCategories()
+            val clothes = (activity as AddEditClothesActivity?)!!.getInformation()
+            presenter.deleteClothes(clothes)
+            val intent = Intent(activity, MainActivity::class.java)
+            intent.putExtra("user_id", user_id)
+            intent.putExtra("CURR_FRAG", "CLOSET")
+            startActivity(intent)
         }
 
     }

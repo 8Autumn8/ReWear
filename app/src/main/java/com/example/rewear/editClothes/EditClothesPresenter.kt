@@ -44,4 +44,10 @@ class EditClothesPresenter(
         }
 
     }
+
+
+    override fun deleteClothes(clothes: ClothesData){
+        db.deleteClothes(clothes.clothes_id!!)
+    }
+
 }

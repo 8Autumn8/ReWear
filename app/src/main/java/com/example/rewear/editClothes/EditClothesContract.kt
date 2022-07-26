@@ -17,6 +17,8 @@ class EditClothesContract {
         fun addToTags(category: List<ClothesBelongsToData>?)
 
         fun deleteFromTags(category: List<ClothesBelongsToData>?)
+
+        fun deleteClothes(clothes: ClothesData)
     }
 
 }
