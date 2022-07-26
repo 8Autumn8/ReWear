@@ -13,6 +13,10 @@ class AddClothesPresenter (
     override fun addClothes(clothes: ClothesData){
         val clothesID: Int? = db.addClothes(clothes)
         view.setClothesID(clothesID!!)
+
+        if (clothes.last_worn != null){
+
+        }
     }
 
     override fun addNewTags(category: List<ClothesCategoryData>?, user_id: Int, clothes_id: Int){

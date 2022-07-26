@@ -11,10 +11,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.ListView
+import android.widget.*
 import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,6 +36,7 @@ class ClosetFragment : Fragment(), ClosetContract.View {
     var dropDownData: List<ClothesCategoryData>? = null
     var dialog: Dialog? = null
     var adapter: ArrayAdapter<String>? = null
+    private var progressBar: ProgressBar? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -119,19 +117,30 @@ class ClosetFragment : Fragment(), ClosetContract.View {
 
             listView.onItemClickListener =
                 AdapterView.OnItemClickListener { _, _, position, _ -> // when item selected from list
-                    // set selected item on textView
-                    view.spinnerCloset.text = adapter!!.getItem(position)
-                    // Dismiss dialog
-                    dialog!!.dismiss()
-                    backgroundLoading(true)
 
-                    closetAdaptor!!.setData(
-                        dropDownData!![position].category_id!!
-                    )
-                    closetAdaptor!!.notifyDataSetChanged()
-                    backgroundLoading(false)
+                    activity?.window?.decorView?.post {
+                        // set selected item on textView
+                        view.spinnerCloset.text = adapter!!.getItem(position)
+                        // Dismiss dialog
+                        dialog!!.dismiss()
 
+                        //showing progress bar
+                        progressBar = view.rootView.findViewById<ProgressBar>(R.id.loading)
+                        progressBar?.visibility = View.VISIBLE
 
+                        //hide cards
+                        //view.rootView.findViewById<AdapterView>(R.)
+
+                        //setting the data in the closet adaptor class
+                        closetAdaptor!!.setData(
+                            dropDownData!![position].category_id!!
+                        )
+                        closetAdaptor!!.notifyDataSetChanged()
+
+                        //hiding progress bar
+                        progressBar = view.rootView.findViewById<ProgressBar>(R.id.loading)
+                        progressBar?.visibility = View.INVISIBLE
+                    }
                 }
         })
     }
@@ -157,15 +166,5 @@ class ClosetFragment : Fragment(), ClosetContract.View {
         rvCloset!!.layoutManager = LinearLayoutManager(activity)
     }
 
-    private fun backgroundLoading(isLoading: Boolean){
-        if (isLoading){
-            rvCloset!!.visibility = View.GONE
-            loadingIcon.visibility = View.VISIBLE
-        } else {
-            loadingIcon.visibility = View.GONE
-            rvCloset!!.visibility = View.VISIBLE
-        }
-
-    }
 
 }
