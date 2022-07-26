@@ -16,6 +16,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginTop="25dp"
         android:layout_marginRight="25dp"
+        android:background="@color/white"
         android:gravity="center_vertical"
         android:hint="Search Tags"
         android:padding="12dp"
@@ -36,7 +37,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="-136dp"
-            tools:layout_editor_absoluteY="-155dp" />
+            tools:layout_editor_absoluteY="-155dp"
+            android:layout_marginBottom="15dp"/>
 
         <ProgressBar
             android:id="@+id/loadingIcon"

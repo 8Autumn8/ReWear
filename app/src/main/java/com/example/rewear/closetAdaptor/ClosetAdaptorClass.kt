@@ -92,7 +92,7 @@ class ClosetAdaptorClass(val categories: List<ClothesCategoryData>) :
         clothesData = pictureCategories
     }
 
-    fun launchEditClothes(context:Context, position: Int){
+    fun launchEditClothes(context: Context, position: Int) {
         val intent = Intent(context, AddEditClothesActivity::class.java)
 
         intent.putExtra("OBJECT", clothesData!![position])
