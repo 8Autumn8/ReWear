@@ -64,14 +64,16 @@ class ClosetFragment : Fragment(), ClosetContract.View {
             (activity as Activity?)!!.overridePendingTransition(0, 0)
         }
 
-        if (spinnerCloset.text == "Search Tags"){
+        if (spinnerCloset.text == "Search Tags") {
             noneSelected.visibility = View.VISIBLE
         } else {
             noneSelected.visibility = View.GONE
         }
 
         spinnerCloset.setOnClickListener(View.OnClickListener {
-            dialog = activity?.let { Dialog(it,android.R.style.Theme_Black_NoTitleBar_Fullscreen)}
+
+
+            dialog = activity?.let { Dialog(it, android.R.style.Theme_Black_NoTitleBar_Fullscreen) }
             dialog!!.setCanceledOnTouchOutside(true) //close when click outside of screen
             // set custom dialog
             dialog!!.setContentView(R.layout.dialog_searchable_spinner)
@@ -118,9 +120,10 @@ class ClosetFragment : Fragment(), ClosetContract.View {
             listView.onItemClickListener =
                 AdapterView.OnItemClickListener { _, _, position, _ -> // when item selected from list
 
-                    activity?.window?.decorView?.post {
                         // set selected item on textView
-                        view.spinnerCloset.text = adapter!!.getItem(position)
+                        view.rootView.spinnerCloset.text = adapter!!.getItem(position)
+                        //hide recyclar view with all the cards
+                        view.rootView.findViewById<RecyclerView>(R.id.recycler_view).visibility = View.INVISIBLE
                         // Dismiss dialog
                         dialog!!.dismiss()
 
@@ -128,6 +131,7 @@ class ClosetFragment : Fragment(), ClosetContract.View {
                         progressBar = view.rootView.findViewById<ProgressBar>(R.id.loading)
                         progressBar?.visibility = View.VISIBLE
 
+                    activity?.window?.decorView?.post {
                         //hide cards
                         //view.rootView.findViewById<AdapterView>(R.)
 
@@ -140,6 +144,8 @@ class ClosetFragment : Fragment(), ClosetContract.View {
                         //hiding progress bar
                         progressBar = view.rootView.findViewById<ProgressBar>(R.id.loading)
                         progressBar?.visibility = View.INVISIBLE
+
+                        view.rootView.findViewById<RecyclerView>(R.id.recycler_view).visibility = View.VISIBLE
                     }
                 }
         })
@@ -152,7 +158,7 @@ class ClosetFragment : Fragment(), ClosetContract.View {
 
     private fun initializeVals() {
         // Initialize array adapter
-        val names = dropDownData!!.map { it.name}
+        val names = dropDownData!!.map { it.name }
         adapter = activity?.let { it1 ->
             ArrayAdapter<String>(
                 it1,
