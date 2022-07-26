@@ -122,10 +122,11 @@ CREATE TABLE ClothesCategory (
     category_id INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     name VARCHAR(32) NOT NULL,
-    description VARCHAR(256) NOT NULL,
+    #description VARCHAR(256) NOT NULL,
     FOREIGN KEY (user_id)
         REFERENCES User(user_id)
-        ON UPDATE CASCADE ON DELETE CASCADE
+        ON UPDATE CASCADE ON DELETE CASCADE,
+	UNIQUE(user_id, name)
 );
 
 #INSERT INTO ClothesCategory(user_id,name,description) Values(,"ALL", "View all your clothes!");
@@ -135,7 +136,7 @@ CREATE TABLE Clothes (
     clothes_id INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     clothes_pic longblob NOT NULL,
-    #clothes_desc VARCHAR(256) NOT NULL,
+    clothes_desc VARCHAR(256) NOT NULL,
     date_created DATE NOT NULL,
 
     FOREIGN KEY (user_ID)
@@ -204,7 +205,7 @@ CREATE TRIGGER newUser
     AFTER INSERT
     ON User FOR EACH ROW
 BEGIN
-      INSERT INTO ClothesCategory(user_id,name,description) Values(NEW.user_id,'ALL', 'View all your clothes!');
+      INSERT INTO ClothesCategory(user_id,name) Values(NEW.user_id,'ALL');
 
 END; //
 DELIMITER ;

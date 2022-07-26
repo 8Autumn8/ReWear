@@ -22,7 +22,7 @@ class StatsFragment : Fragment(), StatsContract.View {
     private var percentWornLastMonth: Int? = null
     private var userID: Int? = null
     private val DESC_MAX_LENGTH = 64
-    private var progressBar: ProgressBar? = null
+    private var progressBar: pl.droidsonroids.gif.GifImageView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +36,7 @@ class StatsFragment : Fragment(), StatsContract.View {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //making it visible
-        progressBar = view.rootView.findViewById<ProgressBar>(R.id.loading)
+        progressBar = view.rootView.findViewById(R.id.loading)
         progressBar?.visibility = View.VISIBLE
 
         // If user_id is still null somehow, then send a toast and die
@@ -68,7 +68,7 @@ class StatsFragment : Fragment(), StatsContract.View {
             mostWornCard.visibility = View.VISIBLE
 
             //hiding progress bar
-            progressBar = view.rootView.findViewById<ProgressBar>(R.id.loading)
+            progressBar = view.rootView.findViewById(R.id.loading)
             progressBar?.visibility = View.INVISIBLE
         }
 

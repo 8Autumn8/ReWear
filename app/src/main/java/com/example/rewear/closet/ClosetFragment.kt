@@ -25,6 +25,7 @@ import com.example.rewear.objects.ClothesCategoryData
 import com.example.rewear.objects.ClothesData
 import kotlinx.android.synthetic.main.fragment_closet.*
 import kotlinx.android.synthetic.main.fragment_closet.view.*
+import pl.droidsonroids.gif.GifImageView
 import java.io.Serializable
 
 
@@ -36,7 +37,7 @@ class ClosetFragment : Fragment(), ClosetContract.View {
     var dropDownData: List<ClothesCategoryData>? = null
     var dialog: Dialog? = null
     var adapter: ArrayAdapter<String>? = null
-    private var progressBar: ProgressBar? = null
+    private var progressBar: GifImageView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -127,8 +128,8 @@ class ClosetFragment : Fragment(), ClosetContract.View {
                         // Dismiss dialog
                         dialog!!.dismiss()
 
-                        //showing progress bar
-                        progressBar = view.rootView.findViewById<ProgressBar>(R.id.loading)
+                        //showing loading bar
+                        progressBar = view.rootView.findViewById(R.id.loading)
                         progressBar?.visibility = View.VISIBLE
 
                     activity?.window?.decorView?.post {
@@ -141,8 +142,8 @@ class ClosetFragment : Fragment(), ClosetContract.View {
                         )
                         closetAdaptor!!.notifyDataSetChanged()
 
-                        //hiding progress bar
-                        progressBar = view.rootView.findViewById<ProgressBar>(R.id.loading)
+                        //hiding loading bar
+                        progressBar = view.rootView.findViewById(R.id.loading)
                         progressBar?.visibility = View.INVISIBLE
 
                         view.rootView.findViewById<RecyclerView>(R.id.recycler_view).visibility = View.VISIBLE
