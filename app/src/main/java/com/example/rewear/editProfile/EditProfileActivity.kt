@@ -54,7 +54,7 @@ class EditProfileActivity: AppCompatActivity(), EditProfileContract.View {
                 ) {
                     Toast.makeText(
                         applicationContext,
-                        "To update password, make sure that the password field and confirm password fields match",
+                        "Password field and Confirm Password fields don't match",
                         Toast.LENGTH_LONG
                     ).show()
                     return@setOnClickListener
