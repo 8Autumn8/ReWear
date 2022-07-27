@@ -71,8 +71,8 @@ class ClothesBelongsToDB : ClothesBelongsToInterface, GenerateConnection(){
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
             for (clothes: ClothesBelongsToData in clothesBelongsToData){
-                conn!!.createStatement().execute("DELETE FROM UserBelongsTo " +
-                        "WHERE user_id = ${clothes.clothes_id} AND group_id = ${clothes.category_id}"  )
+                conn!!.createStatement().execute("DELETE FROM ClothesBelongsTo " +
+                        "WHERE clothes_id = ${clothes.clothes_id} AND category_id = ${clothes.category_id};"  )
             }
 
         }
