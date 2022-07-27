@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="25dp"
+    android:layout_weight="5"
     tools:context=".addEditClothes.AddEditClothesActivity">
 
      <LinearLayout
@@ -28,7 +29,8 @@
         <LinearLayout
             android:id="@+id/secondRow"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="0dp"
+            android:layout_weight = "3"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -36,7 +38,6 @@
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-
                 android:orientation="vertical">
 
                 <ImageView
@@ -88,6 +89,7 @@
             android:id="@+id/thirdRow"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_weight = "1"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -112,7 +114,8 @@
     <LinearLayout
         android:id="@+id/fourthRow"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
+        android:layout_weight = "1"
         android:gravity="center"
         android:orientation="horizontal">
 
