@@ -25,6 +25,9 @@ import com.example.rewear.objects.ClothesCategoryData
 import com.example.rewear.objects.ClothesData
 import kotlinx.android.synthetic.main.fragment_closet.*
 import kotlinx.android.synthetic.main.fragment_closet.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import pl.droidsonroids.gif.GifImageView
 import java.io.Serializable
 
@@ -121,32 +124,39 @@ class ClosetFragment : Fragment(), ClosetContract.View {
             listView.onItemClickListener =
                 AdapterView.OnItemClickListener { _, _, position, _ -> // when item selected from list
 
-                        // set selected item on textView
-                        view.rootView.spinnerCloset.text = adapter!!.getItem(position)
-                        //hide recyclar view with all the cards
-                        view.rootView.findViewById<RecyclerView>(R.id.recycler_view).visibility = View.INVISIBLE
-                        // Dismiss dialog
-                        dialog!!.dismiss()
+                    // set selected item on textView
+                    view.rootView.spinnerCloset.text = adapter!!.getItem(position)
+                    //hide recyclar view with all the cards
+                    view.rootView.findViewById<RecyclerView>(R.id.recycler_view).visibility =
+                        View.INVISIBLE
+                    // Dismiss dialog
+                    dialog!!.dismiss()
 
-                        //showing loading bar
-                        progressBar = view.rootView.findViewById(R.id.loading)
-                        progressBar?.visibility = View.VISIBLE
+                    //showing loading bar
+                    progressBar = view.rootView.findViewById(R.id.loading)
+                    progressBar?.visibility = View.VISIBLE
 
-                    activity?.window?.decorView?.post {
-                        //hide cards
-                        //view.rootView.findViewById<AdapterView>(R.)
+                    CoroutineScope(Dispatchers.IO).launch {
+
 
                         //setting the data in the closet adaptor class
                         closetAdaptor!!.setData(
                             dropDownData!![position].category_id!!
                         )
-                        closetAdaptor!!.notifyDataSetChanged()
 
-                        //hiding loading bar
-                        progressBar = view.rootView.findViewById(R.id.loading)
-                        progressBar?.visibility = View.INVISIBLE
 
-                        view.rootView.findViewById<RecyclerView>(R.id.recycler_view).visibility = View.VISIBLE
+                        CoroutineScope(Dispatchers.Main).launch {
+                            closetAdaptor!!.notifyDataSetChanged()
+
+                            //hiding loading bar
+                            progressBar = view.rootView.findViewById(R.id.loading)
+                            progressBar?.visibility = View.INVISIBLE
+                            view.rootView.findViewById<RecyclerView>(R.id.recycler_view).visibility =
+                                View.VISIBLE
+
+                        }
+
+
                     }
                 }
         })

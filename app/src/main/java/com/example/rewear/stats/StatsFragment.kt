@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment
 import com.example.rewear.R
 import com.example.rewear.objects.ClothesData
 import kotlinx.android.synthetic.main.fragment_stats.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class StatsFragment : Fragment(), StatsContract.View {
@@ -49,31 +52,31 @@ class StatsFragment : Fragment(), StatsContract.View {
             return
         }
 
-        activity?.window?.decorView?.post {
+        CoroutineScope(Dispatchers.IO).launch {
             // ends function if mostWorn clothes was not found...
             presenter.getMostWorn(userID!!)
 
             // Gets the percentage of closet worn from date...
             presenter.getPercentageWornFromDate(userID!!)
 
+            //activity?.window?.decorView?.post {
+            CoroutineScope(Dispatchers.Main).launch {
+                if (percentWornLastWeek != null && percentWornLastMonth != null) {
+                    // update most worn card
+                    updateMostWornCard(mostWorn!!)
+                    updatePercentageCards()
+                }
 
-            if (percentWornLastWeek != null && percentWornLastMonth != null) {
-                // update most worn card
-                updateMostWornCard(mostWorn!!)
-                updatePercentageCards()
+                percentWornLastWeekCard.visibility = View.VISIBLE
+                percentWornLastMonthCard.visibility = View.VISIBLE
+                mostWornCard.visibility = View.VISIBLE
+
+                //hiding progress bar
+                progressBar = view.rootView.findViewById(R.id.loading)
+                progressBar?.visibility = View.INVISIBLE
             }
-
-            percentWornLastWeekCard.visibility = View.VISIBLE
-            percentWornLastMonthCard.visibility = View.VISIBLE
-            mostWornCard.visibility = View.VISIBLE
-
-            //hiding progress bar
-            progressBar = view.rootView.findViewById(R.id.loading)
-            progressBar?.visibility = View.INVISIBLE
         }
-
     }
-
 
     private fun updatePercentageCards() {
         // update the progress bars
