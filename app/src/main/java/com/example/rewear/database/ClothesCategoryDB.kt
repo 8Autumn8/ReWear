@@ -1,8 +1,6 @@
 package com.example.rewear.database
 
 import com.example.rewear.objects.ClothesCategoryData
-import com.example.rewear.objects.ClothesData
-import com.example.rewear.objects.UserBelongsToData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,12 +19,23 @@ class ClothesCategoryDB : ClothesCategoryInterface, GenerateConnection() {
         runBlocking { job.join() }
     }
 
-    override fun addClothesCategory(clothescategory: List<ClothesCategoryData>) {
+    override fun addClothesCategory(clothescategory: List<ClothesCategoryData>, clothesID: Int) {
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
             for (clothes: ClothesCategoryData in clothescategory){
                 conn!!.createStatement().execute("INSERT IGNORE INTO ClothesCategory(user_id, name) " +
                         "VALUES (${clothes.user_id},'${clothes.name}');")
+                val rs: ResultSet? = conn!!.createStatement().executeQuery("SELECT LAST_INSERT_ID();")
+
+
+                //adding clothes to category
+
+                var category_id: Int? = null
+                if (rs != null && rs.next()) {
+                    category_id = rs.getInt(1)
+                }
+                conn!!.createStatement().execute("INSERT IGNORE INTO ClothesBelongsTo " +
+                        "VALUES (${clothesID},${category_id});")
             }
 
         }

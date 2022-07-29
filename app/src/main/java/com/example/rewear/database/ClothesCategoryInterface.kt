@@ -12,7 +12,7 @@ interface ClothesCategoryInterface {
 
     fun  addClothesCategory(clothescategory: ClothesCategoryData)
 
-    fun addClothesCategory(clothescategory: List<ClothesCategoryData>)
+    fun addClothesCategory(clothescategory: List<ClothesCategoryData>, clothesID: Int)
 
 
     fun deleteClothesCategory(category_id: Int)

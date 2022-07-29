@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS User;
 DROP TRIGGER IF EXISTS delgroup;
 DROP TRIGGER IF EXISTS newClothes;
 DROP TRIGGER IF EXISTS newUser;
+DROP TRIGGER IF EXISTS deleteClothesbelongsto;
 
 #Entity
 CREATE TABLE User (
@@ -220,6 +221,15 @@ BEGIN
 END; //
 DELIMITER ;
 
+DELIMITER  //
+CREATE TRIGGER deleteClothesbelongsto AFTER INSERT ON clothesbelongsto FOR EACH ROW
+BEGIN
+	DELETE
+	FROM
+    clothescategory
+	WHERE clothescategory.category_id NOT IN (SELECT clothesbelongsto.category_id FROM clothesbelongsto);
+END;
+DELIMITER ;
 
 #INSERT INTO user (first_name, last_name, username, password) VALUES ('testfname', 'testlname', 'testuname', 'testpwd');
 

@@ -38,7 +38,7 @@ class StatsPresenter(
         val wornSinceDate = db.getNumWornSinceDate(userID, date)
 
         if (numClothesInCloset != 0 && wornSinceDate != 0)
-                percentage = (wornSinceDate!!.toFloat() / numClothesInCloset!!.toFloat() * 100).toInt()
+                percentage = ((wornSinceDate!!.toFloat() / numClothesInCloset!!.toFloat() )* 100).toInt()
 
         return percentage
     }

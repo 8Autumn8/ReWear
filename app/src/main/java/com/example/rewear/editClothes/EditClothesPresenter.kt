@@ -2,7 +2,6 @@ package com.example.rewear.editClothes
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.example.rewear.database.ClothesBelongsToDB
 import com.example.rewear.database.DataBaseHelper
 import com.example.rewear.objects.ClothesBelongsToData
 import com.example.rewear.objects.ClothesCategoryData
@@ -28,18 +27,7 @@ class EditClothesPresenter(
     override fun addNewTags(category: List<ClothesCategoryData>?, clothes: ClothesData){
         if (category!!.size != 0) {
             var belongTo: MutableList<ClothesBelongsToData> = mutableListOf()
-            db.addClothesCategory(category!!)
-            for (cat: ClothesCategoryData in category){
-                val clothingList =
-                    clothes!!.category_id?.let { clothes!!.user_id?.let { it1 ->
-                        db.getClothesCategory(
-                            it1, cat)
-                    } }
-                val clothesBelongs = ClothesBelongsToData(clothes.user_id,clothingList!!.category_id)
-
-                belongTo.add(clothesBelongs)
-            }
-            db.addClothesBelongsTo(belongTo)
+            db.addClothesCategory(category!!, clothes.clothes_id!!)
         }
     }
 

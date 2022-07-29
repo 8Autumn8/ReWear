@@ -1,19 +1,18 @@
 package com.example.rewear.editClothes
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.rewear.MainActivity
-
 import com.example.rewear.R
 import com.example.rewear.addEditClothes.AddEditClothesActivity
 import com.example.rewear.objects.ClothesBelongsToData
 import com.example.rewear.objects.ClothesCategoryData
-import com.example.rewear.objects.ClothesData
-import kotlinx.android.synthetic.main.fragment_addclothes.*
 import kotlinx.android.synthetic.main.fragment_editclothes.*
 
 class EditClothesFragment : Fragment(), EditClothesContract.View{
@@ -28,6 +27,7 @@ class EditClothesFragment : Fragment(), EditClothesContract.View{
         return inflater.inflate(R.layout.fragment_editclothes, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         btEditClothes.setOnClickListener {
             (activity as AddEditClothesActivity?)!!.getCategories()
