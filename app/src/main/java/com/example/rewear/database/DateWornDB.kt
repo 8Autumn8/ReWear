@@ -96,7 +96,7 @@ class DateWornDB: DateWornInterface, GenerateConnection(){
             val conn = createConnection() ?: return@launch
 
             var rs = conn.createStatement().executeQuery(
-                    "SELECT count(*) " +
+                    "SELECT count(DISTINCT dateworn.clothes_id)  " +
                             "FROM dateworn INNER JOIN clothes ON dateworn.clothes_id = clothes.clothes_id " +
                             "WHERE date BETWEEN '${date}' AND '${LocalDate.now()}' AND user_id = ${user_id}; "
                 )
