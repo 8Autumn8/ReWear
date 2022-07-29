@@ -1,7 +1,5 @@
 package com.example.rewear.objects
 
-import java.util.*
-
 
 data class GroupsData(val group_id: Int?,
                       val group_password: String?,

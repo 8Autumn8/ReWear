@@ -1,8 +1,6 @@
 package com.example.rewear.database
 
-import com.example.rewear.objects.ClothesBelongsToData
 import com.example.rewear.objects.PictureGroupData
-import com.example.rewear.objects.UserData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

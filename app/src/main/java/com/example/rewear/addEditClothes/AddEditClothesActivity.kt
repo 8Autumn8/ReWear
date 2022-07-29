@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
-import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.widget.*
@@ -24,8 +23,6 @@ import kotlinx.android.synthetic.main.activity_add_edit_clothes.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.util.*
 
 
 class AddEditClothesActivity() : AppCompatActivity() {

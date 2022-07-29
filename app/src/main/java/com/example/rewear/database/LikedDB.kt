@@ -1,6 +1,5 @@
 package com.example.rewear.database
 
-import com.example.rewear.objects.CommentData
 import com.example.rewear.objects.LikedData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

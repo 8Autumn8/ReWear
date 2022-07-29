@@ -5,7 +5,6 @@ import com.example.rewear.database.DataBaseHelper
 import com.example.rewear.objects.GroupsData
 import com.example.rewear.objects.LikedData
 import com.example.rewear.objects.PictureData
-import com.example.rewear.objects.UserData
 
 class GroupsPresenter (
     private val view: GroupsContract.View,

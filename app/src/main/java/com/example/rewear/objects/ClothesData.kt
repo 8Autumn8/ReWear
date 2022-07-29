@@ -1,8 +1,6 @@
 package com.example.rewear.objects
 
-import android.graphics.Bitmap
 import java.io.Serializable
-import java.sql.Blob
 
 data class ClothesData(
     var clothes_id: Int?,

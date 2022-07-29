@@ -1,8 +1,7 @@
 package com.example.rewear.editProfile
 
-import com.example.rewear.objects.UserData
 import com.example.rewear.database.DataBaseHelper
-import com.example.rewear.profile.ProfileContract
+import com.example.rewear.objects.UserData
 
 class EditProfilePresenter(
     private val view: EditProfileContract.View,

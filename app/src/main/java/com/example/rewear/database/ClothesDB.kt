@@ -7,18 +7,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.sql.ResultSet
-import java.sql.Statement
-import com.example.rewear.Utility
-import com.example.rewear.objects.ClothesCategoryData
-import java.io.ByteArrayInputStream
 import java.sql.Blob
 import java.sql.PreparedStatement
+import java.sql.ResultSet
+import java.sql.Statement
 import java.time.LocalDateTime
 
 
 class ClothesDB: ClothesInterface, GenerateConnection() {
-    val utility = Utility()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun addClothes(clothesObject: ClothesData) : Int?{

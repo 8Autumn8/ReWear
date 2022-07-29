@@ -5,14 +5,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.sql.Blob
 import java.sql.ResultSet
 import java.sql.Statement
-import com.example.rewear.Utility
-import java.util.*
+
 
 class PictureDB: PictureInterface, GenerateConnection() {
-    val utility = Utility()
     override fun addPicture(pictureData: PictureData){
         val job = CoroutineScope(Dispatchers.IO).launch {
             val conn = createConnection() ?: return@launch
@@ -50,15 +47,12 @@ class PictureDB: PictureInterface, GenerateConnection() {
 
             if (rs.next()) {
                 //(assuming you have a ResultSet named RS)
-                //(assuming you have a ResultSet named RS)
 
-
-
-                toReturn = PictureData(Integer.parseInt(rs.getString(1).toString()),
+                /*toReturn = PictureData(Integer.parseInt(rs.getString(1).toString()),
                     Integer.parseInt(rs.getString(2).toString()),
                     utility.convert(rs.getBlob(3)),
                     rs.getString(4).toString(),
-                    rs.getString(5).toString())
+                    rs.getString(5).toString())*/
             }
         }
         runBlocking { job.join() }  //Program will wait until job is done

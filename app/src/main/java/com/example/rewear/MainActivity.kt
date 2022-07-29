@@ -5,9 +5,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.rewear.groups.ClosetFragment
-import com.example.rewear.groups.GroupsFragment
-import com.example.rewear.leaderboard.LeaderboardFragment
-import com.example.rewear.profile.*
 import com.example.rewear.stats.StatsFragment
 import com.example.rewear.viewUser.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -24,18 +21,18 @@ class MainActivity : AppCompatActivity(){
 
         val bundle = Bundle()
         bundle.putInt("user_id", intent.getIntExtra("user_id",0))
-        val groupsFragment = GroupsFragment()
+        //val groupsFragment = GroupsFragment()
         val profileFragment = ProfileFragment()
         val closetFragment = ClosetFragment()
         val statsFragment = StatsFragment()
-        val leaderboardFragment = LeaderboardFragment()
+        //val leaderboardFragment = LeaderboardFragment()
 
         profileFragment.arguments = bundle
-        groupsFragment.arguments = bundle
+        //groupsFragment.arguments = bundle
         profileFragment.arguments = bundle
         closetFragment.arguments = bundle
         statsFragment.arguments = bundle
-        leaderboardFragment.arguments = bundle
+        //leaderboardFragment.arguments = bundle
 
         //SET CURRENT FRAGMENT
         when (intent.extras!!.getString("CURR_FRAG")) {
@@ -49,10 +46,10 @@ class MainActivity : AppCompatActivity(){
         //BUTTON CONTROLER
         bottom_navigation?.setOnItemSelectedListener{
             when(it.itemId){
-                R.id.nav_group -> {
+               /* R.id.nav_group -> {
                     setsCurrentFragment(groupsFragment)
                     Log.d(TAG, "GROUPS SELECTED")
-                }
+                }*/
                 R.id.nav_profile -> {
                     setsCurrentFragment(profileFragment)
                     Log.d(TAG, "Profile SELECTED")
@@ -66,11 +63,11 @@ class MainActivity : AppCompatActivity(){
                     setsCurrentFragment(statsFragment)
                     Log.d(TAG, "STATS SELECTED")
                 }
-
+                /*
                 R.id.nav_leaderboard -> {
                     setsCurrentFragment(leaderboardFragment)
                     Log.d(TAG, "LeaderBoard SELECTED")
-                }
+                }*/
             }
 
             return@setOnItemSelectedListener true

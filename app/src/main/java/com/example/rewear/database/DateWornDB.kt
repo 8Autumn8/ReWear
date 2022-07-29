@@ -2,6 +2,7 @@ package com.example.rewear.database
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.example.rewear.objects.ClothesData
 import com.example.rewear.objects.DateWornData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -9,13 +10,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.sql.ResultSet
 import java.sql.Statement
-import java.util.*
-import com.example.rewear.Utility
-import com.example.rewear.objects.ClothesData
 import java.time.LocalDate
+import java.util.*
 
 class DateWornDB: DateWornInterface, GenerateConnection(){
-    val utility = Utility()
     override fun getDateWorn(clothes_id: Int) : List<DateWornData>? {
         var toReturn: MutableList<DateWornData> = mutableListOf()
         val job = CoroutineScope(Dispatchers.IO).launch {
@@ -29,7 +27,7 @@ class DateWornDB: DateWornInterface, GenerateConnection(){
                 //need to fix
                 toReturn.add(
                     DateWornData(Integer.parseInt(rs.getString(1).toString()),
-                        utility.parseDate(rs.getString(2).toString()))
+                        rs.getString(2).toString())
                 )
             }
 
