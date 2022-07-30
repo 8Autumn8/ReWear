@@ -107,6 +107,11 @@ class ClosetFragment : Fragment(), ClosetContract.View {
             val editText: EditText = dialog!!.findViewById(R.id.search_bar)
             val listView: ListView = dialog!!.findViewById(R.id.list_view)
             listView.adapter = adapter
+
+            //reset any past searching
+            adapter!!.filter.filter("")
+
+            //searchBar
             editText.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence,

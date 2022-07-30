@@ -18,8 +18,10 @@ class AddClothesPresenter (
     override fun addClothes(clothes: ClothesData){
         val clothesID: Int? = db.addClothes(clothes)
         view.setClothesID(clothesID!!)
+        clothes.clothes_id = clothesID
         val date = DateWornData(clothes.clothes_id,LocalDate.now().toString())
         if (clothes.last_worn != null){
+
             db.addDateWorn(date)
         } else {
             db.deleteDateWorn(date)

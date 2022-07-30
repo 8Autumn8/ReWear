@@ -26,26 +26,24 @@
         android:id="@+id/txtUserNameLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        android:hint="@string/username"
+        android:layout_below="@+id/imageView"
+        android:layout_centerInParent="true"
         android:autofillHints="username"
-        />
+        android:ems="10"
+        android:hint="@string/username"
+        android:inputType="textPersonName"
+        android:text="" />
 
     <EditText
-        android:hint="@string/password"
         android:id="@+id/pwdLogin"
-        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_below="@+id/txtUserNameLogin"
+        android:layout_centerInParent="true"
+        android:autofillHints="username"
         android:ems="10"
-        android:inputType="textPassword"
-        android:autofillHints="username" />
+        android:hint="@string/password"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -58,12 +56,12 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:scaleType="fitXY"
         android:layout_below="@+id/titleName"
         android:layout_centerHorizontal="true"
-        tools:src="@tools:sample/avatars"
+        android:src="@mipmap/ic_launcher_background"
         android:contentDescription="@string/rewear_logo"/>
     <TextView
         android:id="@+id/createAccount"
