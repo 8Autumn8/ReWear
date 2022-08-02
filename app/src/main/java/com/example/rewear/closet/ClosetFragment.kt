@@ -43,6 +43,7 @@ class ClosetFragment : Fragment(), ClosetContract.View {
     var dialog: Dialog? = null
     var adapter: ArrayAdapter<String>? = null
     private var progressBar: GifImageView? = null
+    var names: List<String?>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -104,12 +105,14 @@ class ClosetFragment : Fragment(), ClosetContract.View {
             dialog!!.show()
             // set adapter
 
+            //reset any past searching
+            adapter!!.filter.filter("")
+
             val editText: EditText = dialog!!.findViewById(R.id.search_bar)
             val listView: ListView = dialog!!.findViewById(R.id.list_view)
             listView.adapter = adapter
 
-            //reset any past searching
-            adapter!!.filter.filter("")
+
 
             //searchBar
             editText.addTextChangedListener(object : TextWatcher {
@@ -129,10 +132,15 @@ class ClosetFragment : Fragment(), ClosetContract.View {
             })
 
             listView.onItemClickListener =
-                AdapterView.OnItemClickListener { _, _, position, _ -> // when item selected from list
+                AdapterView.OnItemClickListener { _, _, position, id -> // when item selected from list
 
+                    val stirng = adapter!!.getItem(id.toInt())
                     // set selected item on textView
-                    view.rootView.spinnerCloset.text = adapter!!.getItem(position)
+                    view.rootView.spinnerCloset.text = stirng
+
+
+                    val searchPosition: Int = names!!.indexOf(stirng)
+
                     //hide recyclar view with all the cards
                     view.rootView.findViewById<RecyclerView>(R.id.recycler_view).visibility =
                         View.INVISIBLE
@@ -143,12 +151,14 @@ class ClosetFragment : Fragment(), ClosetContract.View {
                     progressBar = view.rootView.findViewById(R.id.loading)
                     progressBar?.visibility = View.VISIBLE
 
+                    //reset any past searching
+
                     CoroutineScope(Dispatchers.IO).launch {
 
 
                         //setting the data in the closet adaptor class
                         closetAdaptor!!.setData(
-                            dropDownData!![position].category_id!!
+                            dropDownData!![searchPosition].category_id!!
                         )
 
 
@@ -176,11 +186,11 @@ class ClosetFragment : Fragment(), ClosetContract.View {
 
     private fun initializeVals() {
         // Initialize array adapter
-        val names = dropDownData!!.map { it.name }
+        names = dropDownData!!.map { it.name }
         adapter = activity?.let { it1 ->
             ArrayAdapter<String>(
                 it1,
-                android.R.layout.simple_dropdown_item_1line, names
+                android.R.layout.simple_dropdown_item_1line, names!!
             )
         }
         //controls
